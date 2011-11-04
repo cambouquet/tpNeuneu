@@ -38,4 +38,10 @@ class LoftPanel extends JPanel {
 			x.dessinerObjet(g);
 		}
 	}
+	
+	public void updateListeObjets(LinkedList<ObjetDessinable> listeObjets) {
+		this.listeObjets = listeObjets;
+		this.revalidate();
+		this.repaint();
+	}
 }

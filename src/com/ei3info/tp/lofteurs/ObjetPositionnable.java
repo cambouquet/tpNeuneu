@@ -24,18 +24,12 @@ public abstract class ObjetPositionnable implements ObjetDessinable {
 	/**
 	 * Largeur d'une case en pixel.
 	 */
-	protected int tailleX;
+	public static final int tailleX = 30;
 
 	/**
 	 * Hauteur d'une case en pixel.
 	 */
-	protected int tailleY;
-	
-	@Override
-	public void dessinerObjet(Graphics g) {
-		// TODO Auto-generated method stub
-
-	}
+	public static final int tailleY = 30;
 	
 	public int getX()
 	{

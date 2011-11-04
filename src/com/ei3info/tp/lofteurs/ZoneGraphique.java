@@ -5,6 +5,7 @@ import java.awt.event.WindowEvent;
 import java.util.LinkedList;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * une classe comportant une zone graphique dans laquelle on peut dessiner ;
@@ -18,10 +19,7 @@ import javax.swing.JFrame;
  */
 public class ZoneGraphique extends JFrame {
 
-	/**
-	 * la liste d'objets à dessiner
-	 */
-	LinkedList<ObjetDessinable> liste;
+	private JPanel loftPanel;
 	
 	/**
 	 * constructeur
@@ -35,9 +33,6 @@ public class ZoneGraphique extends JFrame {
 		// ajout d'une taille par défaut
 		setSize(600,600);
 		
-		// création de la liste d'objets
-		liste = new LinkedList<ObjetDessinable>();
-		
 		// ajout d'un listener
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -45,18 +40,20 @@ public class ZoneGraphique extends JFrame {
 			}
 	    	} ) ;
 
-		// création du panneau
-		LoftPanel a = new LoftPanel(liste);
-		getContentPane().add(a);
+		loftPanel = new JPanel();
 		
 		setVisible(true);
 	}
 	
-	/**
-	 * ajout d'un objet dans la zone graphique
-	 */
-	void ajouterObjet(ObjetDessinable o) {
-		liste.add(o);
+	public void setLoftPanel(JPanel loftPanel)
+	{
+		this.loftPanel = loftPanel;
+		this.remove(loftPanel);
+		this.add(loftPanel);
+		loftPanel.repaint();
+		pack();
+		this.getContentPane().validate();
+		this.getContentPane().repaint();
 	}
 	
 	/**
@@ -73,9 +70,4 @@ public class ZoneGraphique extends JFrame {
 		return getContentPane().getHeight();
 	}
 
-	public void ajouterObjet(Loft loft) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }

@@ -19,7 +19,6 @@ public class Saison1 {
 		ZoneGraphique zone = new ZoneGraphique("Mon premier loft");
 		Loft loft = new Loft(tailleLoft,zone);
 		loft.remplissageAleatoire(0.1f);
-		zone.ajouterObjet(loft);
 		
 		for (int i=0 ; i<nombreLofteurs ; i++) {
 			double x = Math.random();
