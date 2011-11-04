@@ -17,10 +17,10 @@ public class Cannibale extends Neuneu {
 	public void seDeplacer() {
 		// Recherche de la nourriture la plus proche
 		int[] nextF = new int[2];
-		nextF = trouverNourriturePlusProche(this);
+		nextF = trouverNourriturePlusProche();
 		// Recherche du neuneu le plus proche
 		int[] nextN = new int[2];
-		nextN = trouverNeuneuPlusProche(this);
+		nextN = trouverNeuneuPlusProche();
 		// Détermination de la source la plus proche
 		double distF = Math.sqrt(nextF[0]^2 + nextF[1]^2);
 		double distN = Math.sqrt(nextN[0]^2 + nextN[1]^2);
