@@ -72,5 +72,10 @@ public class ZoneGraphique extends JFrame {
 	public int getHeight() {
 		return getContentPane().getHeight();
 	}
+
+	public void ajouterObjet(Loft loft) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

@@ -26,8 +26,8 @@ public class Saison1 {
 			if (x<proportionVorace) {
 				loft.add(new Vorace(loft,
 						(int)(Math.random()*29),
-						(int)(Math.random()*29),
-						3));
+						(int)(Math.random()*29)
+						));
 			}
 			else {
 				x -= proportionVorace;
@@ -41,8 +41,8 @@ public class Saison1 {
 					if (x<proportionCannibale) {
 						loft.add(new Cannibale(loft,
 						(int)(Math.random()*29),
-						(int)(Math.random()*29),
-						5));
+						(int)(Math.random()*29)
+						));
 					}
 				}
 			}
