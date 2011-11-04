@@ -18,6 +18,7 @@ public class Loft {
 	public Loft(int tailleLoft, ZoneGraphique zone) {
 		this.tailleLoft = tailleLoft;
 		this.zone = zone;
+		this.listeObjets = new LinkedList<ObjetDessinable>();
 	}
 
 	public void remplissageAleatoire(float f) {
@@ -30,12 +31,18 @@ public class Loft {
 	}
 
 	public void add(ObjetDessinable objet) {
+		listeObjets.add(objet);
 
 	}
 
 	public void go() {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public int getTailleLoft()
+	{
+		return this.tailleLoft;
 	}
 
 }
