@@ -11,6 +11,8 @@ import java.awt.Graphics;
  */
 public abstract class ObjetPositionnable implements ObjetDessinable {
 
+	private int posX;
+	private int posY;
 	
 	@Override
 	public void dessinerObjet(Graphics g) {
