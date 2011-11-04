@@ -25,23 +25,23 @@ public class Saison1 {
 			double x = Math.random();
 			if (x<proportionVorace) {
 				loft.add(new Vorace(loft,
-						(int)(Math.random()*29),
-						(int)(Math.random()*29)
+						(int)(Math.random()*(tailleLoft - 1)),
+						(int)(Math.random()*(tailleLoft - 1))
 						));
 			}
 			else {
 				x -= proportionVorace;
 				if (x<proportionErratique) {
 					loft.add(new Erratique(loft,
-							(int)(Math.random()*29),
-							(int)(Math.random()*29)));
+							(int)(Math.random()*(tailleLoft - 1)),
+							(int)(Math.random()*(tailleLoft - 1))));
 				}
 				else {
 					x -= proportionErratique;
 					if (x<proportionCannibale) {
 						loft.add(new Cannibale(loft,
-						(int)(Math.random()*29),
-						(int)(Math.random()*29)
+						(int)(Math.random()*(tailleLoft - 1)),
+						(int)(Math.random()*(tailleLoft - 1))
 						));
 					}
 				}
