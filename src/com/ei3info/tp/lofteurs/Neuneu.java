@@ -118,7 +118,13 @@ public abstract class Neuneu extends ObjetPositionnable
 
     protected boolean mourir()
     {
-        throw new UnsupportedOperationException("Pas encore fait");
+        boolean mort = false;
+        if (energie <= 0)
+        {
+            mort = true;
+            loft.detruireObjet(this);
+        }
+        return mort;
     }
 
     public int[] trouverNourriturePlusProche()
