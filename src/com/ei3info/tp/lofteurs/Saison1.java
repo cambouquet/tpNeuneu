@@ -3,7 +3,7 @@ package com.ei3info.tp.lofteurs;
 
 public class Saison1 {
 
-	public static int nombreLofteurs = 0;
+	public static int nombreLofteurs = 4;
 	public static int tailleLoft = 30;
 	public static float proportionErratique = .75f;
 	public static float proportionVorace = .25f;
@@ -16,7 +16,7 @@ public class Saison1 {
 	}
 	
 	public void primeTime() {
-		ZoneGraphique zone = new ZoneGraphique("Mon premier loft");
+		ZoneGraphique zone = new ZoneGraphique("Secrets Neuneu - Saison 1");
 		Loft loft = new Loft(tailleLoft,zone);
 		loft.remplissageAleatoire(0.1f);
 		

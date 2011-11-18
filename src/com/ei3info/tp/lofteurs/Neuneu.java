@@ -39,11 +39,12 @@ public abstract class Neuneu extends ObjetPositionnable
 
             // On parcourt la liste des ObjetDessinable pour déterminer lequel
             // est sur la même case que le cannibale
-            LinkedList<ObjetDessinable> localListeObjet = loft.getListeObjet();
+            LinkedList<ObjetDessinable> localListeObjet = loft.getListeObjets();
             for (ObjetDessinable obj : localListeObjet)
             {
-                double dist = Math.sqrt(Math.pow((obj.posX - this.posX), 2)
-                        + Math.pow((obj.posY - this.posY), 2));
+                ObjetPositionnable objPos = (ObjetPositionnable) obj;
+                double dist = Math.sqrt(Math.pow(objPos.posX - this.posX, 2)
+                        + Math.pow(objPos.posY - this.posY, 2));
                 if (dist == 0)
                 {
 
@@ -80,11 +81,12 @@ public abstract class Neuneu extends ObjetPositionnable
 
             // On parcourt la liste des ObjetDessinable pour déterminer lequel
             // est sur la même case
-            LinkedList<ObjetDessinable> localListeObjet = loft.getListeObjet();
+            LinkedList<ObjetDessinable> localListeObjet = loft.getListeObjets();
             for (ObjetDessinable obj : localListeObjet)
             {
-                double dist = Math.sqrt(Math.pow((obj.posX - this.posX), 2)
-                        + Math.pow((obj.posY - this.posY), 2));
+                ObjetPositionnable objPos = (ObjetPositionnable) obj;
+                double dist = Math.sqrt(Math.pow(objPos.posX - this.posX, 2)
+                        + Math.pow(objPos.posY - this.posY, 2));
                 if (dist == 0)
                 {
 
@@ -116,7 +118,13 @@ public abstract class Neuneu extends ObjetPositionnable
 
     protected boolean mourir()
     {
-        throw new UnsupportedOperationException("Pas encore fait");
+        boolean mort = false;
+        if (energie <= 0)
+        {
+            mort = true;
+            loft.detruireObjet(this);
+        }
+        return mort;
     }
 
     public int[] trouverNourriturePlusProche()

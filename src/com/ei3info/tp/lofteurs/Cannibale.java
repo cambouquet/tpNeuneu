@@ -23,6 +23,7 @@ public class Cannibale extends Neuneu
         // Détermination de la source la plus proche
         double distN = Math.sqrt(Math.pow((nextN[0] - this.posX), 2) + Math.pow((nextN[1] - this.posY), 2));
         double distF = Math.sqrt(Math.pow((nextF[0] - this.posX), 2) + Math.pow((nextF[1] - this.posY), 2));
+
         if (distF < distN)
         {
             nextN[0] = 0; // Il fallait bien mettre quelque chose.
@@ -50,11 +51,12 @@ public class Cannibale extends Neuneu
         {
             // On parcourt la liste des ObjetDessinable pour déterminer lequel
             // est sur la même case que le cannibale
-            LinkedList<ObjetDessinable> localListeObjet = loft.getListeObjet();
+            LinkedList<ObjetDessinable> localListeObjet = loft.getListeObjets();
             for (ObjetDessinable obj : localListeObjet)
             {
-                double dist = Math.sqrt(Math.pow(obj.posX, 2)
-                        + Math.pow(obj.posY, 2));
+                ObjetPositionnable objPos = (ObjetPositionnable) obj;
+                double dist = Math.sqrt(Math.pow(objPos.posX - this.posX, 2)
+                        + Math.pow(objPos.posY - this.PosY, 2));
 
                 if (dist == 0)
                 {
@@ -90,6 +92,7 @@ public class Cannibale extends Neuneu
                         {
                             this.energie = this.energie + miam.getEnergie();
                             miam.consommer(miam.getEnergie());
+                            loft.detruireObjet(miam);
                         }
                     }
                 }

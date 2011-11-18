@@ -99,5 +99,15 @@ public class Loft
     {
         return this.tailleLoft;
     }
+    
+    public void detruireObjet(ObjetDessinable objetADetruire)
+    {
+        listeObjets.remove(objetADetruire);
+    }
+
+    public LinkedList<ObjetDessinable> getListeObjets()
+    {
+        return this.listeObjets;
+    }
 
 }
