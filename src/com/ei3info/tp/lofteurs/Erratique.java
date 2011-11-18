@@ -1,20 +1,16 @@
 package com.ei3info.tp.lofteurs;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class Erratique extends Neuneu {
 
 	public Erratique(Loft loft, int x, int y) {
-		// TODO Auto-generated constructor stub
+		super(loft, x, y);
+		couleur = Color.BLUE;
 	}
 
-	@Override
-	public void dessinerObjet(Graphics g) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void seDeplacer(){
+	protected void seDeplacer(){
 		// Vérification bordure en X
 		if (this.posX == 0 || this.posX == loft.getTailleLoft() - 1){
 			// Décision sur la direction 

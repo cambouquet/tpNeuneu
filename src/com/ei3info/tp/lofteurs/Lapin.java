@@ -1,16 +1,12 @@
 package com.ei3info.tp.lofteurs;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class Lapin extends Neuneu{
 	public Lapin(Loft loft, int x, int y) {
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public void dessinerObjet(Graphics g) {
-		// TODO Auto-generated method stub
-		
+		super(loft, x, y);
+		couleur = Color.PINK;
 	}
 
 	public void seDeplacer() {

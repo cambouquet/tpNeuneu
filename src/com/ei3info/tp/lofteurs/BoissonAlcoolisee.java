@@ -3,6 +3,7 @@
  */
 package com.ei3info.tp.lofteurs;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 /**
@@ -11,10 +12,8 @@ import java.awt.Graphics;
  */
 public class BoissonAlcoolisee extends Nourriture {
 
-	@Override
-	public void dessinerObjet(Graphics g) {
-		// TODO Auto-generated method stub
-		
+	protected BoissonAlcoolisee(int x, int y) {
+		super(x, y);
+		couleur = Color.YELLOW;
 	}
-
 }
