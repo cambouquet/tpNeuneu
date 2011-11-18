@@ -42,20 +42,43 @@ public class Loft {
 	}
 
 	public void go() {
-		while (!listeObjets.isEmpty())
+		int heures = -1;
+		boolean finSaison = false;
+		while (nombreNeuneusRestants() > 0)
 		{
 			for (ObjetDessinable objet : listeObjets)
 			{
 				if (objet instanceof Neuneu)
 				{
 					Neuneu neuneu = (Neuneu) objet;
+
+					neuneu.setEnergie(neuneu.getEnergie() - 1);
+					neuneu.mourir();
 					neuneu.seDeplacer();
 					neuneu.manger();
 					neuneu.seReproduire();
-					neuneu.mourrir();
+					neuneu.mourir();
 				}
 			}
+			heures ++;
 		}
+		System.out.println("Fin de la saison 1 !");
+		System.out.println("durée : "+ heures + " h\n");
+		System.out.println("Bientôt la saison 2 : plus d'action, de suspens et d'émotion !!!");
+	}
+	
+	private int nombreNeuneusRestants()
+	{
+		int nbrNeuneus = 0;
+		for (ObjetDessinable objet : listeObjets)
+		{
+			if (objet instanceof Neuneu)
+			{
+				nbrNeuneus ++;
+			}
+		}
+		
+		return nbrNeuneus;
 	}
 	
 	public int getTailleLoft()

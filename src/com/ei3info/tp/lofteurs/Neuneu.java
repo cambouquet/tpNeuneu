@@ -7,6 +7,7 @@ public abstract class Neuneu extends ObjetPositionnable {
 
 	protected Loft loft;
 	protected int energie;
+	protected int energieMax;
 	protected Color couleur = Color.CYAN;
 
 	protected Neuneu(int x, int y) {
@@ -32,7 +33,7 @@ public abstract class Neuneu extends ObjetPositionnable {
 		
 	}
 	
-	protected void mourrir()
+	protected void mourir()
 	{
 		
 	}
@@ -51,5 +52,18 @@ public abstract class Neuneu extends ObjetPositionnable {
 	public void dessinerObjet(Graphics g) {
 		g.setColor(couleur);
 		g.fillRect(posX * tailleX, posY * tailleY, tailleX - 4, tailleY - 4);
+	}
+
+	public int getEnergie() 
+	{
+		return this.energie;
+	}
+
+	public void setEnergie(int energie) 
+	{
+		int energieReelle = (energie > this.energieMax) ? this.energieMax : energie;
+		energieReelle = (energieReelle < 0) ? 0 : energieReelle;
+		
+		this.energie = energieReelle;
 	}
 }
