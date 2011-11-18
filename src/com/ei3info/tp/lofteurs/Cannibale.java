@@ -1,7 +1,6 @@
 package com.ei3info.tp.lofteurs;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.util.LinkedList;
 
 public class Cannibale extends Neuneu {
@@ -18,7 +17,7 @@ public class Cannibale extends Neuneu {
 		// Recherche du neuneu le plus proche
 		int[] nextN = new int[2];
 		nextN = trouverNeuneuPlusProche();
-		// Détermination de la source la plus proche
+		// DÃ©termination de la source la plus proche
 		double distF = Math.sqrt(Math.pow(nextF[0], 2) + Math.pow(nextF[1], 2));
 		double distN = Math.sqrt(Math.pow(nextN[0], 2) + Math.pow(nextN[1], 2));
 		if (distF < distN) {
@@ -30,24 +29,26 @@ public class Cannibale extends Neuneu {
 		// Pathfinding basique
 		int mvHandleX = nextF[0]/Math.abs(nextF[0]);
 		int mvHandleY = nextF[1]/Math.abs(nextF[1]);
-		// Déplacement
+		// DÃ©placement
 		this.posX = this.posX + mvHandleX;
 		this.posY = this.posY + mvHandleY;
 	}
 	
 	public void manger() {
-		//Vérification de la présence d'une source de nourriture sur la case
-		double nextN = trouverNeuneuPlusProche();
-		double nextF = trouverNourriturePlusProche();
+		//VÃ©rification de la prÃ©sence d'une source de nourriture sur la case
+		int[] nextN = trouverNeuneuPlusProche();
+		int[] nextF = trouverNourriturePlusProche();
+		double distN = Math.sqrt(Math.pow(nextN[0], 2) + Math.pow(nextN[1], 2));
+		double distF = Math.sqrt(Math.pow(nextF[0], 2) + Math.pow(nextF[1], 2));
 		
-		if (nextN*nextF == 0) {
-			//On parcourt la liste des ObjetDessinable pour déterminer lequel est sur la même case que le cannibale
+		if (distN*distF == 0) {
+			//On parcourt la liste des ObjetDessinable pour dÃ©terminer lequel est sur la mÃªme case que le cannibale
 			LinkedList<ObjetDessinable> localListeObjet = loft.getListeObjet();
 			for (ObjetDessinable obj : localListeObjet) {
 				double dist = Math.sqrt(Math.pow(obj.posX, 2) + Math.pow(obj.posY, 2));
 				
 				if (dist == 0) {
-					//Différenciation Neuneu/Nourriture: cas Neuneu
+					//DiffÃ©renciation Neuneu/Nourriture: cas Neuneu
 					if (obj instanceof Neuneu) {
 						Neuneu neuneu = (Neuneu) obj;
 						int enerT = (this.energieMax - this.energie) - neuneu.getEnergie();
@@ -61,17 +62,17 @@ public class Cannibale extends Neuneu {
 						neuneu.mourir();						
 					}
 					
-					//Différenciation Neuneu/Nourriture: cas Nourriture
+					//DiffÃ©renciation Neuneu/Nourriture: cas Nourriture
 					if (obj instanceof Nourriture) {
-						Nourriture miam = (Neuneu) obj;
+						Nourriture miam = (Nourriture) obj;
 						int enerT = (this.energieMax - this.energie) - miam.getEnergie();
 						if (enerT <= 0) {
 							this.energie = this.energieMax;
-							miam.consommer(miam.energie + this.energie - this.energieMax);									
+							miam.consommer(miam.getEnergie() + this.energie - this.energieMax);									
 						}
 						else {
 							this.energie = this.energie + miam.getEnergie();
-							miam.consommer(-1*enerT);
+							miam.consommer(miam.getEnergie());
 						}
 					}	
 				}
