@@ -33,19 +33,19 @@ public abstract class Neuneu extends ObjetPositionnable {
 		
 	}
 	
-	protected void mourir()
+	protected boolean mourir()
 	{
-		
+		throw new UnsupportedOperationException("Pas encore fait");
 	}
 	
 	public int[] trouverNourriturePlusProche()
 	{
-		return null;
+	    throw new UnsupportedOperationException("Pas encore fait");
 	}
 
 	public int[] trouverNeuneuPlusProche()
 	{
-		return null;
+	    throw new UnsupportedOperationException("Pas encore fait");
 	}
 
 	@Override
