@@ -1,7 +1,6 @@
 package com.ei3info.tp.lofteurs;
 
 import java.awt.Color;
-import java.awt.Graphics;
 
 public class Vorace extends Neuneu {
 
@@ -17,7 +16,7 @@ public class Vorace extends Neuneu {
 		// Pathfinding basique
 		int mvHandleX = nextF[0]/Math.abs(nextF[0]);
 		int mvHandleY = nextF[1]/Math.abs(nextF[1]);
-		// Déplacement
+		// DÃ©placement
 		this.posX = this.posX + mvHandleX;
 		this.posY = this.posY + mvHandleY;
 	}

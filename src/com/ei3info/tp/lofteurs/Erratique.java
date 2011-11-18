@@ -1,7 +1,6 @@
 package com.ei3info.tp.lofteurs;
 
 import java.awt.Color;
-import java.awt.Graphics;
 
 public class Erratique extends Neuneu {
 
@@ -11,9 +10,9 @@ public class Erratique extends Neuneu {
 	}
 
 	protected void seDeplacer(){
-		// Vérification bordure en X
+		// VÃ©rification bordure en X
 		if (this.posX == 0 || this.posX == loft.getTailleLoft() - 1){
-			// Décision sur la direction 
+			// DÃ©cision sur la direction 
 			double mvHandle = Math.random();
 			if (mvHandle < 0.5){
 				mvHandle = -1;
@@ -21,13 +20,13 @@ public class Erratique extends Neuneu {
 			else{
 				mvHandle = 1;
 			}
-			// Déplacement effectif
+			// DÃ©placement effectif
 			this.posY = this.posY + (int) mvHandle;
 		}
 		
-		// Vérification bordure en Y
+		// VÃ©rification bordure en Y
 				if (this.posY == 0 || this.posY == loft.getTailleLoft() - 1){
-					// Décision sur la direction 
+					// DÃ©cision sur la direction 
 					double mvHandle = Math.random();
 					if (mvHandle < 0.5){
 						mvHandle = -1;
@@ -35,11 +34,11 @@ public class Erratique extends Neuneu {
 					else{
 						mvHandle = 1;
 					}
-					// Déplacement effectif
+					// DÃ©placement effectif
 					this.posX = this.posX + (int) mvHandle;
 				}
 		
-		// Déplacement dans le cas général
+		// DÃ©placement dans le cas gÃ©nÃ©ral
 			
 		double mvHandleX = Math.random();
 		if (mvHandleX < 0.33){
