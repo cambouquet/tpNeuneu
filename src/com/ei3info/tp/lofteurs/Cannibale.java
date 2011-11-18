@@ -37,10 +37,12 @@ public class Cannibale extends Neuneu {
 	
 	public void manger() {
 		//Vérification de la présence d'une source de nourriture sur la case
-		double nextN = trouverNeuneuPlusProche();
-		double nextF = trouverNourriturePlusProche();
+		int[] nextN = trouverNeuneuPlusProche();
+		int[] nextF = trouverNourriturePlusProche();
+		double distN = Math.sqrt(Math.pow(nextN[0], 2) + Math.pow(nextN[1], 2));
+		double distF = Math.sqrt(Math.pow(nextF[0], 2) + Math.pow(nextF[1], 2));
 		
-		if (nextN*nextF == 0) {
+		if (distN*distF == 0) {
 			//On parcourt la liste des ObjetDessinable pour déterminer lequel est sur la même case que le cannibale
 			LinkedList<ObjetDessinable> localListeObjet = loft.getListeObjet();
 			for (ObjetDessinable obj : localListeObjet) {
@@ -63,11 +65,11 @@ public class Cannibale extends Neuneu {
 					
 					//Différenciation Neuneu/Nourriture: cas Nourriture
 					if (obj instanceof Nourriture) {
-						Nourriture miam = (Neuneu) obj;
+						Nourriture miam = (Nourriture) obj;
 						int enerT = (this.energieMax - this.energie) - miam.getEnergie();
 						if (enerT <= 0) {
 							this.energie = this.energieMax;
-							miam.consommer(miam.energie + this.energie - this.energieMax);									
+							miam.consommer(miam.getEnergie() + this.energie - this.energieMax);									
 						}
 						else {
 							this.energie = this.energie + miam.getEnergie();
