@@ -19,8 +19,8 @@ public class Cannibale extends Neuneu {
 		int[] nextN = new int[2];
 		nextN = trouverNeuneuPlusProche();
 		// Détermination de la source la plus proche
-		double distF = Math.sqrt(Math.pow(nextF[0], 2) + Math.pow(nextF[1].posY, 2));
-		double distN = Math.sqrt(Math.pow(nextN[0], 2) + Math.pow(nextN[1].posY, 2));
+		double distF = Math.sqrt(Math.pow(nextF[0], 2) + Math.pow(nextF[1], 2));
+		double distN = Math.sqrt(Math.pow(nextN[0], 2) + Math.pow(nextN[1], 2));
 		if (distF < distN) {
 			nextN[0] = 0; // Il fallait bien mettre quelque chose.
 		}
