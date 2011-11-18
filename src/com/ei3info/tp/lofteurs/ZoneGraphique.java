@@ -9,9 +9,9 @@ import javax.swing.JPanel;
 
 /**
  * une classe comportant une zone graphique dans laquelle on peut dessiner ;
- * le dessin est refait automatiquement par la classe Panel associée ; tous
- * les objets de type ObjetDessinable ajoutés à la liste sont redessinés par 
- * un appel à leur méthode dessinerObjet(Graphics g)
+ * le dessin est refait automatiquement par la classe Panel associÃ©e ; tous
+ * les objets de type ObjetDessinable ajoutÃ©s Ã  la liste sont redessinÃ©s par 
+ * un appel Ã  leur mÃ©thode dessinerObjet(Graphics g)
  * 
  * @see ObjectDessinable,LoftPanel
  * @author moreau
@@ -30,7 +30,7 @@ public class ZoneGraphique extends JFrame {
 		// appel au constructeur de base
 		super(titre);
 		
-		// ajout d'une taille par défaut
+		// ajout d'une taille par dÃ©faut
 		setSize(600,600);
 		
 		// ajout d'un listener

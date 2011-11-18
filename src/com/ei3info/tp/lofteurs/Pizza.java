@@ -14,7 +14,7 @@ public class Pizza extends Nourriture
 {
 	public Pizza(int x, int y) {
 		super(x, y);
-		System.out.println("Pizza placée en " + posX + ":" + posY);
+		System.out.println("Pizza placÃ©e en " + posX + ":" + posY);
 		couleur = Color.RED;
 	}
 }

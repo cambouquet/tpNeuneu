@@ -24,4 +24,12 @@ public abstract class Nourriture extends ObjetPositionnable
         g.setColor(Color.red);
         g.fillOval(posX * tailleX, posY * tailleY, tailleX - 4, tailleY - 4);
     }
+    /**
+     * 
+     * @param quantite
+     */
+    protected void consommer(int quantite)
+    {
+        
+    }
 }

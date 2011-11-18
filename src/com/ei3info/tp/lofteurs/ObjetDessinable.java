@@ -6,15 +6,15 @@ package com.ei3info.tp.lofteurs;
 import java.awt.Graphics;
 
 /**
- * interface des objets dessinables ; ils devront simplement implanter une méthode de dessin
- * à partir d'un contexte graphique passé par l'application
+ * interface des objets dessinables ; ils devront simplement implanter une mï¿½thode de dessin
+ * ï¿½ partir d'un contexte graphique passï¿½ par l'application
  * 
  * @author moreau
  *
  */
 public interface ObjetDessinable {
 	/**
-	 * fonction de dessin ; à surcharger
+	 * fonction de dessin ; Ã  surcharger
 	 * @param g le contexte graphique
 	 */
 	public void dessinerObjet(Graphics g);

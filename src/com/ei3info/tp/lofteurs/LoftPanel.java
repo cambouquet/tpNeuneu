@@ -13,21 +13,21 @@ import javax.swing.JPanel;
  */
 class LoftPanel extends JPanel {
 	/**
-	 * référence sur la liste des objets à dessiner
+	 * rÃ©fÃ©rence sur la liste des objets Ã  dessiner
 	 */
 	private LinkedList<ObjetDessinable> listeObjets;
 	
 	/**
 	 * constructeur
 	 * 
-	 * @param listeObjets référence sur la liste des objets (gérée par la ZoneGraphique)
+	 * @param listeObjets rï¿½fï¿½rence sur la liste des objets (gï¿½rï¿½e par la ZoneGraphique)
 	 */
 	public LoftPanel(LinkedList<ObjetDessinable> listeObjets) {
 		this.listeObjets = listeObjets;
 	}
 	
 	/**
-	 * on redéfinit la méthode paint() : elle se contente d'appeler les méthodes
+	 * on redï¿½finit la mÃ©thode paint() : elle se contente d'appeler les mÃ©thodes
 	 * dessinerObjet() de la liste d'objets dessinables
 	 */
 	public void paintComponent(Graphics g) {

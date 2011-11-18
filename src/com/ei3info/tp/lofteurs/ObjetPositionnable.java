@@ -12,12 +12,12 @@ import java.awt.Graphics;
 public abstract class ObjetPositionnable implements ObjetDessinable {
 
 	/**
-	 * Abscisse en nombre de cases, à partir de 0.
+	 * Abscisse en nombre de cases, Ã  partir de 0.
 	 */
 	protected int posX;
 
 	/**
-	 * Ordonnees en nombre de cases, à partir de 0.
+	 * Ordonnees en nombre de cases, Ã  partir de 0.
 	 */
 	protected int posY;
 	
