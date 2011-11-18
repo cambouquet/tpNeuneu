@@ -9,12 +9,6 @@ public class Lapin extends Neuneu{
 		couleur = Color.PINK;
 	}
 
-	@Override
-	public void dessinerObjet(Graphics g) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public void seDeplacer() {
 		// Le principe du lapin est qu'il cherche à se reproduire avant de chercher à manger. 
 		// S'il n'a pas suffisamment d'énergie pour se déplacer et se reproduire, il cherchera d'abord à manger. 

@@ -10,8 +10,6 @@ public class Erratique extends Neuneu {
 		couleur = Color.BLUE;
 	}
 
-	
-
 	private void seDeplacer(){
 		// Vérification bordure en X
 		if (this.posX == 0 || this.posX == loft.getTailleLoft() - 1){

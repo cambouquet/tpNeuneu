@@ -16,6 +16,4 @@ public class BoissonAlcoolisee extends Nourriture {
 		super(x, y);
 		couleur = Color.YELLOW;
 	}
-
-
 }

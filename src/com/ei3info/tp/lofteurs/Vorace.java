@@ -10,12 +10,6 @@ public class Vorace extends Neuneu {
 		couleur = Color.CYAN;
 	}
 
-	@Override
-	public void dessinerObjet(Graphics g) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public void seDeplacer() {
 		// Recherche de la nourriture la plus proche
 		int[] nextF = new int[2];

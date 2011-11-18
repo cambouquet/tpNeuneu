@@ -46,5 +46,4 @@ public abstract class ObjetPositionnable implements ObjetDessinable {
 	{
 		return this.posY;
 	}
-
 }
