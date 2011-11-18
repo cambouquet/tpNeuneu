@@ -1,13 +1,12 @@
 package com.ei3info.tp.lofteurs;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class Boisson extends Nourriture {
 
-	@Override
-	public void dessinerObjet(Graphics g) {
-		// TODO Auto-generated method stub
-		
+	protected Boisson(int x, int y) {
+		super(x, y);
+		couleur = Color.BLACK;
 	}
-
 }

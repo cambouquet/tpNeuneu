@@ -31,6 +31,12 @@ public abstract class ObjetPositionnable implements ObjetDessinable {
 	 */
 	public static final int tailleY = 30;
 	
+	protected ObjetPositionnable(int x, int y)
+	{
+		this.posX = x;
+		this.posY = y;
+	}
+	
 	public int getX()
 	{
 		return this.posX;

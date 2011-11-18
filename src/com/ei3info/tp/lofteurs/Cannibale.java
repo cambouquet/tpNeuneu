@@ -1,11 +1,13 @@
 package com.ei3info.tp.lofteurs;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class Cannibale extends Neuneu {
 
 	public Cannibale(Loft loft, int x, int y) {
-		// TODO Auto-generated constructor stub
+		super(loft, x, y);
+		couleur = Color.RED;
 	}
 
 	@Override
