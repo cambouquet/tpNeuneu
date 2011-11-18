@@ -42,8 +42,20 @@ public class Loft {
 	}
 
 	public void go() {
-		// TODO Auto-generated method stub
-
+		while (!listeObjets.isEmpty())
+		{
+			for (ObjetDessinable objet : listeObjets)
+			{
+				if (objet instanceof Neuneu)
+				{
+					Neuneu neuneu = (Neuneu) objet;
+					neuneu.seDeplacer();
+					neuneu.manger();
+					neuneu.seReproduire();
+					neuneu.mourrir();
+				}
+			}
+		}
 	}
 	
 	public int getTailleLoft()

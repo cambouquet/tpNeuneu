@@ -40,6 +40,7 @@ public abstract class ObjetPositionnable implements ObjetDessinable {
 	public int getX()
 	{
 		return this.posX;
+		
 	}
 	
 	public int getY()

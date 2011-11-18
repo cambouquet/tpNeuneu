@@ -18,6 +18,25 @@ public abstract class Neuneu extends ObjetPositionnable {
 		this.loft = loft;
 	}
 	
+	protected void seDeplacer()
+	{
+		
+	}
+	protected void manger()
+	{
+		
+	}
+	
+	protected void seReproduire()
+	{
+		
+	}
+	
+	protected void mourrir()
+	{
+		
+	}
+	
 	public int[] trouverNourriturePlusProche()
 	{
 		return null;
