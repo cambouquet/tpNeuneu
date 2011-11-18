@@ -16,7 +16,7 @@ public class Saison1 {
 	}
 	
 	public void primeTime() {
-		ZoneGraphique zone = new ZoneGraphique("Mon premier loft");
+		ZoneGraphique zone = new ZoneGraphique("Secrets Neuneu - Saison 1");
 		Loft loft = new Loft(tailleLoft,zone);
 		loft.remplissageAleatoire(0.1f);
 		
