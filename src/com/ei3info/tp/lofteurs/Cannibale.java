@@ -56,7 +56,7 @@ public class Cannibale extends Neuneu
             {
                 ObjetPositionnable objPos = (ObjetPositionnable) obj;
                 double dist = Math.sqrt(Math.pow(objPos.posX - this.posX, 2)
-                        + Math.pow(objPos.posY - this.PosY, 2));
+                        + Math.pow(objPos.posY - this.posY, 2));
 
                 if (dist == 0)
                 {

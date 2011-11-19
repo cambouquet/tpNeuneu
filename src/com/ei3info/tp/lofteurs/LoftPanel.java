@@ -23,7 +23,7 @@ class LoftPanel extends JPanel {
 	 * @param listeObjets r�f�rence sur la liste des objets (g�r�e par la ZoneGraphique)
 	 */
 	public LoftPanel(LinkedList<ObjetDessinable> listeObjets) {
-		this.listeObjets = listeObjets;
+		this.listeObjets = new LinkedList<ObjetDessinable>(listeObjets);
 	}
 	
 	/**
@@ -40,8 +40,13 @@ class LoftPanel extends JPanel {
 	}
 	
 	public void updateListeObjets(LinkedList<ObjetDessinable> listeObjets) {
-		this.listeObjets = listeObjets;
+		this.listeObjets = new LinkedList<ObjetDessinable>(listeObjets);
 		this.revalidate();
 		this.repaint();
 	}
+
+    public void removeObjet(ObjetDessinable objetDetruit)
+    {
+        this.listeObjets.remove(objetDetruit);
+    }
 }

@@ -130,10 +130,10 @@ public abstract class Neuneu extends ObjetPositionnable
     public int[] trouverNourriturePlusProche()
 	{
 		int distMin = 2*loft.getTailleLoft();
-		int[] procheMiam;
+		int[] procheMiam = new int[2];
 		
 		//On parcourt la liste des ObjetDessinable
-		LinkedList<ObjetDessinable> localListeObjet = loft.getListeObjet();
+		LinkedList<ObjetDessinable> localListeObjet = loft.getListeObjets();
 		for (ObjetDessinable obj : localListeObjet) {
 		    
 			//On vérifie avant tout que l'on teste la Nourriture
@@ -153,10 +153,10 @@ public abstract class Neuneu extends ObjetPositionnable
     public int[] trouverNeuneuPlusProche()
     {
         int distMin = 2*loft.getTailleLoft();
-        int[] procheNeuneu;
+        int[] procheNeuneu = new int[2];
         
         //On parcourt la liste des ObjetDessinable
-        LinkedList<ObjetDessinable> localListeObjet = loft.getListeObjet();
+        LinkedList<ObjetDessinable> localListeObjet = loft.getListeObjets();
         for (ObjetDessinable obj : localListeObjet) {
             
             //On vérifie avant tout que l'on teste la Nourriture

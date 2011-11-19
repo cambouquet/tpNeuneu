@@ -15,13 +15,16 @@ public class Loft
     private int                         tailleLoft;
     private ZoneGraphique               zone;
     private LinkedList<ObjetDessinable> listeObjets;
+    private LinkedList<ObjetDessinable> listeObjetsDetruits;
     private LoftPanel                   loftPanel;
+    private static final int WAITING_TIME = 500;
 
     public Loft(int tailleLoft, ZoneGraphique zone)
     {
         this.tailleLoft = tailleLoft;
         this.zone = zone;
         this.listeObjets = new LinkedList<ObjetDessinable>();
+        this.listeObjetsDetruits = new LinkedList<ObjetDessinable>();
         this.loftPanel = new LoftPanel(listeObjets);
         loftPanel.setPreferredSize(new Dimension(tailleLoft
                 * ObjetPositionnable.tailleX, tailleLoft
@@ -57,7 +60,7 @@ public class Loft
         {
             for (ObjetDessinable objet : listeObjets)
             {
-                if (objet instanceof Neuneu)
+                if (!listeObjetsDetruits.contains(objet) && objet instanceof Neuneu)
                 {
                     Neuneu neuneu = (Neuneu) objet;
 
@@ -71,8 +74,18 @@ public class Loft
                         neuneu.seReproduire();
                         neuneu.mourir();
                     }
+                    try
+                    {
+                        Thread.sleep(WAITING_TIME);
+                    } catch (InterruptedException e)
+                    {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
                 }
             }
+            System.out.println(">>> " + heures + "h");
             heures++;
         }
         
@@ -102,7 +115,8 @@ public class Loft
     
     public void detruireObjet(ObjetDessinable objetADetruire)
     {
-        listeObjets.remove(objetADetruire);
+        listeObjetsDetruits.add(objetADetruire);
+        loftPanel.removeObjet(objetADetruire);
     }
 
     public LinkedList<ObjetDessinable> getListeObjets()
