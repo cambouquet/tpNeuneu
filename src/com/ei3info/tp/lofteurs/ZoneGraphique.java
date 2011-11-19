@@ -1,9 +1,12 @@
 package com.ei3info.tp.lofteurs;
 
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.LinkedList;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -20,16 +23,18 @@ import javax.swing.JPanel;
 public class ZoneGraphique extends JFrame {
 
 	private JPanel loftPanel;
+	private JPanel actionPanel;
+	private Saison saison;
 	
 	/**
 	 * constructeur
 	 *
 	 * @param titre le nom de l'application
 	 */
-	public ZoneGraphique(String titre)  {
+	public ZoneGraphique(String titre, Saison saison)  {
 		// appel au constructeur de base
 		super(titre);
-		
+		this.saison = saison;
 		// ajout d'une taille par défaut
 		setSize(600,600);
 		
@@ -41,15 +46,39 @@ public class ZoneGraphique extends JFrame {
 	    	} ) ;
 
 		loftPanel = new JPanel();
+		actionPanel = creerActionPanel();
+		this.getContentPane().setLayout(new BorderLayout());
+		this.getContentPane().add(actionPanel, BorderLayout.NORTH);
 		
 		setVisible(true);
 	}
 	
-	public void setLoftPanel(JPanel loftPanel)
+	private JPanel creerActionPanel()
+    {
+        JPanel panel = new JPanel();
+        JButton bRelancer = new JButton("Relancer");
+        bRelancer.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent arg0)
+            {
+                ZoneGraphique.this.getContentPane().remove(loftPanel);
+                ZoneGraphique.this.getContentPane().validate();
+                ZoneGraphique.this.getContentPane().repaint();
+                saison.redemarrerSaison();
+            }
+            
+        });
+        panel.add(bRelancer);
+        
+        return panel;
+    }
+
+    public void setLoftPanel(JPanel loftPanel)
 	{
+        this.getContentPane().remove(loftPanel);
 		this.loftPanel = loftPanel;
-		this.remove(loftPanel);
-		this.add(loftPanel);
+		this.getContentPane().add(loftPanel, BorderLayout.CENTER);
 		loftPanel.repaint();
 		pack();
 		this.getContentPane().validate();

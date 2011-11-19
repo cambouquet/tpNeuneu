@@ -1,6 +1,7 @@
 package com.ei3info.tp.lofteurs;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.LinkedList;
 
@@ -50,5 +51,10 @@ class LoftPanel extends JPanel {
     public void removeObjet(ObjetDessinable objetDetruit)
     {
         this.listeObjets.remove(objetDetruit);
+    }
+
+    public void nettoyer()
+    {
+        listeObjets.clear();
     }
 }

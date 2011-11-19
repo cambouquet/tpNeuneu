@@ -17,7 +17,8 @@ public class Loft
     private LinkedList<ObjetDessinable> listeObjets;
     private LinkedList<ObjetDessinable> listeObjetsDetruits;
     private LoftPanel                   loftPanel;
-    private static final int WAITING_TIME = 200;
+    private static final int WAITING_TIME = 50;
+    private boolean finSaison = false;
 
     public Loft(int tailleLoft, ZoneGraphique zone)
     {
@@ -56,7 +57,7 @@ public class Loft
         System.out.println("Nous sommes heureux de vous présenter la saison 1 de Secrets Neuneus !\n");
         
         int heures = 0;
-        while (nombreNeuneusRestants() > 0)
+        while (nombreNeuneusRestants() > 0 && !finSaison)
         {
             for (ObjetDessinable objet : listeObjets)
             {
@@ -135,4 +136,9 @@ public class Loft
         return this.listeObjets;
     }
 
+    public void arreter()
+    {
+        finSaison = true;
+        loftPanel.nettoyer();
+    }
 }
