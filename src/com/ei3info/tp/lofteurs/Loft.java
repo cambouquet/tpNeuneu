@@ -17,7 +17,7 @@ public class Loft
     private LinkedList<ObjetDessinable> listeObjets;
     private LinkedList<ObjetDessinable> listeObjetsDetruits;
     private LoftPanel                   loftPanel;
-    private static final int WAITING_TIME = 500;
+    private static final int WAITING_TIME = 200;
 
     public Loft(int tailleLoft, ZoneGraphique zone)
     {

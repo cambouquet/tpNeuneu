@@ -9,7 +9,7 @@ public abstract class Neuneu extends ObjetPositionnable
 
     protected Loft             loft;
     protected int              energie;
-    protected int              energieMax;
+    protected static final int              ENERGIE_MAX = 20;
     protected Color            couleur              = Color.CYAN;
     protected static final int ENERGIE_REPRODUCTION = 5;
 
@@ -22,12 +22,10 @@ public abstract class Neuneu extends ObjetPositionnable
     {
         this(x, y);
         this.loft = loft;
+        this.energie = ENERGIE_MAX;
     }
 
-    protected void seDeplacer()
-    {
-
-    }
+    protected abstract void seDeplacer();
 
     protected void manger()
     {
@@ -53,13 +51,13 @@ public abstract class Neuneu extends ObjetPositionnable
                     if (obj instanceof Nourriture)
                     {
                         Nourriture miam = (Nourriture) obj;
-                        int enerT = (this.energieMax - this.energie)
+                        int enerT = (this.ENERGIE_MAX - this.energie)
                                 - miam.getEnergie();
                         if (enerT <= 0)
                         {
-                            this.energie = this.energieMax;
+                            this.energie = this.ENERGIE_MAX;
                             miam.consommer(miam.getEnergie() + this.energie
-                                    - this.energieMax);
+                                    - this.ENERGIE_MAX);
                         } else
                         {
                             this.energie = this.energie + miam.getEnergie();
@@ -187,7 +185,7 @@ public abstract class Neuneu extends ObjetPositionnable
 
     public void setEnergie(int energie)
     {
-        int energieReelle = (energie > this.energieMax) ? this.energieMax
+        int energieReelle = (energie > this.ENERGIE_MAX) ? this.ENERGIE_MAX
                 : energie;
         energieReelle = (energieReelle < 0) ? 0 : energieReelle;
 

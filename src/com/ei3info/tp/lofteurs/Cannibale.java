@@ -64,11 +64,11 @@ public class Cannibale extends Neuneu
                     if (obj instanceof Neuneu)
                     {
                         Neuneu neuneu = (Neuneu) obj;
-                        int enerT = (this.energieMax - this.energie)
+                        int enerT = (this.ENERGIE_MAX - this.energie)
                                 - neuneu.getEnergie();
                         if (enerT <= 0)
                         {
-                            this.energie = this.energieMax;
+                            this.energie = this.ENERGIE_MAX;
                         } else
                         {
                             this.energie = this.energie + neuneu.getEnergie();
@@ -81,13 +81,13 @@ public class Cannibale extends Neuneu
                     if (obj instanceof Nourriture)
                     {
                         Nourriture miam = (Nourriture) obj;
-                        int enerT = (this.energieMax - this.energie)
+                        int enerT = (this.ENERGIE_MAX - this.energie)
                                 - miam.getEnergie();
                         if (enerT <= 0)
                         {
-                            this.energie = this.energieMax;
+                            this.energie = this.ENERGIE_MAX;
                             miam.consommer(miam.getEnergie() + this.energie
-                                    - this.energieMax);
+                                    - this.ENERGIE_MAX);
                         } else
                         {
                             this.energie = this.energie + miam.getEnergie();

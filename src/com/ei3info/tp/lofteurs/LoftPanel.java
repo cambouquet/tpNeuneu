@@ -1,5 +1,6 @@
 package com.ei3info.tp.lofteurs;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.LinkedList;
 
@@ -32,7 +33,8 @@ class LoftPanel extends JPanel {
 	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponents(g);
-		
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		// on redessine tout
 		for (ObjetDessinable x : listeObjets) {
 			x.dessinerObjet(g);
