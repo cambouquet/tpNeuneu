@@ -66,13 +66,17 @@ public class Loft
 
                     neuneu.setEnergie(neuneu.getEnergie() - 1);
                     boolean mort = neuneu.mourir();
-
+                    loftPanel.repaint();
                     if (!mort)
                     {
                         neuneu.seDeplacer();
+                        loftPanel.repaint();
                         neuneu.manger();
+                        loftPanel.repaint();
                         neuneu.seReproduire();
+                        loftPanel.repaint();
                         neuneu.mourir();
+                        loftPanel.repaint();
                     }
                     try
                     {
@@ -82,9 +86,14 @@ public class Loft
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
-
                 }
             }
+            for (ObjetDessinable objetDetruit : listeObjetsDetruits)
+            {
+                listeObjets.remove(objetDetruit);
+            }
+            listeObjetsDetruits.clear();
+            
             System.out.println(">>> " + heures + "h");
             heures++;
         }
@@ -117,6 +126,8 @@ public class Loft
     {
         listeObjetsDetruits.add(objetADetruire);
         loftPanel.removeObjet(objetADetruire);
+        loftPanel.repaint();
+        System.out.println("objet détruit : " + objetADetruire.getClass());
     }
 
     public LinkedList<ObjetDessinable> getListeObjets()
