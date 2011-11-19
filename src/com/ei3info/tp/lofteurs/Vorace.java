@@ -17,8 +17,8 @@ public class Vorace extends Neuneu
         int[] nextF = new int[2];
         nextF = trouverNourriturePlusProche();
         // Pathfinding basique
-        int mvHandleX = nextF[0] / Math.abs(nextF[0]);
-        int mvHandleY = nextF[1] / Math.abs(nextF[1]);
+        int mvHandleX = (nextF[0] == 0) ? 0 : nextF[0] / Math.abs(nextF[0]);
+        int mvHandleY = (nextF[1] == 0) ? 0 : nextF[1] / Math.abs(nextF[1]);
         // Déplacement
         this.posX = this.posX + mvHandleX;
         this.posY = this.posY + mvHandleY;

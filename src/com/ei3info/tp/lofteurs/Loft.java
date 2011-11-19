@@ -9,7 +9,7 @@ import java.util.LinkedList;
 /**
  * @author Camille
  */
-public class Loft
+public class Loft extends Thread
 {
 
     private int                         tailleLoft;

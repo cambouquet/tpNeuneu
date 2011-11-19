@@ -127,7 +127,7 @@ public abstract class Neuneu extends ObjetPositionnable
 
     public int[] trouverNourriturePlusProche()
 	{
-		int distMin = 2*loft.getTailleLoft();
+		double distMin = 2*Math.pow(loft.getTailleLoft(), 2);
 		int[] procheMiam = new int[2];
 		
 		//On parcourt la liste des ObjetDessinable
