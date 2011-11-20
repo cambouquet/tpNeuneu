@@ -104,6 +104,7 @@ public class Loft extends Thread
                 if (!listeObjetsDetruits.contains(objet)
                         && objet instanceof Neuneu)
                 {
+                    long debut = System.currentTimeMillis();
                     Neuneu neuneu = (Neuneu) objet;
                     
                     neuneu.setEnergie(neuneu.getEnergie() - 1);
@@ -123,9 +124,11 @@ public class Loft extends Thread
                     {
                         System.err.println(neuneu.getNom() + " est mort...");
                     }
+                    long duree = System.currentTimeMillis() - debut;
+                    duree = (WAITING_TIME - duree < 0) ? 0 : WAITING_TIME - duree;
                     try
                     {
-                        Thread.sleep(WAITING_TIME);
+                        Thread.sleep(duree);
                     } catch (InterruptedException e)
                     {
                         // TODO Auto-generated catch block

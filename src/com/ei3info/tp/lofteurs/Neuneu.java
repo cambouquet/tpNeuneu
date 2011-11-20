@@ -33,7 +33,6 @@ public abstract class Neuneu extends ObjetPositionnable
         int[] nextF = trouverNourriturePlusProche();
         if (nextF[0] == posX && nextF[1] == posY)
         {
-            System.out.println(getNom() + " a trouvé de la nourriture.");
             // On parcourt la liste des ObjetDessinable pour déterminer lequel
             // est sur la même case que le cannibale
             LinkedList<ObjetDessinable> localListeObjet = loft.getListeObjets();
@@ -66,44 +65,6 @@ public abstract class Neuneu extends ObjetPositionnable
                 }
             }
         }
-        // double distF = Math.sqrt(Math.pow(nextF[0] - this.posX, 2) +
-        // Math.pow(nextF[1] - this.posY, 2));
-        //
-        // if (distF == 0)
-        // {
-        //
-        // // On parcourt la liste des ObjetDessinable pour déterminer lequel
-        // // est sur la même case que le cannibale
-        // LinkedList<ObjetDessinable> localListeObjet = loft.getListeObjets();
-        // for (ObjetDessinable obj : localListeObjet)
-        // {
-        // ObjetPositionnable objPos = (ObjetPositionnable) obj;
-        // double dist = Math.sqrt(Math.pow(objPos.posX - this.posX, 2)
-        // + Math.pow(objPos.posY - this.posY, 2));
-        // if (dist == 0)
-        // {
-        //
-        // // On vérifie que l'objet sur la même case est bien du type
-        // // Nourriture
-        // if (obj instanceof Nourriture)
-        // {
-        // Nourriture miam = (Nourriture) obj;
-        // int enerT = (Neuneu.ENERGIE_MAX - this.energie)
-        // - miam.getEnergie();
-        // if (enerT <= 0)
-        // {
-        // this.energie = Neuneu.ENERGIE_MAX;
-        // miam.consommer(miam.getEnergie() + this.energie
-        // - Neuneu.ENERGIE_MAX);
-        // } else
-        // {
-        // this.energie = this.energie + miam.getEnergie();
-        // miam.consommer(miam.getEnergie());
-        // }
-        // }
-        // }
-        // }
-        // }
     }
 
     protected void seReproduire()
@@ -171,7 +132,6 @@ public abstract class Neuneu extends ObjetPositionnable
         LinkedList<ObjetDessinable> localListeObjet = loft.getListeObjets();
         for (ObjetDessinable obj : localListeObjet)
         {
-
             // On vérifie avant tout que l'on teste la Nourriture
             if (obj instanceof Nourriture)
             {
