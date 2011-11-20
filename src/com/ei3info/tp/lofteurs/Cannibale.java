@@ -6,7 +6,6 @@ import java.util.LinkedList;
 public class Cannibale extends Neuneu
 {
     private static int dernierNumero = 1;
-    private int numero;
     
     public Cannibale(Loft loft, int x, int y)
     {
@@ -110,5 +109,10 @@ public class Cannibale extends Neuneu
     public String getNom()
     {
         return new String("Cannibale " + numero);
+    }
+
+    public static void resetNumeros()
+    {
+        dernierNumero = 1;
     }
 }

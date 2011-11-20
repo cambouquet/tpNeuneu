@@ -9,9 +9,10 @@ public abstract class Neuneu extends ObjetPositionnable
 
     protected Loft             loft;
     protected int              energie;
-    protected static final int              ENERGIE_MAX = 20;
+    protected static final int ENERGIE_MAX          = 20;
     protected Color            couleur              = Color.CYAN;
     protected static final int ENERGIE_REPRODUCTION = 5;
+    protected int numero;
 
     protected Neuneu(int x, int y)
     {
@@ -30,43 +31,76 @@ public abstract class Neuneu extends ObjetPositionnable
     protected void manger()
     {
         int[] nextF = trouverNourriturePlusProche();
-        double distF = Math.sqrt(Math.pow(nextF[0] - this.posX, 2) + Math.pow(nextF[1] - this.posY, 2));
-
-        if (distF == 0)
+        if (nextF[0] == posX && nextF[1] == posY)
         {
-
+            System.out.println(getNom() + " a trouvé de la nourriture.");
             // On parcourt la liste des ObjetDessinable pour déterminer lequel
             // est sur la même case que le cannibale
             LinkedList<ObjetDessinable> localListeObjet = loft.getListeObjets();
             for (ObjetDessinable obj : localListeObjet)
             {
-                ObjetPositionnable objPos = (ObjetPositionnable) obj;
-                double dist = Math.sqrt(Math.pow(objPos.posX - this.posX, 2)
-                        + Math.pow(objPos.posY - this.posY, 2));
-                if (dist == 0)
+                // On vérifie que l'objet sur la même case est bien du type
+                // Nourriture
+                if (obj instanceof Nourriture)
                 {
-
-                    // On vérifie que l'objet sur la même case est bien du type
-                    // Nourriture
-                    if (obj instanceof Nourriture)
+                    Nourriture miam = (Nourriture) obj;
+                    if (miam.posX == this.posX && miam.posY == this.posY)
                     {
-                        Nourriture miam = (Nourriture) obj;
-                        int enerT = (this.ENERGIE_MAX - this.energie)
+                        int enerT = (Neuneu.ENERGIE_MAX - this.energie)
                                 - miam.getEnergie();
                         if (enerT <= 0)
                         {
-                            this.energie = this.ENERGIE_MAX;
-                            miam.consommer(miam.getEnergie() + this.energie
-                                    - this.ENERGIE_MAX);
+                            miam.consommer(- enerT);
+                            this.energie = Neuneu.ENERGIE_MAX;
                         } else
                         {
                             this.energie = this.energie + miam.getEnergie();
                             miam.consommer(miam.getEnergie());
                         }
+
+                        System.out.println(getNom() + " a bien mangé");
                     }
                 }
             }
         }
+        // double distF = Math.sqrt(Math.pow(nextF[0] - this.posX, 2) +
+        // Math.pow(nextF[1] - this.posY, 2));
+        //
+        // if (distF == 0)
+        // {
+        //
+        // // On parcourt la liste des ObjetDessinable pour déterminer lequel
+        // // est sur la même case que le cannibale
+        // LinkedList<ObjetDessinable> localListeObjet = loft.getListeObjets();
+        // for (ObjetDessinable obj : localListeObjet)
+        // {
+        // ObjetPositionnable objPos = (ObjetPositionnable) obj;
+        // double dist = Math.sqrt(Math.pow(objPos.posX - this.posX, 2)
+        // + Math.pow(objPos.posY - this.posY, 2));
+        // if (dist == 0)
+        // {
+        //
+        // // On vérifie que l'objet sur la même case est bien du type
+        // // Nourriture
+        // if (obj instanceof Nourriture)
+        // {
+        // Nourriture miam = (Nourriture) obj;
+        // int enerT = (Neuneu.ENERGIE_MAX - this.energie)
+        // - miam.getEnergie();
+        // if (enerT <= 0)
+        // {
+        // this.energie = Neuneu.ENERGIE_MAX;
+        // miam.consommer(miam.getEnergie() + this.energie
+        // - Neuneu.ENERGIE_MAX);
+        // } else
+        // {
+        // this.energie = this.energie + miam.getEnergie();
+        // miam.consommer(miam.getEnergie());
+        // }
+        // }
+        // }
+        // }
+        // }
     }
 
     protected void seReproduire()
@@ -126,48 +160,56 @@ public abstract class Neuneu extends ObjetPositionnable
     }
 
     public int[] trouverNourriturePlusProche()
-	{
-		double distMin = 2*Math.pow(loft.getTailleLoft(), 2);
-		int[] procheMiam = new int[2];
-		
-		//On parcourt la liste des ObjetDessinable
-		LinkedList<ObjetDessinable> localListeObjet = loft.getListeObjets();
-		for (ObjetDessinable obj : localListeObjet) {
-		    
-			//On vérifie avant tout que l'on teste la Nourriture
-			if (obj instanceof Nourriture) {
-				Nourriture miam = (Nourriture) obj;
-				double dist = Math.sqrt(Math.pow((miam.posX - this.posX), 2) + Math.pow((miam.posY - this.posY), 2));
-				if (dist <= distMin) {
-				    procheMiam[0] = miam.posX;
-				    procheMiam[1] = miam.posY;
-				}
-			}
-		}
-		
-		return procheMiam;
-	}
+    {
+        double distMin = 2 * Math.pow(loft.getTailleLoft(), 2);
+        int[] procheMiam = new int[2];
+
+        // On parcourt la liste des ObjetDessinable
+        LinkedList<ObjetDessinable> localListeObjet = loft.getListeObjets();
+        for (ObjetDessinable obj : localListeObjet)
+        {
+
+            // On vérifie avant tout que l'on teste la Nourriture
+            if (obj instanceof Nourriture)
+            {
+                Nourriture miam = (Nourriture) obj;
+                double dist = Math.sqrt(Math.pow((miam.posX - this.posX), 2)
+                        + Math.pow((miam.posY - this.posY), 2));
+                if (dist <= distMin)
+                {
+                    procheMiam[0] = miam.posX;
+                    procheMiam[1] = miam.posY;
+                }
+            }
+        }
+
+        return procheMiam;
+    }
 
     public int[] trouverNeuneuPlusProche()
     {
-        int distMin = 2*loft.getTailleLoft();
+        int distMin = 2 * loft.getTailleLoft();
         int[] procheNeuneu = new int[2];
-        
-        //On parcourt la liste des ObjetDessinable
+
+        // On parcourt la liste des ObjetDessinable
         LinkedList<ObjetDessinable> localListeObjet = loft.getListeObjets();
-        for (ObjetDessinable obj : localListeObjet) {
-            
-            //On vérifie avant tout que l'on teste la Nourriture
-            if (obj instanceof Neuneu) {
+        for (ObjetDessinable obj : localListeObjet)
+        {
+
+            // On vérifie avant tout que l'on teste la Nourriture
+            if (obj instanceof Neuneu)
+            {
                 Neuneu neuneu = (Neuneu) obj;
-                double dist = Math.sqrt(Math.pow((neuneu.posX - this.posX), 2) + Math.pow((neuneu.posY - this.posY), 2));
-                if (dist <= distMin) {
+                double dist = Math.sqrt(Math.pow((neuneu.posX - this.posX), 2)
+                        + Math.pow((neuneu.posY - this.posY), 2));
+                if (dist <= distMin)
+                {
                     procheNeuneu[0] = neuneu.posX;
                     procheNeuneu[1] = neuneu.posY;
                 }
             }
         }
-        
+
         return procheNeuneu;
     }
 
@@ -176,6 +218,7 @@ public abstract class Neuneu extends ObjetPositionnable
     {
         g.setColor(couleur);
         g.fillRect(posX * tailleX, posY * tailleY, tailleX - 4, tailleY - 4);
+        g.drawString(String.valueOf(numero), posX * tailleX - 5, posY * tailleY - 5);
     }
 
     public int getEnergie()
@@ -191,6 +234,6 @@ public abstract class Neuneu extends ObjetPositionnable
 
         this.energie = energieReelle;
     }
-    
+
     public abstract String getNom();
 }

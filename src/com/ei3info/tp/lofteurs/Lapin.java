@@ -5,7 +5,6 @@ import java.awt.Color;
 public class Lapin extends Neuneu
 {
     private static int dernierNumero = 1;
-    private int numero;
     
     protected static final int FAIM_LAPIN = 2;
 
@@ -67,5 +66,10 @@ public class Lapin extends Neuneu
     public String getNom()
     {
         return new String("Erratique " + numero);
+    }
+
+    public static void resetNumeros()
+    {
+        dernierNumero = 1;
     }
 }
