@@ -63,8 +63,8 @@ public class ZoneGraphique extends JFrame {
             public void actionPerformed(ActionEvent arg0)
             {
                 loftPanel = new JPanel();
-                ZoneGraphique.this.getContentPane().validate();
-                ZoneGraphique.this.getContentPane().repaint();
+//                ZoneGraphique.this.getContentPane().validate();
+//                ZoneGraphique.this.getContentPane().repaint();
                 saison.redemarrerSaison();
             }
             

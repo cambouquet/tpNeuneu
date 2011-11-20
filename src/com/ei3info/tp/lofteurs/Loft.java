@@ -17,8 +17,8 @@ public class Loft extends Thread
     private LinkedList<ObjetDessinable> listeObjets;
     private LinkedList<ObjetDessinable> listeObjetsDetruits;
     private LoftPanel                   loftPanel;
-    private static final int WAITING_TIME = 50;
-    private boolean finSaison = false;
+    private static final int            WAITING_TIME = 50;
+    private boolean                     finSaison    = false;
 
     public Loft(int tailleLoft, ZoneGraphique zone)
     {
@@ -51,20 +51,61 @@ public class Loft extends Thread
         loftPanel.updateListeObjets(listeObjets);
     }
 
-    public void go()
+    private int nombreNeuneusRestants()
     {
+        int nbrNeuneus = 0;
+        for (ObjetDessinable objet : listeObjets)
+        {
+            if (objet instanceof Neuneu)
+            {
+                nbrNeuneus++;
+            }
+        }
+        return nbrNeuneus;
+    }
+
+    public int getTailleLoft()
+    {
+        return this.tailleLoft;
+    }
+
+    public void detruireObjet(ObjetDessinable objetADetruire)
+    {
+        listeObjetsDetruits.add(objetADetruire);
+        loftPanel.removeObjet(objetADetruire);
+        loftPanel.repaint();
+        System.out.println("objet détruit : " + objetADetruire.getClass());
+    }
+
+    public LinkedList<ObjetDessinable> getListeObjets()
+    {
+        return this.listeObjets;
+    }
+
+    public void arreter()
+    {
+        finSaison = true;
+        loftPanel.nettoyer();
+    }
+
+    @Override
+    public void run()
+    {
+        
         System.out.println("Bienvenue à tous !");
-        System.out.println("Nous sommes heureux de vous présenter la saison 1 de Secrets Neuneus !\n");
+        System.out
+        .println("Nous sommes heureux de vous présenter la saison 1 de Secrets Neuneus !\n");
         
         int heures = 0;
         while (nombreNeuneusRestants() > 0 && !finSaison)
         {
             for (ObjetDessinable objet : listeObjets)
             {
-                if (!listeObjetsDetruits.contains(objet) && objet instanceof Neuneu)
+                if (!listeObjetsDetruits.contains(objet)
+                        && objet instanceof Neuneu)
                 {
                     Neuneu neuneu = (Neuneu) objet;
-
+                    
                     neuneu.setEnergie(neuneu.getEnergie() - 1);
                     boolean mort = neuneu.mourir();
                     loftPanel.repaint();
@@ -102,43 +143,6 @@ public class Loft extends Thread
         System.out.println("Fin de la saison 1 !");
         System.out.println("durée : " + heures + " h\n");
         System.out
-                .println("Bientôt la saison 2 : plus d'action, de suspens et d'émotion !!!");
-    }
-
-    private int nombreNeuneusRestants()
-    {
-        int nbrNeuneus = 0;
-        for (ObjetDessinable objet : listeObjets)
-        {
-            if (objet instanceof Neuneu)
-            {
-                nbrNeuneus++;
-            }
-        }
-        return nbrNeuneus;
-    }
-
-    public int getTailleLoft()
-    {
-        return this.tailleLoft;
-    }
-    
-    public void detruireObjet(ObjetDessinable objetADetruire)
-    {
-        listeObjetsDetruits.add(objetADetruire);
-        loftPanel.removeObjet(objetADetruire);
-        loftPanel.repaint();
-        System.out.println("objet détruit : " + objetADetruire.getClass());
-    }
-
-    public LinkedList<ObjetDessinable> getListeObjets()
-    {
-        return this.listeObjets;
-    }
-
-    public void arreter()
-    {
-        finSaison = true;
-        loftPanel.nettoyer();
+        .println("Bientôt la saison 2 : plus d'action, de suspens et d'émotion !!!");
     }
 }
