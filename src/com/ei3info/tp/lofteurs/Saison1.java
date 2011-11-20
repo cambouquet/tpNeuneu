@@ -67,10 +67,18 @@ public class Saison1 extends Saison
     public void redemarrerSaison()
     {
         loft.arreter();
-        while (loft.isAlive())
+        try
         {
-
+            loft.join();
+        } catch (InterruptedException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
+//        while (loft.isAlive())
+//        {
+//
+//        }
         demarrerSaison();
     }
 
