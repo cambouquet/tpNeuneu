@@ -9,7 +9,7 @@ public abstract class Neuneu extends ObjetPositionnable
 
     protected Loft             loft;
     protected int              energie;
-    protected static final int ENERGIE_MAX          = 20;
+    protected static final int ENERGIE_MAX          = 40;
     protected Color            couleur              = Color.CYAN;
     protected static final int ENERGIE_REPRODUCTION = 5;
     protected int numero;
@@ -57,8 +57,11 @@ public abstract class Neuneu extends ObjetPositionnable
                             this.energie = this.energie + miam.getEnergie();
                             miam.consommer(miam.getEnergie());
                         }
-
-                        System.out.println(getNom() + " a bien mangé");
+                        if (miam.getEnergie() <= 0)
+                        {
+                            loft.detruireObjet(miam);
+                        }
+                        System.out.println(getNom() + " a bien mangé.");
                     }
                 }
             }
@@ -219,6 +222,7 @@ public abstract class Neuneu extends ObjetPositionnable
         g.setColor(couleur);
         g.fillRect(posX * tailleX, posY * tailleY, tailleX - 4, tailleY - 4);
         g.drawString(String.valueOf(numero), posX * tailleX - 5, posY * tailleY - 5);
+        g.drawString(String.valueOf(energie), (posX + 1) * tailleX - 15, posY * tailleY - 5);
     }
 
     public int getEnergie()
