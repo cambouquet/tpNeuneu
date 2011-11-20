@@ -95,7 +95,6 @@ public class Loft extends Thread
     @Override
     public void run()
     {
-        
         afficherEvenement("Bienvenue à tous !", Color.RED);
         afficherEvenement("Nous sommes heureux de vous présenter la saison 1 de Secrets Neuneus !\n", Color.RED);
         
@@ -141,7 +140,7 @@ public class Loft extends Thread
             duree = (WAITING_TIME - duree < 0) ? 0 : WAITING_TIME - duree;
             try
             {
-                Thread.sleep(duree);
+                Loft.sleep(duree);
             } catch (InterruptedException e)
             {
                 // TODO Auto-generated catch block

@@ -83,12 +83,13 @@ public class ZoneGraphique extends JFrame
         resumePanel = creerResumePanel();
         footerPanel = creerFooterPanel();
         this.getContentPane().setLayout(new BorderLayout());
-        this.getContentPane().add(actionPanel, BorderLayout.NORTH);
+        this.getContentPane().add(actionPanel, BorderLayout.SOUTH);
         this.getContentPane().add(parametresPanel, BorderLayout.EAST);
         this.getContentPane().add(resumePanel, BorderLayout.WEST);
-        this.getContentPane().add(footerPanel, BorderLayout.SOUTH);
+        this.getContentPane().add(footerPanel, BorderLayout.NORTH);
         pack();
         setVisible(true);
+        this.setResizable(false);
     }
 
     private JPanel creerActionPanel()
@@ -221,13 +222,19 @@ public class ZoneGraphique extends JFrame
 
     public void setLoftPanel(JPanel loftPanel)
     {
-        this.getContentPane().remove(loftPanel);
+        if (loftPanel != null)
+        {
+            this.getContentPane().remove(loftPanel);
+        }
+        
         this.loftPanel = loftPanel;
         this.getContentPane().add(loftPanel, BorderLayout.CENTER);
         loftPanel.repaint();
-        pack();
         this.getContentPane().validate();
         this.getContentPane().repaint();
+        this.validate();
+        this.repaint();
+        pack();
     }
 
     /**
