@@ -191,4 +191,6 @@ public abstract class Neuneu extends ObjetPositionnable
 
         this.energie = energieReelle;
     }
+    
+    public abstract String getNom();
 }

@@ -74,7 +74,6 @@ public class Loft extends Thread
         listeObjetsDetruits.add(objetADetruire);
         loftPanel.removeObjet(objetADetruire);
         loftPanel.repaint();
-        System.out.println("objet détruit : " + objetADetruire.getClass());
     }
 
     public LinkedList<ObjetDessinable> getListeObjets()
@@ -99,6 +98,7 @@ public class Loft extends Thread
         int heures = 0;
         while (nombreNeuneusRestants() > 0 && !finSaison)
         {
+            System.out.println(">>> " + heures + "h\n");
             for (ObjetDessinable objet : listeObjets)
             {
                 if (!listeObjetsDetruits.contains(objet)
@@ -107,6 +107,10 @@ public class Loft extends Thread
                     Neuneu neuneu = (Neuneu) objet;
                     
                     neuneu.setEnergie(neuneu.getEnergie() - 1);
+                    System.out.print(neuneu.getNom() + " est fatigué.");
+                    System.out.flush();
+                    System.err.println("-1");
+                    System.err.flush();
                     boolean mort = neuneu.mourir();
                     loftPanel.repaint();
                     if (!mort)
@@ -119,6 +123,9 @@ public class Loft extends Thread
                         loftPanel.repaint();
                         neuneu.mourir();
                         loftPanel.repaint();
+                    } else
+                    {
+                        System.err.println(neuneu.getNom() + " est mort...");
                     }
                     try
                     {
@@ -136,7 +143,6 @@ public class Loft extends Thread
             }
             listeObjetsDetruits.clear();
             
-            System.out.println(">>> " + heures + "h");
             heures++;
         }
         

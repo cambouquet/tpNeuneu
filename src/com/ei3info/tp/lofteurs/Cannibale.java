@@ -5,11 +5,15 @@ import java.util.LinkedList;
 
 public class Cannibale extends Neuneu
 {
-
+    private static int dernierNumero = 1;
+    private int numero;
+    
     public Cannibale(Loft loft, int x, int y)
     {
         super(loft, x, y);
         couleur = Color.RED;
+        this.numero = dernierNumero;
+        dernierNumero ++;
     }
 
     public void seDeplacer()
@@ -101,4 +105,10 @@ public class Cannibale extends Neuneu
 
     }
     // Fin de manger()
+    
+    @Override
+    public String getNom()
+    {
+        return new String("Cannibale " + numero);
+    }
 }

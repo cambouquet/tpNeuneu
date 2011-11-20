@@ -3,7 +3,7 @@ package com.ei3info.tp.lofteurs;
 public class Saison1 extends Saison
 {
 
-    public static int     nombreLofteurs      = 10;
+    public static int     nombreLofteurs      = 5;
     public static int     tailleLoft          = 30;
     public static float   proportionErratique = .75f;
     public static float   proportionVorace    = .25f;
@@ -75,10 +75,7 @@ public class Saison1 extends Saison
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-//        while (loft.isAlive())
-//        {
-//
-//        }
+
         demarrerSaison();
     }
 
