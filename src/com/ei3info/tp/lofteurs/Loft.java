@@ -17,7 +17,7 @@ public class Loft extends Thread
     private LinkedList<ObjetDessinable> listeObjets;
     private LinkedList<ObjetDessinable> listeObjetsDetruits;
     private LoftPanel                   loftPanel;
-    private static final int            WAITING_TIME = 50;
+    private static final int            WAITING_TIME = 250;
     private boolean                     finSaison    = false;
 
     public Loft(int tailleLoft, ZoneGraphique zone)
@@ -99,12 +99,13 @@ public class Loft extends Thread
         while (nombreNeuneusRestants() > 0 && !finSaison)
         {
             System.out.println("\n>>> Jour " + heures / 24 + " : " + heures % 24 + "h\n");
+            zone.setTime(heures);
+            long debut = System.currentTimeMillis();
             for (ObjetDessinable objet : listeObjets)
             {
                 if (!listeObjetsDetruits.contains(objet)
                         && objet instanceof Neuneu)
                 {
-                    long debut = System.currentTimeMillis();
                     Neuneu neuneu = (Neuneu) objet;
                     
                     neuneu.setEnergie(neuneu.getEnergie() - 1);
@@ -124,16 +125,6 @@ public class Loft extends Thread
                     {
                         System.err.println(neuneu.getNom() + " est mort...");
                     }
-                    long duree = System.currentTimeMillis() - debut;
-                    duree = (WAITING_TIME - duree < 0) ? 0 : WAITING_TIME - duree;
-                    try
-                    {
-                        Thread.sleep(duree);
-                    } catch (InterruptedException e)
-                    {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
                 }
             }
             for (ObjetDessinable objetDetruit : listeObjetsDetruits)
@@ -141,6 +132,17 @@ public class Loft extends Thread
                 listeObjets.remove(objetDetruit);
             }
             listeObjetsDetruits.clear();
+
+            long duree = System.currentTimeMillis() - debut;
+            duree = (WAITING_TIME - duree < 0) ? 0 : WAITING_TIME - duree;
+            try
+            {
+                Thread.sleep(duree);
+            } catch (InterruptedException e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             
             heures++;
         }

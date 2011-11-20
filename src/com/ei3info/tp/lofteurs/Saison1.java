@@ -2,15 +2,6 @@ package com.ei3info.tp.lofteurs;
 
 public class Saison1 extends Saison
 {
-
-    public static int     nombreLofteurs      = 10;
-    public static int     tailleLoft          = 30;
-    public static float   proportionErratique = .50f;
-    public static float   proportionVorace    = .25f;
-    public static float   proportionCannibale = 0.1f;
-    private Loft          loft;
-    private ZoneGraphique zone;
-
     /**
      * @param args
      */
