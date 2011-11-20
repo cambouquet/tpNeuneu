@@ -60,7 +60,7 @@ public abstract class Neuneu extends ObjetPositionnable
                         {
                             loft.detruireObjet(miam);
                         }
-                        System.out.println(getNom() + " a bien mangé.");
+                        loft.afficherEvenement(getNom() + " a bien mangé.");
                     }
                 }
             }

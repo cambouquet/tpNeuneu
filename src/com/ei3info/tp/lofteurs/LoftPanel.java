@@ -34,8 +34,11 @@ class LoftPanel extends JPanel {
 	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponents(g);
+		
+		g.setColor(Color.BLACK);
+		g.drawRect(0, 0, Saison.tailleLoft * ObjetPositionnable.tailleX - 1, Saison.tailleLoft * ObjetPositionnable.tailleX - 1);
 		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		g.fillRect(0, 0, Saison.tailleLoft * ObjetPositionnable.tailleX, Saison.tailleLoft * ObjetPositionnable.tailleX);
 		// on redessine tout
 		for (ObjetDessinable x : listeObjets) {
 			x.dessinerObjet(g);

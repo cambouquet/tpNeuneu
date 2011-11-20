@@ -3,8 +3,13 @@
  */
 package com.ei3info.tp.lofteurs;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 import java.util.LinkedList;
+
+import javax.swing.JLabel;
 
 /**
  * @author Camille
@@ -91,14 +96,13 @@ public class Loft extends Thread
     public void run()
     {
         
-        System.out.println("Bienvenue à tous !");
-        System.out
-        .println("Nous sommes heureux de vous présenter la saison 1 de Secrets Neuneus !\n");
+        afficherEvenement("Bienvenue à tous !", Color.RED);
+        afficherEvenement("Nous sommes heureux de vous présenter la saison 1 de Secrets Neuneus !\n", Color.RED);
         
         int heures = 0;
         while (nombreNeuneusRestants() > 0 && !finSaison)
         {
-            System.out.println("\n>>> Jour " + heures / 24 + " : " + heures % 24 + "h\n");
+            afficherEvenement("\nJour " + heures / 24 + " : " + heures % 24 + "h\n", new Color(100, 100, 100));
             zone.setTime(heures);
             long debut = System.currentTimeMillis();
             for (ObjetDessinable objet : listeObjets)
@@ -123,7 +127,7 @@ public class Loft extends Thread
                         loftPanel.repaint();
                     } else
                     {
-                        System.err.println(neuneu.getNom() + " est mort...");
+                        afficherEvenement(neuneu.getNom() + " est mort...", Color.RED);
                     }
                 }
             }
@@ -147,9 +151,18 @@ public class Loft extends Thread
             heures++;
         }
         
-        System.out.println("Fin de la saison 1 !");
-        System.out.println("durée : " +  heures / 24 + " jours et " + heures % 24 + "h\n");
-        System.out
-        .println("Bientôt la saison 2 : plus d'action, de suspens et d'émotion !!!");
+        afficherEvenement("Fin de la saison 1 !", Color.RED);
+        afficherEvenement("durée : " +  heures / 24 + " jours et " + heures % 24 + "h\n", Color.RED);
+        afficherEvenement("Bientôt la saison 2 : plus d'action, de suspens et d'émotion !!!\n", Color.RED);
+    }
+    
+    public void afficherEvenement(String evenement)
+    {
+        zone.afficherEvenement(evenement);
+    }
+
+    public void afficherEvenement(String evenement, Color couleur)
+    {
+        zone.afficherEvenement(evenement, couleur);
     }
 }

@@ -24,12 +24,12 @@ public abstract class ObjetPositionnable implements ObjetDessinable {
 	/**
 	 * Largeur d'une case en pixel.
 	 */
-	public static final int tailleX = 30;
+	public static final int tailleX = 20;
 
 	/**
 	 * Hauteur d'une case en pixel.
 	 */
-	public static final int tailleY = 30;
+	public static final int tailleY = 20;
 	
 	protected ObjetPositionnable(int x, int y)
 	{
