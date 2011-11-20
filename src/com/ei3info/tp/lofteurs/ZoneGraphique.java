@@ -38,6 +38,7 @@ public class ZoneGraphique extends JFrame
     private JPanel              parametresPanel;
     private JPanel              resumePanel;
     private JPanel              resumeContenuPanel;
+    private JScrollPane jsp;
     private JPanel              footerPanel;
     private Saison              saison;
     private JLabel              lDuree        = new JLabel();
@@ -120,7 +121,7 @@ public class ZoneGraphique extends JFrame
         JLabel titreResumePanel = new JLabel("Résumé des événements");
 
         resumeContenuPanel = new JPanel();
-        JScrollPane jsp = new JScrollPane(resumeContenuPanel);
+        jsp = new JScrollPane(resumeContenuPanel);
         jsp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         jsp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         jsp.setPreferredSize(new Dimension(250, 400));
@@ -268,8 +269,11 @@ public class ZoneGraphique extends JFrame
         JLabel lEvenement = new JLabel(evenement);
         lEvenement.setForeground(couleur);
         resumeContenuPanel.add(lEvenement, new GridBagConstraints(0, nombreCommentaires, 1, 1, 0.0, 0.0,
-                GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5,
+                GridBagConstraints.WEST, GridBagConstraints.VERTICAL, new Insets(5,
                         5, 5, 10), 0, 0));
         nombreCommentaires ++;
+        jsp.validate();
+        jsp.repaint();
+        jsp.getVerticalScrollBar().setValue(jsp.getVerticalScrollBar().getMaximum());
     }
 }

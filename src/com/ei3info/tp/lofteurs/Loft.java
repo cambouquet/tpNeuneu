@@ -22,7 +22,7 @@ public class Loft extends Thread
     private LinkedList<ObjetDessinable> listeObjets;
     private LinkedList<ObjetDessinable> listeObjetsDetruits;
     private LoftPanel                   loftPanel;
-    private static final int            WAITING_TIME = 250;
+    private static final int            WAITING_TIME = 200;
     private boolean                     finSaison    = false;
 
     public Loft(int tailleLoft, ZoneGraphique zone)
