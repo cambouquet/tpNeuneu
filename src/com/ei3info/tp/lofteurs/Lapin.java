@@ -48,7 +48,7 @@ public class Lapin extends Neuneu
     @Override
     public String getNom()
     {
-        return new String("Erratique " + numero);
+        return new String("Lapin " + numero);
     }
 
     public static void resetNumeros()
