@@ -44,4 +44,6 @@ public abstract class Nourriture extends ObjetPositionnable
     {
         return energie;
     }
+    
+    public abstract String getDescriptionConsommation();
 }

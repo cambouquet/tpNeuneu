@@ -9,4 +9,10 @@ public class Boisson extends Nourriture {
 		super(x, y);
 		couleur = Color.BLACK;
 	}
+
+    @Override
+    public String getDescriptionConsommation()
+    {
+        return new String("Hmm du Coca-Cola™ !");
+    }
 }

@@ -16,4 +16,10 @@ public class BoissonAlcoolisee extends Nourriture {
 		super(x, y);
 		couleur = Color.YELLOW;
 	}
+
+    @Override
+    public String getDescriptionConsommation()
+    {
+        return new String("Une bonne bière et ça repart !");
+    }
 }

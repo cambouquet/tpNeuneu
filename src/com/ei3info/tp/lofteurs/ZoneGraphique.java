@@ -107,7 +107,7 @@ public class ZoneGraphique extends JFrame
     private JPanel creerFooterPanel()
     {
         JPanel panel = new JPanel();
-        JLabel text = new JLabel("a B & S production");
+        JLabel text = new JLabel("a B & S™ production");
         text.setFont(new Font(null, Font.ITALIC, 12));
 
         FlowLayout fl = new FlowLayout(FlowLayout.RIGHT);

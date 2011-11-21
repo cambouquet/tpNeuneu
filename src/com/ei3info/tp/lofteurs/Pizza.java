@@ -17,4 +17,10 @@ public class Pizza extends Nourriture
 		System.out.println("Pizza placée en " + posX + ":" + posY);
 		couleur = Color.RED;
 	}
+
+    @Override
+    public String getDescriptionConsommation()
+    {
+        return new String("Miam ! Une pizza !");
+    }
 }
