@@ -11,7 +11,7 @@ public abstract class Neuneu extends ObjetPositionnable
     protected int              energie;
     protected static final int ENERGIE_MAX          = 40;
     protected Color            couleur              = Color.CYAN;
-    protected static final int ENERGIE_REPRODUCTION = 5;
+    protected static final int ENERGIE_REPRODUCTION = 1;
     protected int numero;
 
     protected Neuneu(int x, int y)
