@@ -19,7 +19,7 @@ public class Saison1 extends Saison
     public void demarrerSaison()
     {
         loft = new Loft(tailleLoft, zone);
-        loft.remplissageAleatoire(0.1f);
+        loft.remplissageAleatoire(proportionNourriture);
 
         for (int i = 0; i < nombreLofteurs; i++)
         {
