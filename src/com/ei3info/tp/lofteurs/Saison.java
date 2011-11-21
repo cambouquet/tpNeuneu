@@ -15,6 +15,9 @@ public abstract class Saison
     public static float   proportionVorace    = .25f;
     public static float   proportionCannibale = 0.00f;
     public static float   proportionLapin = 0.25f;
+    public static float   proportionPizza = 0.50f;
+    public static float   proportionCoca = 0.25f;
+    public static float   proportionBiere = 0.25f;
     
     protected Loft          loft;
     protected ZoneGraphique zone;

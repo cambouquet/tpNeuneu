@@ -21,6 +21,6 @@ public class Pizza extends Nourriture
     @Override
     public String getDescriptionConsommation()
     {
-        return new String("Miam ! Une pizza !");
+        return new String("Une pizza. Miam !");
     }
 }

@@ -47,7 +47,7 @@ public class Saison1 extends Saison
                                 (int) (Math.random() * (tailleLoft - 1))));
                     } else
                     {
-                        x -= proportionErratique;
+                        x -= proportionCannibale;
                         if (x < proportionLapin)
                         {
                             loft.add(new Lapin(loft,

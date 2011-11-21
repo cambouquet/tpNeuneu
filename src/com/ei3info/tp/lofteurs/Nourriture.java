@@ -27,10 +27,11 @@ public abstract class Nourriture extends ObjetPositionnable
     @Override
     public void dessinerObjet(Graphics g)
     {
-        g.setColor(Color.red);
+        g.setColor(couleur);
         g.fillOval(posX * tailleX, posY * tailleY, tailleX - 4, tailleY - 4);
         g.drawString(String.valueOf(energie), (posX + 1) * tailleX - 15, posY * tailleY - 5);
     }
+    
     /**
      * 
      * @param quantite

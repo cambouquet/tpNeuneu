@@ -63,7 +63,6 @@ class LoftPanel extends JPanel
             listeObjets.remove(obj);
         }
         listeObjetsDetruits.clear();
-        
     }
 
     public void updateListeObjets(LinkedList<ObjetDessinable> listeObjets)

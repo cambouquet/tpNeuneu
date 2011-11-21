@@ -24,7 +24,7 @@ public class Loft extends Thread
     private LoftPanel                   loftPanel;
     private static final int            WAITING_TIME = 200;
     private boolean                     finSaison    = false;
-    private int                 heures;
+    private int                         heures;
 
     public Loft(int tailleLoft, ZoneGraphique zone)
     {
@@ -44,10 +44,33 @@ public class Loft extends Thread
     public void remplissageAleatoire(float f)
     {
         int nbrCaseARemplir = (int) (f * tailleLoft);
+
         for (int i = 0; i < nbrCaseARemplir; i++)
         {
-            this.add(new Pizza((int) (Math.random() * (tailleLoft - 1)),
-                    (int) (Math.random() * (tailleLoft - 1))));
+            double x = Math.random();
+            if (x < Saison.proportionPizza)
+            {
+                this.add(new Pizza((int) (Math.random() * (tailleLoft - 1)),
+                        (int) (Math.random() * (tailleLoft - 1))));
+            } else
+            {
+                x -= Saison.proportionPizza;
+                if (x < Saison.proportionCoca)
+                {
+                    this.add(new Coca(
+                            (int) (Math.random() * (tailleLoft - 1)),
+                            (int) (Math.random() * (tailleLoft - 1))));
+                } else
+                {
+                    x -= Saison.proportionCoca;
+                    if (x < Saison.proportionBiere)
+                    {
+                        this.add(new Biere(
+                                (int) (Math.random() * (tailleLoft - 1)),
+                                (int) (Math.random() * (tailleLoft - 1))));
+                    }
+                }
+            }
         }
     }
 
@@ -97,8 +120,10 @@ public class Loft extends Thread
     public void run()
     {
         afficherEvenement("Bienvenue à tous !", Color.RED);
-        afficherEvenement("Nous sommes heureux de vous présenter la saison 1 de Secrets Neuneus !\n", Color.RED, true);
-        
+        afficherEvenement(
+                "Nous sommes heureux de vous présenter la saison 1 de Secrets Neuneus !\n",
+                Color.RED, true);
+
         heures = 0;
         while (nombreNeuneusRestants() > 0 && !finSaison)
         {
@@ -110,7 +135,7 @@ public class Loft extends Thread
                         && objet instanceof Neuneu)
                 {
                     Neuneu neuneu = (Neuneu) objet;
-                    
+
                     neuneu.setEnergie(neuneu.getEnergie() - 1);
                     boolean mort = neuneu.mourir();
                     loftPanel.repaint();
@@ -126,7 +151,9 @@ public class Loft extends Thread
                         loftPanel.repaint();
                     } else
                     {
-                        afficherEvenementDuree(neuneu.getNom() + " est mort...", Color.RED, false);
+                        afficherEvenementDuree(
+                                neuneu.getNom() + " est mort...", Color.RED,
+                                false);
                     }
                 }
             }
@@ -146,15 +173,18 @@ public class Loft extends Thread
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            
+
             heures++;
         }
-        
+
         afficherEvenement("Fin de la saison 1 !", Color.RED);
-        afficherEvenement("durée : " +  heures / 24 + " jours et " + heures % 24 + "h\n", Color.RED);
-        afficherEvenement("Bientôt la saison 2 : plus d'action, de suspens et d'émotion !!!\n", Color.RED);
+        afficherEvenement("durée : " + heures / 24 + " jours et " + heures % 24
+                + "h\n", Color.RED);
+        afficherEvenement(
+                "Bientôt la saison 2 : plus d'action, de suspens et d'émotion !!!\n",
+                Color.RED);
     }
-    
+
     public String getDuree()
     {
         return new String("Jour " + heures / 24 + " : " + heures % 24 + "h");
@@ -165,12 +195,12 @@ public class Loft extends Thread
         zone.afficherEvenement(getDuree(), evenement, Color.BLACK, false);
     }
 
-    public void afficherEvenementDuree(String evenement, Color couleur, boolean sauterLigne)
+    public void afficherEvenementDuree(String evenement, Color couleur,
+            boolean sauterLigne)
     {
         zone.afficherEvenement(getDuree(), evenement, couleur, sauterLigne);
     }
 
-    
     public void afficherEvenement(String evenement)
     {
         zone.afficherEvenement(evenement);
@@ -181,7 +211,8 @@ public class Loft extends Thread
         zone.afficherEvenement(evenement, couleur);
     }
 
-    public void afficherEvenement(String evenement, Color couleur, boolean sauterLigne)
+    public void afficherEvenement(String evenement, Color couleur,
+            boolean sauterLigne)
     {
         zone.afficherEvenement(evenement, couleur, sauterLigne);
     }
