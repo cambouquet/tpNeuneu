@@ -29,11 +29,16 @@ import javax.swing.JScrollPane;
  * appel à leur méthode dessinerObjet(Graphics g)
  * @see ObjectDessinable,LoftPanel
  * @author moreau
+ * @author Camille Bouquet
+ * @author Antoine Sellam
  */
 public class ZoneGraphique extends JFrame
 {
 
-    private JPanel              loftPanel;
+    /**
+     * Generated serial UID
+     */
+    private static final long   serialVersionUID   = -4869859338320586441L;
     private JPanel              actionPanel;
     private JPanel              parametresPanel;
     private JPanel              resumePanel;
@@ -43,20 +48,18 @@ public class ZoneGraphique extends JFrame
     private Saison              saison;
     private JLabel              lDuree             = new JLabel();
     private int                 nombreCommentaires = 0;
-    
+    private int                 nbrParametres      = 0;
 
-    private JFormattedTextField tfPErratiques      = new JFormattedTextField(
-                                                           NumberFormat
-                                                                   .getIntegerInstance());
-    private JFormattedTextField tfVoraces          = new JFormattedTextField(
-                                                           NumberFormat
-                                                                   .getIntegerInstance());
-    private JFormattedTextField tfCannibales       = new JFormattedTextField(
-                                                           NumberFormat
-                                                                   .getIntegerInstance());
-    private JFormattedTextField tfLapins           = new JFormattedTextField(
-                                                           NumberFormat
-                                                                   .getIntegerInstance());
+    private JFormattedTextField tfVitesse          = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfPNourriture      = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfNbrNeuneus       = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfPPizza           = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfPCoca            = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfPBiere           = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfErratiques       = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfVoraces          = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfCannibales       = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfLapins           = new JFormattedTextField(NumberFormat.getIntegerInstance());
 
     /**
      * constructeur
@@ -79,7 +82,7 @@ public class ZoneGraphique extends JFrame
             }
         });
 
-        loftPanel = new JPanel();
+        new JPanel();
         actionPanel = creerActionPanel();
         parametresPanel = creerParametresPanel();
         resumePanel = creerResumePanel();
@@ -138,98 +141,71 @@ public class ZoneGraphique extends JFrame
     {
         JPanel panel = new JPanel();
 
-        JLabel lPErratiques = new JLabel("% Erratiques");
-        JLabel lPVoraces = new JLabel("% Voraces");
-        JLabel lPCannibales = new JLabel("% Cannibales");
-        JLabel lPLapins = new JLabel("% Lapins");
+        panel.setLayout(new GridBagLayout());
 
-        tfPErratiques.setColumns(5);
-        tfVoraces.setColumns(5);
-        tfCannibales.setColumns(5);
-        tfLapins.setColumns(5);
-        tfPErratiques.setText(String
-                .valueOf((int) (Saison.proportionErratique * 100)));
-        tfVoraces
-                .setText(String.valueOf((int) (Saison.proportionVorace * 100)));
-        tfCannibales.setText(String
-                .valueOf((int) (Saison.proportionCannibale * 100)));
+        // Vitesse
+        ajouterParametre(panel, tfVitesse, "Vitesse");
+        tfVitesse.setText(String.valueOf((int) (Saison.WAITING_TIME)));
+
+        // quantités d'éléments
+        JFormattedTextField[] textFieldsQuantite = {tfNbrNeuneus, tfPNourriture};
+        String[] titresQuantite = {"Nombre de neuneus", "% Nourriture"};
+        ajouterParametre(panel, textFieldsQuantite, titresQuantite);
+        
+        tfNbrNeuneus.setText(String.valueOf((int) (Saison.nombreLofteurs)));
+        tfPNourriture.setText(String.valueOf((int) (Saison.proportionNourriture * 100)));
+
+        // proportions de nourriture
+        JFormattedTextField[] textFieldsNourriture = {tfPPizza, tfPCoca, tfPBiere};
+        String[] titresNourriture = {"% Pizza", "% Coca", "% Biere"};
+        ajouterParametre(panel, textFieldsNourriture, titresNourriture);
+        
+        tfPPizza.setText(String.valueOf((int) (Saison.proportionPizza * 100)));
+        tfPCoca.setText(String.valueOf((int) (Saison.proportionCoca * 100)));
+        tfPBiere.setText(String.valueOf((int) (Saison.proportionBiere * 100)));
+
+        // proportions de neuneus
+        JFormattedTextField[] textFieldsNeuneus = {tfErratiques, tfVoraces, tfCannibales, tfLapins};
+        String[] titresNeuneus = {"% Erratiques", "% Voraces", "% Cannibales", "% Lapins"};
+        ajouterParametre(panel, textFieldsNeuneus, titresNeuneus);
+        
+        tfErratiques.setText(String.valueOf((int) (Saison.proportionErratique * 100)));
+        tfVoraces.setText(String.valueOf((int) (Saison.proportionVorace * 100)));
+        tfCannibales.setText(String.valueOf((int) (Saison.proportionCannibale * 100)));
         tfLapins.setText(String.valueOf((int) (Saison.proportionLapin * 100)));
 
+        // Bouton relancer la saison
         JButton bRelancer = new JButton("Relancer");
-        bRelancer.addActionListener(new ActionListener() {
+        bRelancer.addActionListener(new RelancerAction());
 
-            @Override
-            public void actionPerformed(ActionEvent arg0)
-            {
-                loftPanel = new JPanel();
-                try
-                {
-                    Float fErratique = new Float(tfPErratiques.getText());
-                    Float fVorace = new Float(tfVoraces.getText());
-                    Float fCannibale = new Float(tfCannibales.getText());
-                    Float fLapin = new Float(tfLapins.getText());
-                    if (fErratique + fVorace + fCannibale + fLapin == 100.0f)
-                    {
-                        Saison.proportionErratique = fErratique / 100;
-                        Saison.proportionVorace = fVorace / 100;
-                        Saison.proportionCannibale = fCannibale / 100;
-                        Saison.proportionLapin = fLapin / 100;
-                    } else
-                    {
-                        JOptionPane
-                        .showMessageDialog(
-                                ZoneGraphique.this,
-                                "Le total des pourcentages des proportions de neuneus doit être 100",
-                                "Pourcentages incorrects",
-                                JOptionPane.ERROR_MESSAGE);
-                    }
+        // Ajout des différents éléments au panneau de paramètres
 
-                } catch (NumberFormatException e)
-                {
-                    JOptionPane
-                            .showMessageDialog(
-                                    ZoneGraphique.this,
-                                    "Veuillez rentrer des nombres corrects pour les pourcentages",
-                                    "Format incorrect",
-                                    JOptionPane.ERROR_MESSAGE);
-                }
-                resumeContenuPanel.removeAll();
-                saison.redemarrerSaison();
-            }
-
-        });
-
-        panel.setLayout(new GridBagLayout());
-        panel.add(lPErratiques, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
-                GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5,
-                        10, 5, 10), 0, 0));
-        panel.add(lPVoraces, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
-                GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5,
-                        10, 5, 10), 0, 0));
-        panel.add(lPCannibales, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0,
-                GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5,
-                        10, 5, 10), 0, 0));
-        panel.add(lPLapins, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0,
-                GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5,
-                        10, 5, 10), 0, 0));
-
-        panel.add(tfPErratiques, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
-                GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5,
-                        5, 5, 10), 0, 0));
-        panel.add(tfVoraces, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0,
-                GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5,
-                        5, 5, 10), 0, 0));
-        panel.add(tfCannibales, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0,
-                GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5,
-                        5, 5, 10), 0, 0));
-        panel.add(tfLapins, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0,
-                GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5,
-                        5, 5, 10), 0, 0));
-
-        panel.add(bRelancer, new GridBagConstraints(0, 5, 2, 1, 0.0, 0.0,
-                GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(
-                        5, 10, 5, 20), 0, 0));
+        panel.add(bRelancer, new GridBagConstraints(0, nbrParametres, 2, 1, 0.0, 0.0, GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH, new Insets(5, 10, 5, 20), 0, 0));
         return panel;
+    }
+
+    private void ajouterParametre(JPanel panel, JFormattedTextField[] textFields, String[] titres)
+    {
+        for (int i = 0; i < textFields.length; i++)
+        {
+            textFields[i].setColumns(5);
+            int insetBas = (i == textFields.length - 1) ? 20 : 5;
+            String titre = (titres.length > i) ? titres[i] : "Paramètre";
+            
+            panel.add(new JLabel(titre), new GridBagConstraints(0, nbrParametres, 1, 1, 0.0, 0.0,
+                    GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 10, insetBas, 10), 0, 0));
+            panel.add(textFields[i], new GridBagConstraints(1, nbrParametres, 1, 1, 0.0, 0.0, GridBagConstraints.WEST,
+                    GridBagConstraints.NONE, new Insets(5, 10, insetBas, 10), 0, 0));
+            nbrParametres++;
+        }
+    }
+
+    private void ajouterParametre(JPanel panel, JFormattedTextField textField, String titre)
+    {
+        JFormattedTextField[] textFields = {textField};
+        String[] titres = {titre};
+        ajouterParametre(panel, textFields, titres);
     }
 
     public void setLoftPanel(JPanel loftPanel)
@@ -239,7 +215,6 @@ public class ZoneGraphique extends JFrame
             this.getContentPane().remove(loftPanel);
         }
 
-        this.loftPanel = loftPanel;
         this.getContentPane().add(loftPanel, BorderLayout.CENTER);
         loftPanel.repaint();
         this.getContentPane().validate();
@@ -265,9 +240,9 @@ public class ZoneGraphique extends JFrame
         return getContentPane().getHeight();
     }
 
-    public void setTime(int heures)
+    public void setTime(String duree)
     {
-        this.lDuree.setText(heures / 24 + " jour " + heures % 24 + " h");
+        this.lDuree.setText(duree);
     }
 
     public void afficherEvenement(String evenement)
@@ -280,21 +255,19 @@ public class ZoneGraphique extends JFrame
         afficherEvenement(evenement, couleur, false);
     }
 
-    public void afficherEvenement(String evenement, Color couleur,
-            boolean sauterLigne)
+    public void afficherEvenement(String evenement, Color couleur, boolean sauterLigne)
     {
         afficherEvenement(evenement, couleur, sauterLigne, 0, true);
     }
 
-    public void afficherEvenement(String duree, String evenement, Color couleur,
-            boolean sauterLigne)
+    public void afficherEvenement(String duree, String evenement, Color couleur, boolean sauterLigne)
     {
         afficherEvenement(duree, new Color(100, 100, 100), false, 0, false);
         afficherEvenement(evenement, couleur, sauterLigne, 1, true);
     }
-    
-    private void afficherEvenement(String evenement, Color couleur,
-            boolean sauterLigne, int positionX, boolean finLigne)
+
+    private void
+            afficherEvenement(String evenement, Color couleur, boolean sauterLigne, int positionX, boolean finLigne)
     {
         JLabel lEvenement = new JLabel(evenement);
         lEvenement.setForeground(couleur);
@@ -302,19 +275,116 @@ public class ZoneGraphique extends JFrame
         int verticalInset = (sauterLigne) ? 15 : 2;
         Insets ligneInsets = new Insets(2, 2, verticalInset, 5);
         int longueur = (finLigne) ? GridBagConstraints.REMAINDER : 1;
-        
-        resumeContenuPanel.add(lEvenement, new GridBagConstraints(positionX,
-                nombreCommentaires, longueur, 1, 0.0, 0.0, GridBagConstraints.WEST,
-                GridBagConstraints.VERTICAL, ligneInsets, 0, 0));
+
+        resumeContenuPanel.add(lEvenement, new GridBagConstraints(positionX, nombreCommentaires, longueur, 1, 0.0, 0.0,
+                GridBagConstraints.WEST, GridBagConstraints.VERTICAL, ligneInsets, 0, 0));
         System.out.println(evenement);
         if (finLigne)
         {
             nombreCommentaires++;
         }
-        
+
         jsp.validate();
         jsp.repaint();
-        jsp.getVerticalScrollBar().setValue(
-                jsp.getVerticalScrollBar().getMaximum());
+        jsp.getVerticalScrollBar().setValue(jsp.getVerticalScrollBar().getMaximum());
+    }
+
+    private class RelancerAction implements ActionListener
+    {
+
+        private boolean verifierPourcentageNeuneus(JFormattedTextField[] textFields, String messageErreur)
+        {
+            boolean pourcentageOk = true;
+            int total = 0;
+
+            for (int i = 0; i < textFields.length; i++)
+            {
+                total += new Integer(verifierValeurPourcentage(textFields[i]));
+            }
+
+            if (total != 100)
+            {
+                pourcentageOk = false;
+                JOptionPane.showMessageDialog(ZoneGraphique.this, messageErreur, "Pourcentages incorrects",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+
+            return pourcentageOk;
+        }
+
+        private String verifierValeurPourcentage(JFormattedTextField textFields)
+        {
+            Integer valeur = new Integer(textFields.getText());
+            if (valeur > 100)
+            {
+                textFields.setText("100");
+            }
+
+            verifierValeurPositive(textFields);
+
+            return textFields.getText();
+        }
+
+        private String verifierValeurPositive(JFormattedTextField textFields)
+        {
+            Integer valeur = new Integer(textFields.getText());
+
+            if (valeur < 0)
+            {
+                textFields.setText("0");
+            }
+
+            return textFields.getText();
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent arg0)
+        {
+            new JPanel();
+
+            // Vérification de la vitesse
+            Integer vitesse = new Integer(tfVitesse.getText());
+            if (vitesse <= 0)
+            {
+                tfVitesse.setText("1");
+                vitesse = 1;
+            }
+
+            Saison.WAITING_TIME = vitesse;
+
+            // Vérification du nombre de neuneus
+            Saison.nombreLofteurs = new Integer(verifierValeurPourcentage(tfNbrNeuneus));
+
+            // Vérification des pourcentages des neuneus
+            JFormattedTextField[] tfsPNeuneus = {tfErratiques, tfVoraces, tfCannibales, tfLapins};
+            boolean pNeuneus = verifierPourcentageNeuneus(tfsPNeuneus,
+                    "Le total des pourcentages des proportions de neuneus doit être 100");
+
+            if (pNeuneus)
+            {
+                Saison.proportionErratique = (new Float(tfErratiques.getText())) / 100;
+                Saison.proportionVorace = (new Float(tfVoraces.getText())) / 100;
+                Saison.proportionCannibale = (new Float(tfCannibales.getText())) / 100;
+                Saison.proportionLapin = (new Float(tfLapins.getText())) / 100;
+            }
+
+            // Vérficaiton des pourcentages de nourritures
+            Saison.proportionNourriture = (new Float(verifierValeurPositive(tfPNourriture))) / 100;
+
+            JFormattedTextField[] tfsPNourriture = {tfPPizza, tfPCoca, tfPBiere};
+            boolean pNourriture = verifierPourcentageNeuneus(tfsPNourriture,
+                    "Le total des pourcentages des proportions de nourriture doit être 100");
+
+            if (pNourriture)
+            {
+                Saison.proportionPizza = (new Float(tfPPizza.getText())) / 100;
+                Saison.proportionCoca = (new Float(tfPCoca.getText())) / 100;
+                Saison.proportionBiere = (new Float(tfPBiere.getText())) / 100;
+            }
+
+            resumeContenuPanel.removeAll();
+            saison.redemarrerSaison();
+        }
+
     }
 }

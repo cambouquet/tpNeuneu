@@ -38,7 +38,7 @@ class LoftPanel extends JPanel
     {
         this.listeObjets = new LinkedList<ObjetDessinable>(listeObjets);
         this.listeObjetsDetruits = new LinkedList<ObjetDessinable>();
-        this.listeObjetsCrees= new LinkedList<ObjetDessinable>();
+        this.listeObjetsCrees = new LinkedList<ObjetDessinable>();
     }
 
     /**
@@ -50,16 +50,15 @@ class LoftPanel extends JPanel
         super.paintComponents(g);
 
         g.setColor(Color.BLACK);
-        g.drawRect(0, 0, Saison.tailleLoft * ObjetPositionnable.tailleX - 1,
-                Saison.tailleLoft * ObjetPositionnable.tailleX - 1);
+        g.drawRect(0, 0, Saison.tailleLoft * ObjetPositionnable.tailleX - 1, Saison.tailleLoft
+                * ObjetPositionnable.tailleX - 1);
         g.setColor(Color.WHITE);
-        g.fillRect(0, 0, Saison.tailleLoft * ObjetPositionnable.tailleX,
-                Saison.tailleLoft * ObjetPositionnable.tailleX);
+        g.fillRect(0, 0, Saison.tailleLoft * ObjetPositionnable.tailleX, Saison.tailleLoft * ObjetPositionnable.tailleX);
         // on redessine tout
 
         for (ObjetDessinable x : listeObjets)
         {
-            if (! listeObjetsDetruits.contains(x))
+            if (!listeObjetsDetruits.contains(x))
             {
                 x.dessinerObjet(g);
             }
