@@ -101,16 +101,16 @@ public abstract class Neuneu extends ObjetPositionnable
                             loft.addBebeNeuneu(neuneucree);
                         }
 
-                        // Vérification des niveaux d'énergie et destruction(s)
+                        // Modification des niveaux d'énergie et destruction(s)
                         // éventuelle(s)
-                        int enerX = this.energie - ENERGIE_REPRODUCTION;
-                        int enerY = neuneu.getEnergie() - ENERGIE_REPRODUCTION;
+                        this.energie -= ENERGIE_REPRODUCTION;
+                        neuneu.setEnergie(neuneu.getEnergie() - ENERGIE_REPRODUCTION);
 
-                        if (enerX <= 0)
+                        if (this.energie <= 0)
                         {
                             this.mourir();
                         }
-                        if (enerY <= 0)
+                        if (neuneu.getEnergie() <= 0)
                         {
                             neuneu.mourir();
                         }
