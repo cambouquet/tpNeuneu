@@ -50,6 +50,9 @@ public class ZoneGraphique extends JFrame
     private int                 nombreCommentaires = 0;
     private int                 nbrParametres      = 0;
 
+    private JFormattedTextField tfVitesse      = new JFormattedTextField(
+            NumberFormat
+            .getIntegerInstance());
     private JFormattedTextField tfPNourriture      = new JFormattedTextField(
                                                            NumberFormat
                                                                    .getIntegerInstance());
@@ -159,6 +162,10 @@ public class ZoneGraphique extends JFrame
         JPanel panel = new JPanel();
 
         panel.setLayout(new GridBagLayout());
+        
+        // Vitesse
+        ajouterParametre(panel, tfVitesse, "Vitesse");
+        tfVitesse.setText(String.valueOf((int) (Saison.WAITING_TIME)));
 
         // Nombre de neuneus
         ajouterParametre(panel, tfNbrNeuneus, "Nombre de neuneus");
@@ -245,9 +252,9 @@ public class ZoneGraphique extends JFrame
         return getContentPane().getHeight();
     }
 
-    public void setTime(int heures)
+    public void setTime(String duree)
     {
-        this.lDuree.setText(heures / 24 + " jour " + heures % 24 + " h");
+        this.lDuree.setText(duree);
     }
 
     public void afficherEvenement(String evenement)
@@ -345,7 +352,21 @@ public class ZoneGraphique extends JFrame
         public void actionPerformed(ActionEvent arg0)
         {
             new JPanel();
+            
+            // Vérification de la vitesse
+            Integer vitesse = new Integer(tfVitesse.getText());
+            if (vitesse <= 0)
+            {
+                tfVitesse.setText("1");
+                vitesse = 1;
+            }
 
+            Saison.WAITING_TIME = vitesse;
+            
+            // Vérification du nombre de neuneus
+            Saison.nombreLofteurs = new Integer(verifierValeurPourcentage(tfNbrNeuneus));
+
+            // Vérification des pourcentages des neuneus
             JFormattedTextField[] tfsPNeuneus = {tfErratiques, tfVoraces,
                     tfCannibales, tfLapins};
             boolean pNeuneus = verifierPourcentageNeuneus(tfsPNeuneus,
@@ -359,6 +380,9 @@ public class ZoneGraphique extends JFrame
                 Saison.proportionLapin = (new Float(tfLapins.getText())) / 100;
             }
 
+            // Vérficaiton des pourcentages de nourritures
+            Saison.proportionNourriture= (new Float(verifierValeurPourcentage(tfPNourriture))) / 100;
+
             JFormattedTextField[] tfsPNourriture = {tfPPizza, tfPCoca,
                     tfPBiere};
             boolean pNourriture = verifierPourcentageNeuneus(tfsPNourriture,
@@ -371,8 +395,6 @@ public class ZoneGraphique extends JFrame
                 Saison.proportionBiere = (new Float(tfPBiere.getText())) / 100;
             }
             
-            Saison.nombreLofteurs = new Integer(verifierValeurPourcentage(tfNbrNeuneus));
-            Saison.proportionNourriture= (new Float(verifierValeurPourcentage(tfPNourriture))) / 100;
 
             resumeContenuPanel.removeAll();
             saison.redemarrerSaison();

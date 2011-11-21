@@ -23,7 +23,6 @@ public class Loft extends Thread
     private LinkedList<ObjetDessinable> listeObjetsDetruits;
     private LinkedList<ObjetDessinable> listeObjetsCrees;
     private LoftPanel                   loftPanel;
-    private static final int            WAITING_TIME = 200;
     private boolean                     finSaison    = false;
     private int                         heures;
 
@@ -45,7 +44,7 @@ public class Loft extends Thread
 
     public void remplissageAleatoire(float f)
     {
-        int nbrCaseARemplir = (int) (f * tailleLoft);
+        int nbrCaseARemplir = (int) (f * tailleLoft* tailleLoft );
 
         for (int i = 0; i < nbrCaseARemplir; i++)
         {
@@ -165,7 +164,7 @@ public class Loft extends Thread
         heures = 0;
         while (nombreNeuneusRestants() > 0 && !finSaison)
         {
-            zone.setTime(heures);
+            zone.setTime(getDuree());
             long debut = System.currentTimeMillis();
             for (ObjetDessinable objet : listeObjets)
             {
@@ -207,7 +206,7 @@ public class Loft extends Thread
             listeObjetsCrees.clear();
             
             long duree = System.currentTimeMillis() - debut;
-            duree = (WAITING_TIME - duree < 0) ? 0 : WAITING_TIME - duree;
+            duree = (Saison.WAITING_TIME - duree < 0) ? 0 : Saison.WAITING_TIME - duree;
             try
             {
                 Loft.sleep(duree);
@@ -221,8 +220,7 @@ public class Loft extends Thread
         }
 
         afficherEvenement("Fin de la saison 1 !", Color.RED);
-        afficherEvenement("durée : " + heures / 24 + " jours et " + heures % 24
-                + "h\n", Color.RED);
+        afficherEvenement("durée : " + getDuree(), Color.RED);
         afficherEvenement(
                 "Bientôt la saison 2 : plus d'action, de suspens et d'émotion !!!\n",
                 Color.RED);
@@ -230,7 +228,9 @@ public class Loft extends Thread
 
     public String getDuree()
     {
-        return new String("Jour " + heures / 24 + " : " + heures % 24 + "h");
+        String jour = ((heures / 24) > 1) ? " jours" : " jour";
+        
+        return new String(heures / 24 + jour + " et " + heures % 24 + "h");
     }
 
     public void afficherEvenementDuree(String evenement)
