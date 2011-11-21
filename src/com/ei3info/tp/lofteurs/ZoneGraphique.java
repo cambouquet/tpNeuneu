@@ -38,24 +38,25 @@ public class ZoneGraphique extends JFrame
     private JPanel              parametresPanel;
     private JPanel              resumePanel;
     private JPanel              resumeContenuPanel;
-    private JScrollPane jsp;
+    private JScrollPane         jsp;
     private JPanel              footerPanel;
     private Saison              saison;
-    private JLabel              lDuree        = new JLabel();
+    private JLabel              lDuree             = new JLabel();
     private int                 nombreCommentaires = 0;
+    
 
-    private JFormattedTextField tfPErratiques = new JFormattedTextField(
-                                                      NumberFormat
-                                                              .getIntegerInstance());
-    private JFormattedTextField tfVoraces     = new JFormattedTextField(
-                                                      NumberFormat
-                                                              .getIntegerInstance());
-    private JFormattedTextField tfCannibales  = new JFormattedTextField(
-                                                      NumberFormat
-                                                              .getIntegerInstance());
-    private JFormattedTextField tfLapins      = new JFormattedTextField(
-                                                      NumberFormat
-                                                              .getIntegerInstance());
+    private JFormattedTextField tfPErratiques      = new JFormattedTextField(
+                                                           NumberFormat
+                                                                   .getIntegerInstance());
+    private JFormattedTextField tfVoraces          = new JFormattedTextField(
+                                                           NumberFormat
+                                                                   .getIntegerInstance());
+    private JFormattedTextField tfCannibales       = new JFormattedTextField(
+                                                           NumberFormat
+                                                                   .getIntegerInstance());
+    private JFormattedTextField tfLapins           = new JFormattedTextField(
+                                                           NumberFormat
+                                                                   .getIntegerInstance());
 
     /**
      * constructeur
@@ -102,13 +103,13 @@ public class ZoneGraphique extends JFrame
         panel.add(lDuree);
         return panel;
     }
-    
+
     private JPanel creerFooterPanel()
     {
         JPanel panel = new JPanel();
         JLabel text = new JLabel("a B & S production");
         text.setFont(new Font(null, Font.ITALIC, 12));
-        
+
         FlowLayout fl = new FlowLayout(FlowLayout.RIGHT);
         panel.setLayout(fl);
         panel.add(text);
@@ -227,7 +228,7 @@ public class ZoneGraphique extends JFrame
         {
             this.getContentPane().remove(loftPanel);
         }
-        
+
         this.loftPanel = loftPanel;
         this.getContentPane().add(loftPanel, BorderLayout.CENTER);
         loftPanel.repaint();
@@ -266,14 +267,44 @@ public class ZoneGraphique extends JFrame
 
     public void afficherEvenement(String evenement, Color couleur)
     {
+        afficherEvenement(evenement, couleur, false);
+    }
+
+    public void afficherEvenement(String evenement, Color couleur,
+            boolean sauterLigne)
+    {
+        afficherEvenement(evenement, couleur, sauterLigne, 0, true);
+    }
+
+    public void afficherEvenement(String duree, String evenement, Color couleur,
+            boolean sauterLigne)
+    {
+        afficherEvenement(duree, new Color(100, 100, 100), false, 0, false);
+        afficherEvenement(evenement, couleur, sauterLigne, 1, true);
+    }
+    
+    private void afficherEvenement(String evenement, Color couleur,
+            boolean sauterLigne, int positionX, boolean finLigne)
+    {
         JLabel lEvenement = new JLabel(evenement);
         lEvenement.setForeground(couleur);
-        resumeContenuPanel.add(lEvenement, new GridBagConstraints(0, nombreCommentaires, 1, 1, 0.0, 0.0,
-                GridBagConstraints.WEST, GridBagConstraints.VERTICAL, new Insets(5,
-                        5, 5, 10), 0, 0));
-        nombreCommentaires ++;
+
+        int verticalInset = (sauterLigne) ? 15 : 2;
+        Insets ligneInsets = new Insets(2, 2, verticalInset, 5);
+        int longueur = (finLigne) ? GridBagConstraints.REMAINDER : 1;
+        
+        resumeContenuPanel.add(lEvenement, new GridBagConstraints(positionX,
+                nombreCommentaires, longueur, 1, 0.0, 0.0, GridBagConstraints.WEST,
+                GridBagConstraints.VERTICAL, ligneInsets, 0, 0));
+        System.out.println(evenement);
+        if (finLigne)
+        {
+            nombreCommentaires++;
+        }
+        
         jsp.validate();
         jsp.repaint();
-        jsp.getVerticalScrollBar().setValue(jsp.getVerticalScrollBar().getMaximum());
+        jsp.getVerticalScrollBar().setValue(
+                jsp.getVerticalScrollBar().getMaximum());
     }
 }
