@@ -45,11 +45,21 @@ public class Saison1 extends Saison
                         loft.add(new Cannibale(loft,
                                 (int) (Math.random() * (tailleLoft - 1)),
                                 (int) (Math.random() * (tailleLoft - 1))));
+                    } else
+                    {
+                        x -= proportionErratique;
+                        if (x < proportionLapin)
+                        {
+                            loft.add(new Lapin(loft,
+                                    (int) (Math.random() * (tailleLoft - 1)),
+                                    (int) (Math.random() * (tailleLoft - 1))));
+                        }
                     }
+
                 }
             }
         }
-        
+
         loft.start();
 
     }
