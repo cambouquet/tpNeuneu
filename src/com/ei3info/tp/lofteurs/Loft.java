@@ -23,7 +23,7 @@ public class Loft extends Thread
     private LinkedList<ObjetDessinable> listeObjetsDetruits;
     private LinkedList<ObjetDessinable> listeObjetsCrees;
     private LoftPanel                   loftPanel;
-    private boolean                     finSaison    = false;
+    private boolean                     finSaison = false;
     private int                         heures;
 
     public Loft(int tailleLoft, ZoneGraphique zone)
@@ -32,27 +32,24 @@ public class Loft extends Thread
         this.zone = zone;
         this.listeObjets = new LinkedList<ObjetDessinable>();
         this.listeObjetsDetruits = new LinkedList<ObjetDessinable>();
-        this.listeObjetsCrees= new LinkedList<ObjetDessinable>();
+        this.listeObjetsCrees = new LinkedList<ObjetDessinable>();
         this.loftPanel = new LoftPanel(listeObjets);
-        loftPanel.setPreferredSize(new Dimension(tailleLoft
-                * ObjetPositionnable.tailleX, tailleLoft
+        loftPanel.setPreferredSize(new Dimension(tailleLoft * ObjetPositionnable.tailleX, tailleLoft
                 * ObjetPositionnable.tailleY));
-        loftPanel.setSize(tailleLoft * ObjetPositionnable.tailleX, tailleLoft
-                * ObjetPositionnable.tailleY);
+        loftPanel.setSize(tailleLoft * ObjetPositionnable.tailleX, tailleLoft * ObjetPositionnable.tailleY);
         this.zone.setLoftPanel(loftPanel);
     }
 
     public void remplissageAleatoire(float f)
     {
-        int nbrCaseARemplir = (int) (f * tailleLoft* tailleLoft );
+        int nbrCaseARemplir = (int) (f * tailleLoft);
 
         for (int i = 0; i < nbrCaseARemplir; i++)
         {
             double x = Math.random();
             if (x < Saison.proportionPizza)
             {
-                this.add(new Pizza((int) (Math.random() * (tailleLoft - 1)),
-                        (int) (Math.random() * (tailleLoft - 1))));
+                this.add(new Pizza((int) (Math.random() * (tailleLoft - 1)), (int) (Math.random() * (tailleLoft - 1))));
             } else
             {
                 x -= Saison.proportionPizza;
@@ -65,8 +62,7 @@ public class Loft extends Thread
                     x -= Saison.proportionCoca;
                     if (x < Saison.proportionBiere)
                     {
-                        this.add(new Biere(
-                                (int) (Math.random() * (tailleLoft - 1)),
+                        this.add(new Biere((int) (Math.random() * (tailleLoft - 1)),
                                 (int) (Math.random() * (tailleLoft - 1))));
                     }
                 }
@@ -157,9 +153,7 @@ public class Loft extends Thread
     public void run()
     {
         afficherEvenement("Bienvenue à tous !", Color.RED);
-        afficherEvenement(
-                "Nous sommes heureux de vous présenter la saison 1 de Secrets Neuneus !\n",
-                Color.RED, true);
+        afficherEvenement("Nous sommes heureux de vous présenter la saison 1 de Secrets Neuneus !\n", Color.RED, true);
 
         heures = 0;
         while (nombreNeuneusRestants() > 0 && !finSaison)
@@ -168,8 +162,7 @@ public class Loft extends Thread
             long debut = System.currentTimeMillis();
             for (ObjetDessinable objet : listeObjets)
             {
-                if (!listeObjetsDetruits.contains(objet)
-                        && objet instanceof Neuneu)
+                if (!listeObjetsDetruits.contains(objet) && objet instanceof Neuneu)
                 {
                     Neuneu neuneu = (Neuneu) objet;
 
@@ -188,9 +181,7 @@ public class Loft extends Thread
                         loftPanel.repaint();
                     } else
                     {
-                        afficherEvenementDuree(
-                                neuneu.getNom() + " est mort...", Color.RED,
-                                false);
+                        afficherEvenementDuree(neuneu.getNom() + " est mort...", Color.RED, false);
                     }
                 }
             }
@@ -204,7 +195,7 @@ public class Loft extends Thread
                 listeObjets.add(objetCree);
             }
             listeObjetsCrees.clear();
-            
+
             long duree = System.currentTimeMillis() - debut;
             duree = (Saison.WAITING_TIME - duree < 0) ? 0 : Saison.WAITING_TIME - duree;
             try
@@ -221,15 +212,13 @@ public class Loft extends Thread
 
         afficherEvenement("Fin de la saison 1 !", Color.RED);
         afficherEvenement("durée : " + getDuree(), Color.RED);
-        afficherEvenement(
-                "Bientôt la saison 2 : plus d'action, de suspens et d'émotion !!!\n",
-                Color.RED);
+        afficherEvenement("Bientôt la saison 2 : plus d'action, de suspens et d'émotion !!!\n", Color.RED);
     }
 
     public String getDuree()
     {
         String jour = ((heures / 24) > 1) ? " jours" : " jour";
-        
+
         return new String(heures / 24 + jour + " et " + heures % 24 + "h");
     }
 
@@ -238,8 +227,7 @@ public class Loft extends Thread
         zone.afficherEvenement(getDuree(), evenement, Color.BLACK, false);
     }
 
-    public void afficherEvenementDuree(String evenement, Color couleur,
-            boolean sauterLigne)
+    public void afficherEvenementDuree(String evenement, Color couleur, boolean sauterLigne)
     {
         zone.afficherEvenement(getDuree(), evenement, couleur, sauterLigne);
     }
@@ -254,8 +242,7 @@ public class Loft extends Thread
         zone.afficherEvenement(evenement, couleur);
     }
 
-    public void afficherEvenement(String evenement, Color couleur,
-            boolean sauterLigne)
+    public void afficherEvenement(String evenement, Color couleur, boolean sauterLigne)
     {
         zone.afficherEvenement(evenement, couleur, sauterLigne);
     }

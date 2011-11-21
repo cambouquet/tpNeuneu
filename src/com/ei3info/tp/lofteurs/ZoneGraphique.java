@@ -50,36 +50,16 @@ public class ZoneGraphique extends JFrame
     private int                 nombreCommentaires = 0;
     private int                 nbrParametres      = 0;
 
-    private JFormattedTextField tfVitesse      = new JFormattedTextField(
-            NumberFormat
-            .getIntegerInstance());
-    private JFormattedTextField tfPNourriture      = new JFormattedTextField(
-                                                           NumberFormat
-                                                                   .getIntegerInstance());
-    private JFormattedTextField tfNbrNeuneus       = new JFormattedTextField(
-                                                           NumberFormat
-                                                                   .getIntegerInstance());
-    private JFormattedTextField tfPPizza           = new JFormattedTextField(
-                                                           NumberFormat
-                                                                   .getIntegerInstance());
-    private JFormattedTextField tfPCoca            = new JFormattedTextField(
-                                                           NumberFormat
-                                                                   .getIntegerInstance());
-    private JFormattedTextField tfPBiere           = new JFormattedTextField(
-                                                           NumberFormat
-                                                                   .getIntegerInstance());
-    private JFormattedTextField tfErratiques       = new JFormattedTextField(
-                                                           NumberFormat
-                                                                   .getIntegerInstance());
-    private JFormattedTextField tfVoraces          = new JFormattedTextField(
-                                                           NumberFormat
-                                                                   .getIntegerInstance());
-    private JFormattedTextField tfCannibales       = new JFormattedTextField(
-                                                           NumberFormat
-                                                                   .getIntegerInstance());
-    private JFormattedTextField tfLapins           = new JFormattedTextField(
-                                                           NumberFormat
-                                                                   .getIntegerInstance());
+    private JFormattedTextField tfVitesse          = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfPNourriture      = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfNbrNeuneus       = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfPPizza           = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfPCoca            = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfPBiere           = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfErratiques       = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfVoraces          = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfCannibales       = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfLapins           = new JFormattedTextField(NumberFormat.getIntegerInstance());
 
     /**
      * constructeur
@@ -162,37 +142,36 @@ public class ZoneGraphique extends JFrame
         JPanel panel = new JPanel();
 
         panel.setLayout(new GridBagLayout());
-        
+
         // Vitesse
         ajouterParametre(panel, tfVitesse, "Vitesse");
         tfVitesse.setText(String.valueOf((int) (Saison.WAITING_TIME)));
 
-        // Nombre de neuneus
-        ajouterParametre(panel, tfNbrNeuneus, "Nombre de neuneus");
+        // quantités d'éléments
+        JFormattedTextField[] textFieldsQuantite = {tfNbrNeuneus, tfPNourriture};
+        String[] titresQuantite = {"Nombre de neuneus", "% Nourriture"};
+        ajouterParametre(panel, textFieldsQuantite, titresQuantite);
+        
         tfNbrNeuneus.setText(String.valueOf((int) (Saison.nombreLofteurs)));
+        tfPNourriture.setText(String.valueOf((int) (Saison.proportionNourriture * 100)));
 
-        // proportion de nourriture
-        ajouterParametre(panel, tfPNourriture, "% Nourriture");
-        tfPNourriture.setText(String
-                .valueOf((int) (Saison.proportionNourriture * 100)));
-        ajouterParametre(panel, tfPPizza, "% Pizza");
+        // proportions de nourriture
+        JFormattedTextField[] textFieldsNourriture = {tfPPizza, tfPCoca, tfPBiere};
+        String[] titresNourriture = {"% Pizza", "% Coca", "% Biere"};
+        ajouterParametre(panel, textFieldsNourriture, titresNourriture);
+        
         tfPPizza.setText(String.valueOf((int) (Saison.proportionPizza * 100)));
-        ajouterParametre(panel, tfPCoca, "% Coca");
         tfPCoca.setText(String.valueOf((int) (Saison.proportionCoca * 100)));
-        ajouterParametre(panel, tfPBiere, "% Biere");
         tfPBiere.setText(String.valueOf((int) (Saison.proportionBiere * 100)));
 
         // proportions de neuneus
-        ajouterParametre(panel, tfErratiques, "% Erratiques");
-        tfErratiques.setText(String
-                .valueOf((int) (Saison.proportionErratique * 100)));
-        ajouterParametre(panel, tfVoraces, "% Voraces");
-        tfVoraces
-                .setText(String.valueOf((int) (Saison.proportionVorace * 100)));
-        ajouterParametre(panel, tfCannibales, "% Cannibales");
-        tfCannibales.setText(String
-                .valueOf((int) (Saison.proportionCannibale * 100)));
-        ajouterParametre(panel, tfLapins, "% Lapins");
+        JFormattedTextField[] textFieldsNeuneus = {tfErratiques, tfVoraces, tfCannibales, tfLapins};
+        String[] titresNeuneus = {"% Erratiques", "% Voraces", "% Cannibales", "% Lapins"};
+        ajouterParametre(panel, textFieldsNeuneus, titresNeuneus);
+        
+        tfErratiques.setText(String.valueOf((int) (Saison.proportionErratique * 100)));
+        tfVoraces.setText(String.valueOf((int) (Saison.proportionVorace * 100)));
+        tfCannibales.setText(String.valueOf((int) (Saison.proportionCannibale * 100)));
         tfLapins.setText(String.valueOf((int) (Saison.proportionLapin * 100)));
 
         // Bouton relancer la saison
@@ -201,23 +180,32 @@ public class ZoneGraphique extends JFrame
 
         // Ajout des différents éléments au panneau de paramètres
 
-        panel.add(bRelancer, new GridBagConstraints(0, nbrParametres, 2, 1,
-                0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                new Insets(5, 10, 5, 20), 0, 0));
+        panel.add(bRelancer, new GridBagConstraints(0, nbrParametres, 2, 1, 0.0, 0.0, GridBagConstraints.CENTER,
+                GridBagConstraints.BOTH, new Insets(5, 10, 5, 20), 0, 0));
         return panel;
     }
 
-    private void ajouterParametre(JPanel panel, JFormattedTextField textField,
-            String titre)
+    private void ajouterParametre(JPanel panel, JFormattedTextField[] textFields, String[] titres)
     {
-        textField.setColumns(5);
-        panel.add(new JLabel(titre), new GridBagConstraints(0, nbrParametres,
-                1, 1, 0.0, 0.0, GridBagConstraints.WEST,
-                GridBagConstraints.NONE, new Insets(5, 10, 5, 10), 0, 0));
-        panel.add(textField, new GridBagConstraints(1, nbrParametres, 1, 1,
-                0.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.NONE,
-                new Insets(5, 5, 5, 10), 0, 0));
-        nbrParametres++;
+        for (int i = 0; i < textFields.length; i++)
+        {
+            textFields[i].setColumns(5);
+            int insetBas = (i == textFields.length - 1) ? 20 : 5;
+            String titre = (titres.length > i) ? titres[i] : "Paramètre";
+            
+            panel.add(new JLabel(titre), new GridBagConstraints(0, nbrParametres, 1, 1, 0.0, 0.0,
+                    GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 10, insetBas, 10), 0, 0));
+            panel.add(textFields[i], new GridBagConstraints(1, nbrParametres, 1, 1, 0.0, 0.0, GridBagConstraints.WEST,
+                    GridBagConstraints.NONE, new Insets(5, 10, insetBas, 10), 0, 0));
+            nbrParametres++;
+        }
+    }
+
+    private void ajouterParametre(JPanel panel, JFormattedTextField textField, String titre)
+    {
+        JFormattedTextField[] textFields = {textField};
+        String[] titres = {titre};
+        ajouterParametre(panel, textFields, titres);
     }
 
     public void setLoftPanel(JPanel loftPanel)
@@ -267,21 +255,19 @@ public class ZoneGraphique extends JFrame
         afficherEvenement(evenement, couleur, false);
     }
 
-    public void afficherEvenement(String evenement, Color couleur,
-            boolean sauterLigne)
+    public void afficherEvenement(String evenement, Color couleur, boolean sauterLigne)
     {
         afficherEvenement(evenement, couleur, sauterLigne, 0, true);
     }
 
-    public void afficherEvenement(String duree, String evenement,
-            Color couleur, boolean sauterLigne)
+    public void afficherEvenement(String duree, String evenement, Color couleur, boolean sauterLigne)
     {
         afficherEvenement(duree, new Color(100, 100, 100), false, 0, false);
         afficherEvenement(evenement, couleur, sauterLigne, 1, true);
     }
 
-    private void afficherEvenement(String evenement, Color couleur,
-            boolean sauterLigne, int positionX, boolean finLigne)
+    private void
+            afficherEvenement(String evenement, Color couleur, boolean sauterLigne, int positionX, boolean finLigne)
     {
         JLabel lEvenement = new JLabel(evenement);
         lEvenement.setForeground(couleur);
@@ -290,10 +276,8 @@ public class ZoneGraphique extends JFrame
         Insets ligneInsets = new Insets(2, 2, verticalInset, 5);
         int longueur = (finLigne) ? GridBagConstraints.REMAINDER : 1;
 
-        resumeContenuPanel.add(lEvenement, new GridBagConstraints(positionX,
-                nombreCommentaires, longueur, 1, 0.0, 0.0,
-                GridBagConstraints.WEST, GridBagConstraints.VERTICAL,
-                ligneInsets, 0, 0));
+        resumeContenuPanel.add(lEvenement, new GridBagConstraints(positionX, nombreCommentaires, longueur, 1, 0.0, 0.0,
+                GridBagConstraints.WEST, GridBagConstraints.VERTICAL, ligneInsets, 0, 0));
         System.out.println(evenement);
         if (finLigne)
         {
@@ -302,15 +286,13 @@ public class ZoneGraphique extends JFrame
 
         jsp.validate();
         jsp.repaint();
-        jsp.getVerticalScrollBar().setValue(
-                jsp.getVerticalScrollBar().getMaximum());
+        jsp.getVerticalScrollBar().setValue(jsp.getVerticalScrollBar().getMaximum());
     }
 
     private class RelancerAction implements ActionListener
     {
 
-        private boolean verifierPourcentageNeuneus(
-                JFormattedTextField[] textFields, String messageErreur)
+        private boolean verifierPourcentageNeuneus(JFormattedTextField[] textFields, String messageErreur)
         {
             boolean pourcentageOk = true;
             int total = 0;
@@ -323,22 +305,29 @@ public class ZoneGraphique extends JFrame
             if (total != 100)
             {
                 pourcentageOk = false;
-                JOptionPane.showMessageDialog(ZoneGraphique.this,
-                        messageErreur, "Pourcentages incorrects",
+                JOptionPane.showMessageDialog(ZoneGraphique.this, messageErreur, "Pourcentages incorrects",
                         JOptionPane.ERROR_MESSAGE);
             }
 
             return pourcentageOk;
         }
 
-        private String
-                verifierValeurPourcentage(JFormattedTextField textFields)
+        private String verifierValeurPourcentage(JFormattedTextField textFields)
         {
             Integer valeur = new Integer(textFields.getText());
             if (valeur > 100)
             {
                 textFields.setText("100");
             }
+
+            verifierValeurPositive(textFields);
+
+            return textFields.getText();
+        }
+
+        private String verifierValeurPositive(JFormattedTextField textFields)
+        {
+            Integer valeur = new Integer(textFields.getText());
 
             if (valeur < 0)
             {
@@ -352,7 +341,7 @@ public class ZoneGraphique extends JFrame
         public void actionPerformed(ActionEvent arg0)
         {
             new JPanel();
-            
+
             // Vérification de la vitesse
             Integer vitesse = new Integer(tfVitesse.getText());
             if (vitesse <= 0)
@@ -362,13 +351,12 @@ public class ZoneGraphique extends JFrame
             }
 
             Saison.WAITING_TIME = vitesse;
-            
+
             // Vérification du nombre de neuneus
             Saison.nombreLofteurs = new Integer(verifierValeurPourcentage(tfNbrNeuneus));
 
             // Vérification des pourcentages des neuneus
-            JFormattedTextField[] tfsPNeuneus = {tfErratiques, tfVoraces,
-                    tfCannibales, tfLapins};
+            JFormattedTextField[] tfsPNeuneus = {tfErratiques, tfVoraces, tfCannibales, tfLapins};
             boolean pNeuneus = verifierPourcentageNeuneus(tfsPNeuneus,
                     "Le total des pourcentages des proportions de neuneus doit être 100");
 
@@ -381,10 +369,9 @@ public class ZoneGraphique extends JFrame
             }
 
             // Vérficaiton des pourcentages de nourritures
-            Saison.proportionNourriture= (new Float(verifierValeurPourcentage(tfPNourriture))) / 100;
+            Saison.proportionNourriture = (new Float(verifierValeurPositive(tfPNourriture))) / 100;
 
-            JFormattedTextField[] tfsPNourriture = {tfPPizza, tfPCoca,
-                    tfPBiere};
+            JFormattedTextField[] tfsPNourriture = {tfPPizza, tfPCoca, tfPBiere};
             boolean pNourriture = verifierPourcentageNeuneus(tfsPNourriture,
                     "Le total des pourcentages des proportions de nourriture doit être 100");
 
@@ -394,7 +381,6 @@ public class ZoneGraphique extends JFrame
                 Saison.proportionCoca = (new Float(tfPCoca.getText())) / 100;
                 Saison.proportionBiere = (new Float(tfPBiere.getText())) / 100;
             }
-            
 
             resumeContenuPanel.removeAll();
             saison.redemarrerSaison();
