@@ -17,7 +17,7 @@ public class Erratique extends Neuneu
     protected void seDeplacer()
     {
         // Vérification bordure en X
-        if (this.posX == 0 || this.posX == loft.getTailleLoft() - 1)
+        if (this.posX == 0 || this.posX == loft.getTailleLoft())
         {
             // Décision sur la direction
             double mvHandle = Math.random();
@@ -34,7 +34,7 @@ public class Erratique extends Neuneu
         }
 
         // Vérification bordure en Y
-        if (this.posY == 0 || this.posY == loft.getTailleLoft() - 1)
+        if (this.posY == 0 || this.posY == loft.getTailleLoft())
         {
             // Décision sur la direction
             double mvHandle = Math.random();

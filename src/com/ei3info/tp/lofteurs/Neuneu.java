@@ -68,9 +68,10 @@ public abstract class Neuneu extends ObjetPositionnable
     }
 
     protected void seReproduire()
-    {
+    {   
+    if (this instanceof Lapin) {
         int[] nextN = trouverNeuneuPlusProche();
-        double distN = Math.sqrt(Math.pow(nextN[0], 2) + Math.pow(nextN[1], 2));
+        double distN = Math.sqrt(Math.pow((nextN[0] - this.posX), 2) + Math.pow((nextN[1] - this.posY), 2));
 
         if (distN == 0)
         {
@@ -120,6 +121,7 @@ public abstract class Neuneu extends ObjetPositionnable
             
         }
     }
+    }
 
     protected boolean mourir()
     {
@@ -163,6 +165,8 @@ public abstract class Neuneu extends ObjetPositionnable
     {
         double distMin = 2 * loft.getTailleLoft();
         int[] procheNeuneu = new int[2];
+        procheNeuneu[0] = 0;
+        procheNeuneu[1] = 0;
 
         // On parcourt la liste des ObjetDessinable
         LinkedList<ObjetDessinable> localListeObjet = loft.getListeObjets();
@@ -173,11 +177,10 @@ public abstract class Neuneu extends ObjetPositionnable
             {
                 Neuneu neuneu = (Neuneu) obj;
                 //On vérifie que l'objet ne soit pas l'objet appelant la fonction
-                boolean sameObj = false;
-                if ((neuneu.posX != this.posX) || (neuneu.posY != this.posY)){
+                if (!neuneu.equals(this)){
                     double dist = Math.sqrt(Math.pow((neuneu.posX - this.posX), 2)
                             + Math.pow((neuneu.posY - this.posY), 2));
-                    if (dist <= distMin)
+                    if (dist < distMin)
                     {
                         distMin = dist;
                         procheNeuneu[0] = neuneu.posX;
@@ -186,7 +189,6 @@ public abstract class Neuneu extends ObjetPositionnable
                 }
             }
         }
-
         return procheNeuneu;
     }
 
