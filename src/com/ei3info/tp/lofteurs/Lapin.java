@@ -6,7 +6,7 @@ public class Lapin extends Neuneu
 {
     private static int dernierNumero = 1;
     
-    protected static final int FAIM_LAPIN = 1;
+    protected static final int FAIM_LAPIN = 0;
 
     public Lapin(Loft loft, int x, int y)
     {
