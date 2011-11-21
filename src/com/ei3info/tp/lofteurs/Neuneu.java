@@ -11,7 +11,7 @@ public abstract class Neuneu extends ObjetPositionnable
     protected int              energie;
     protected static final int ENERGIE_MAX          = 40;
     protected Color            couleur              = Color.CYAN;
-    protected static final int ENERGIE_REPRODUCTION = 5;
+    protected static final int ENERGIE_REPRODUCTION = 1;
     protected int numero;
 
     protected Neuneu(int x, int y)
@@ -152,7 +152,7 @@ public abstract class Neuneu extends ObjetPositionnable
 
     public int[] trouverNeuneuPlusProche()
     {
-        int distMin = 2 * loft.getTailleLoft();
+        double distMin = 2 * loft.getTailleLoft();
         int[] procheNeuneu = new int[2];
 
         // On parcourt la liste des ObjetDessinable
@@ -168,6 +168,7 @@ public abstract class Neuneu extends ObjetPositionnable
                         + Math.pow((neuneu.posY - this.posY), 2));
                 if (dist <= distMin)
                 {
+                    distMin = dist;
                     procheNeuneu[0] = neuneu.posX;
                     procheNeuneu[1] = neuneu.posY;
                 }

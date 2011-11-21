@@ -6,7 +6,7 @@ public class Lapin extends Neuneu
 {
     private static int dernierNumero = 1;
     
-    protected static final int FAIM_LAPIN = 2;
+    protected static final int FAIM_LAPIN = 1;
 
     public Lapin(Loft loft, int x, int y)
     {
@@ -43,8 +43,8 @@ public class Lapin extends Neuneu
             int[] nextF = new int[2];
             nextF = trouverNourriturePlusProche();
             // Pathfinding basique
-            int mvHandleX = nextF[0] / Math.abs(nextF[0]);
-            int mvHandleY = nextF[1] / Math.abs(nextF[1]);
+            int mvHandleX = (nextF[0] == this.posX) ? 0 : (nextF[0] - this.posX) / Math.abs(nextF[0] - this.posX);
+            int mvHandleY = (nextF[1] == this.posY) ? 0 : (nextF[1] - this.posY) / Math.abs(nextF[1] - this.posY);
             // Déplacement
             this.posX = this.posX + mvHandleX;
             this.posY = this.posY + mvHandleY;
@@ -53,8 +53,8 @@ public class Lapin extends Neuneu
             // COMPORTEMENT CANNIBALE (twist!)
             nextN = trouverNeuneuPlusProche();
             // Pathfinding basique
-            int mvHandleX = nextN[0] / Math.abs(nextN[0]);
-            int mvHandleY = nextN[1] / Math.abs(nextN[1]);
+            int mvHandleX = (nextN[0] == this.posX) ? 0 : (nextN[0] - this.posX) / Math.abs(nextN[0] - this.posX);
+            int mvHandleY = (nextN[1] == this.posY) ? 0 : (nextN[1] - this.posY) / Math.abs(nextN[1] - this.posY);
             // Déplacement
             this.posX = this.posX + mvHandleX;
             this.posY = this.posY + mvHandleY;
