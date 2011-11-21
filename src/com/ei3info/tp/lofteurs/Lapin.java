@@ -27,7 +27,7 @@ public class Lapin extends Neuneu
         int[] nextN = new int[2];
         nextN = trouverNeuneuPlusProche();
 
-        int energN = nextN[0] + nextN[1] + FAIM_LAPIN + ENERGIE_REPRODUCTION;  // FAIM_LAPIN
+        int energN = (nextN[0] + nextN[1])/2 + FAIM_LAPIN + ENERGIE_REPRODUCTION;  // FAIM_LAPIN
                                                                               // fait
                                                                               // référence
                                                                               // au
