@@ -21,6 +21,7 @@ public class Loft extends Thread
     private ZoneGraphique               zone;
     private LinkedList<ObjetDessinable> listeObjets;
     private LinkedList<ObjetDessinable> listeObjetsDetruits;
+    private LinkedList<ObjetDessinable> listeObjetsCrees;
     private LoftPanel                   loftPanel;
     private static final int            WAITING_TIME = 200;
     private boolean                     finSaison    = false;
@@ -32,6 +33,7 @@ public class Loft extends Thread
         this.zone = zone;
         this.listeObjets = new LinkedList<ObjetDessinable>();
         this.listeObjetsDetruits = new LinkedList<ObjetDessinable>();
+        this.listeObjetsCrees= new LinkedList<ObjetDessinable>();
         this.loftPanel = new LoftPanel(listeObjets);
         loftPanel.setPreferredSize(new Dimension(tailleLoft
                 * ObjetPositionnable.tailleX, tailleLoft
@@ -57,8 +59,7 @@ public class Loft extends Thread
                 x -= Saison.proportionPizza;
                 if (x < Saison.proportionCoca)
                 {
-                    this.add(new Coca(
-                            (int) (Math.random() * (tailleLoft - 1)),
+                    this.add(new Coca((int) (Math.random() * (tailleLoft - 1)),
                             (int) (Math.random() * (tailleLoft - 1))));
                 } else
                 {
@@ -72,6 +73,43 @@ public class Loft extends Thread
                 }
             }
         }
+    }
+
+    public Neuneu creerNouveauNeuneu()
+    {
+        double x = Math.random();
+
+        Neuneu neuneu = null;
+        if (x < Saison.proportionVorace)
+        {
+            neuneu = new Vorace(this, (int) (Math.random() * (tailleLoft - 1)),
+                    (int) (Math.random() * (tailleLoft - 1)));
+        } else
+        {
+            x -= Saison.proportionVorace;
+            if (x < Saison.proportionErratique)
+            {
+                neuneu = new Erratique(this, (int) (Math.random() * (tailleLoft - 1)),
+                        (int) (Math.random() * (tailleLoft - 1)));
+            } else
+            {
+                x -= Saison.proportionErratique;
+                if (x < Saison.proportionCannibale)
+                {
+                    neuneu = new Cannibale(this, (int) (Math.random() * (tailleLoft - 1)),
+                            (int) (Math.random() * (tailleLoft - 1)));
+                } else
+                {
+                    x -= Saison.proportionCannibale;
+                    if (x < Saison.proportionLapin)
+                    {
+                        neuneu = new Lapin(this, (int) (Math.random() * (tailleLoft - 1)),
+                                (int) (Math.random() * (tailleLoft - 1)));
+                    }
+                }
+            }
+        }
+        return neuneu;
     }
 
     public void add(ObjetDessinable objet)
@@ -162,7 +200,12 @@ public class Loft extends Thread
                 listeObjets.remove(objetDetruit);
             }
             listeObjetsDetruits.clear();
-
+            for (ObjetDessinable objetCree : listeObjetsCrees)
+            {
+                listeObjets.add(objetCree);
+            }
+            listeObjetsCrees.clear();
+            
             long duree = System.currentTimeMillis() - debut;
             duree = (WAITING_TIME - duree < 0) ? 0 : WAITING_TIME - duree;
             try
@@ -215,5 +258,11 @@ public class Loft extends Thread
             boolean sauterLigne)
     {
         zone.afficherEvenement(evenement, couleur, sauterLigne);
+    }
+
+    public void addBebeNeuneu(Neuneu neuneucree)
+    {
+        this.listeObjetsCrees.add(neuneucree);
+        this.loftPanel.addBebeNeuneu(neuneucree);
     }
 }

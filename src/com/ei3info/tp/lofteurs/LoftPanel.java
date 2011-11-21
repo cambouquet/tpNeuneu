@@ -25,6 +25,11 @@ class LoftPanel extends JPanel
     private LinkedList<ObjetDessinable> listeObjetsDetruits;
 
     /**
+     * référence sur la liste des objets détruits pendant la réactualisation
+     */
+    private LinkedList<ObjetDessinable> listeObjetsCrees;
+
+    /**
      * constructeur
      * @param listeObjets
      *            r�f�rence sur la liste des objets (g�r�e par la ZoneGraphique)
@@ -33,6 +38,7 @@ class LoftPanel extends JPanel
     {
         this.listeObjets = new LinkedList<ObjetDessinable>(listeObjets);
         this.listeObjetsDetruits = new LinkedList<ObjetDessinable>();
+        this.listeObjetsCrees= new LinkedList<ObjetDessinable>();
     }
 
     /**
@@ -63,6 +69,13 @@ class LoftPanel extends JPanel
             listeObjets.remove(obj);
         }
         listeObjetsDetruits.clear();
+
+        for (ObjetDessinable obj : listeObjetsCrees)
+        {
+            obj.dessinerObjet(g);
+            listeObjets.add(obj);
+        }
+        listeObjetsCrees.clear();
     }
 
     public void updateListeObjets(LinkedList<ObjetDessinable> listeObjets)
@@ -80,5 +93,10 @@ class LoftPanel extends JPanel
     public void nettoyer()
     {
         listeObjets.clear();
+    }
+
+    public void addBebeNeuneu(Neuneu neuneucree)
+    {
+        this.listeObjetsCrees.add(neuneucree);
     }
 }

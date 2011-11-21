@@ -11,7 +11,7 @@ public abstract class Neuneu extends ObjetPositionnable
     protected int              energie;
     protected static final int ENERGIE_MAX          = 40;
     protected Color            couleur              = Color.CYAN;
-    protected static final int ENERGIE_REPRODUCTION = 1;
+    protected static final int ENERGIE_REPRODUCTION = 10;
     protected int numero;
 
     protected Neuneu(int x, int y)
@@ -74,6 +74,7 @@ public abstract class Neuneu extends ObjetPositionnable
 
         if (distN == 0)
         {
+            Neuneu neuneucree = null;
 
             // On parcourt la liste des ObjetDessinable pour déterminer lequel
             // est sur la même case
@@ -83,7 +84,7 @@ public abstract class Neuneu extends ObjetPositionnable
                 ObjetPositionnable objPos = (ObjetPositionnable) obj;
                 double dist = Math.sqrt(Math.pow(objPos.posX - this.posX, 2)
                         + Math.pow(objPos.posY - this.posY, 2));
-                if (dist == 0)
+                if (dist == 0 && !obj.equals(this))
                 {
 
                     // On vérifie que l'objet sur la même case est bien du type
@@ -92,6 +93,13 @@ public abstract class Neuneu extends ObjetPositionnable
                     {
                         Neuneu neuneu = (Neuneu) obj;
                         // Création d'un neuneu
+                        neuneucree = loft.creerNouveauNeuneu();
+                        if (neuneucree != null)
+                        {
+                            System.out.println(this.getNom() + " et " + neuneu.getNom() + " ont donné naissance à " + neuneucree.getNom());
+                            loft.afficherEvenementDuree(this.getNom() + " et " + neuneu.getNom() + " ont donné naissance à " + neuneucree.getNom(), Color.PINK, false);
+                            loft.addBebeNeuneu(neuneucree);
+                        }
 
                         // Vérification des niveaux d'énergie et destruction(s)
                         // éventuelle(s)
@@ -109,6 +117,7 @@ public abstract class Neuneu extends ObjetPositionnable
                     }
                 }
             }
+            
         }
     }
 

@@ -19,44 +19,15 @@ public class Saison1 extends Saison
     public void demarrerSaison()
     {
         loft = new Loft(tailleLoft, zone);
-        loft.remplissageAleatoire(0.4f);
+        loft.remplissageAleatoire(0.1f);
 
         for (int i = 0; i < nombreLofteurs; i++)
         {
-            double x = Math.random();
-            if (x < proportionVorace)
+            Neuneu neuneu = loft.creerNouveauNeuneu();
+            
+            if (neuneu != null)
             {
-                loft.add(new Vorace(loft,
-                        (int) (Math.random() * (tailleLoft - 1)), (int) (Math
-                                .random() * (tailleLoft - 1))));
-            } else
-            {
-                x -= proportionVorace;
-                if (x < proportionErratique)
-                {
-                    loft.add(new Erratique(loft,
-                            (int) (Math.random() * (tailleLoft - 1)),
-                            (int) (Math.random() * (tailleLoft - 1))));
-                } else
-                {
-                    x -= proportionErratique;
-                    if (x < proportionCannibale)
-                    {
-                        loft.add(new Cannibale(loft,
-                                (int) (Math.random() * (tailleLoft - 1)),
-                                (int) (Math.random() * (tailleLoft - 1))));
-                    } else
-                    {
-                        x -= proportionCannibale;
-                        if (x < proportionLapin)
-                        {
-                            loft.add(new Lapin(loft,
-                                    (int) (Math.random() * (tailleLoft - 1)),
-                                    (int) (Math.random() * (tailleLoft - 1))));
-                        }
-                    }
-
-                }
+                loft.add(neuneu);
             }
         }
 
