@@ -11,8 +11,8 @@ import java.awt.Graphics;
  */
 public abstract class Nourriture extends ObjetPositionnable
 {
+    public static int ENERGIE_MAX = 5;
     protected Color couleur = Color.black;
-    protected int energieMax = 5;
     protected int energieMin= 1;
     protected int energieInitiale;    
     protected int energie;    
@@ -20,7 +20,7 @@ public abstract class Nourriture extends ObjetPositionnable
     protected Nourriture(int x, int y)
     {
         super(x, y);
-        this.energieInitiale = (int) Math.rint(Math.random()*(energieMax - energieMin) + energieMin);
+        this.energieInitiale = (int) Math.rint(Math.random()*(ENERGIE_MAX - energieMin) + energieMin);
         this.energie = energieInitiale;
     }
 

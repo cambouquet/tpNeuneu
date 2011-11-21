@@ -6,12 +6,12 @@ import java.util.LinkedList;
 
 public abstract class Neuneu extends ObjetPositionnable
 {
+    public static int ENERGIE_MAX          = 40;
+    public static int ENERGIE_REPRODUCTION = 10;
 
     protected Loft             loft;
     protected int              energie;
-    protected static final int ENERGIE_MAX          = 40;
     protected Color            couleur              = Color.CYAN;
-    protected static final int ENERGIE_REPRODUCTION = 10;
     protected int numero;
 
     protected Neuneu(int x, int y)

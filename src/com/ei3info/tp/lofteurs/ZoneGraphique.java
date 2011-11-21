@@ -38,7 +38,7 @@ public class ZoneGraphique extends JFrame
     /**
      * Generated serial UID
      */
-    private static final long   serialVersionUID   = -4869859338320586441L;
+    private static final long   serialVersionUID     = -4869859338320586441L;
     private JPanel              actionPanel;
     private JPanel              parametresPanel;
     private JPanel              resumePanel;
@@ -46,20 +46,23 @@ public class ZoneGraphique extends JFrame
     private JScrollPane         jsp;
     private JPanel              footerPanel;
     private Saison              saison;
-    private JLabel              lDuree             = new JLabel();
-    private int                 nombreCommentaires = 0;
-    private int                 nbrParametres      = 0;
+    private JLabel              lDuree               = new JLabel();
+    private int                 nombreCommentaires   = 0;
+    private int                 nbrParametres        = 0;
 
-    private JFormattedTextField tfVitesse          = new JFormattedTextField(NumberFormat.getIntegerInstance());
-    private JFormattedTextField tfPNourriture      = new JFormattedTextField(NumberFormat.getIntegerInstance());
-    private JFormattedTextField tfNbrNeuneus       = new JFormattedTextField(NumberFormat.getIntegerInstance());
-    private JFormattedTextField tfPPizza           = new JFormattedTextField(NumberFormat.getIntegerInstance());
-    private JFormattedTextField tfPCoca            = new JFormattedTextField(NumberFormat.getIntegerInstance());
-    private JFormattedTextField tfPBiere           = new JFormattedTextField(NumberFormat.getIntegerInstance());
-    private JFormattedTextField tfErratiques       = new JFormattedTextField(NumberFormat.getIntegerInstance());
-    private JFormattedTextField tfVoraces          = new JFormattedTextField(NumberFormat.getIntegerInstance());
-    private JFormattedTextField tfCannibales       = new JFormattedTextField(NumberFormat.getIntegerInstance());
-    private JFormattedTextField tfLapins           = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfVitesse            = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfEnergMaxNeuneus    = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfEnergMaxNourriture = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfEnergReprod        = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfPNourriture        = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfNbrNeuneus         = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfPPizza             = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfPCoca              = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfPBiere             = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfErratiques         = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfVoraces            = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfCannibales         = new JFormattedTextField(NumberFormat.getIntegerInstance());
+    private JFormattedTextField tfLapins             = new JFormattedTextField(NumberFormat.getIntegerInstance());
 
     /**
      * constructeur
@@ -151,15 +154,24 @@ public class ZoneGraphique extends JFrame
         JFormattedTextField[] textFieldsQuantite = {tfNbrNeuneus, tfPNourriture};
         String[] titresQuantite = {"Nombre de neuneus", "% Nourriture"};
         ajouterParametre(panel, textFieldsQuantite, titresQuantite);
-        
+
         tfNbrNeuneus.setText(String.valueOf((int) (Saison.nombreLofteurs)));
         tfPNourriture.setText(String.valueOf((int) (Saison.proportionNourriture * 100)));
+
+        // energies
+        JFormattedTextField[] textFieldsEnergie = {tfEnergMaxNeuneus, tfEnergMaxNourriture, tfEnergReprod};
+        String[] titresEnergie = {"Energie max. neuneus", "Energie max. nourriture", "Energie reproduction"};
+        ajouterParametre(panel, textFieldsEnergie, titresEnergie);
+
+        tfEnergMaxNeuneus.setText(String.valueOf((int) (Neuneu.ENERGIE_MAX)));
+        tfEnergMaxNourriture.setText(String.valueOf((int) (Nourriture.ENERGIE_MAX)));
+        tfEnergReprod.setText(String.valueOf((int) (Neuneu.ENERGIE_REPRODUCTION)));
 
         // proportions de nourriture
         JFormattedTextField[] textFieldsNourriture = {tfPPizza, tfPCoca, tfPBiere};
         String[] titresNourriture = {"% Pizza", "% Coca", "% Biere"};
         ajouterParametre(panel, textFieldsNourriture, titresNourriture);
-        
+
         tfPPizza.setText(String.valueOf((int) (Saison.proportionPizza * 100)));
         tfPCoca.setText(String.valueOf((int) (Saison.proportionCoca * 100)));
         tfPBiere.setText(String.valueOf((int) (Saison.proportionBiere * 100)));
@@ -168,7 +180,7 @@ public class ZoneGraphique extends JFrame
         JFormattedTextField[] textFieldsNeuneus = {tfErratiques, tfVoraces, tfCannibales, tfLapins};
         String[] titresNeuneus = {"% Erratiques", "% Voraces", "% Cannibales", "% Lapins"};
         ajouterParametre(panel, textFieldsNeuneus, titresNeuneus);
-        
+
         tfErratiques.setText(String.valueOf((int) (Saison.proportionErratique * 100)));
         tfVoraces.setText(String.valueOf((int) (Saison.proportionVorace * 100)));
         tfCannibales.setText(String.valueOf((int) (Saison.proportionCannibale * 100)));
@@ -192,7 +204,7 @@ public class ZoneGraphique extends JFrame
             textFields[i].setColumns(5);
             int insetBas = (i == textFields.length - 1) ? 20 : 5;
             String titre = (titres.length > i) ? titres[i] : "Paramètre";
-            
+
             panel.add(new JLabel(titre), new GridBagConstraints(0, nbrParametres, 1, 1, 0.0, 0.0,
                     GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 10, insetBas, 10), 0, 0));
             panel.add(textFields[i], new GridBagConstraints(1, nbrParametres, 1, 1, 0.0, 0.0, GridBagConstraints.WEST,
@@ -381,6 +393,11 @@ public class ZoneGraphique extends JFrame
                 Saison.proportionCoca = (new Float(tfPCoca.getText())) / 100;
                 Saison.proportionBiere = (new Float(tfPBiere.getText())) / 100;
             }
+            
+            // Vérification des énergies
+            Neuneu.ENERGIE_MAX = new Integer(verifierValeurPourcentage(tfEnergMaxNeuneus));
+            Nourriture.ENERGIE_MAX = new Integer(verifierValeurPourcentage(tfEnergMaxNourriture));
+            Neuneu.ENERGIE_REPRODUCTION = new Integer(verifierValeurPourcentage(tfEnergReprod));
 
             resumeContenuPanel.removeAll();
             saison.redemarrerSaison();
