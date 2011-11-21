@@ -125,7 +125,7 @@ public class ZoneGraphique extends JFrame
         jsp = new JScrollPane(resumeContenuPanel);
         jsp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         jsp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        jsp.setPreferredSize(new Dimension(250, 400));
+        jsp.setPreferredSize(new Dimension(300, 400));
         resumeContenuPanel.setLayout(new GridBagLayout());
 
         panel.setLayout(new BorderLayout());
