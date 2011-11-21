@@ -152,7 +152,7 @@ public class ZoneGraphique extends JFrame
 
         // quantités d'éléments
         JFormattedTextField[] textFieldsQuantite = {tfNbrNeuneus, tfPNourriture};
-        String[] titresQuantite = {"Nombre de neuneus", "% Nourriture"};
+        String[] titresQuantite = {"Nombre de neuneus", "Quantité de nourriture"};
         ajouterParametre(panel, textFieldsQuantite, titresQuantite);
 
         tfNbrNeuneus.setText(String.valueOf((int) (Saison.nombreLofteurs)));
