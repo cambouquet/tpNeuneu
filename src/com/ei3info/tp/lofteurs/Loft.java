@@ -40,10 +40,8 @@ public class Loft extends Thread
         this.zone.setLoftPanel(loftPanel);
     }
 
-    public void remplissageAleatoire(float f)
+    public void remplissageAleatoire(int nbrCaseARemplir)
     {
-        int nbrCaseARemplir = (int) (f * tailleLoft);
-
         for (int i = 0; i < nbrCaseARemplir; i++)
         {
             double x = Math.random();

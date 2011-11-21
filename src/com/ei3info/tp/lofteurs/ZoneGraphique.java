@@ -156,7 +156,7 @@ public class ZoneGraphique extends JFrame
         ajouterParametre(panel, textFieldsQuantite, titresQuantite);
 
         tfNbrNeuneus.setText(String.valueOf((int) (Saison.nombreLofteurs)));
-        tfPNourriture.setText(String.valueOf((int) (Saison.proportionNourriture * 100)));
+        tfPNourriture.setText(String.valueOf(Saison.quantiteNourriture));
 
         // energies
         JFormattedTextField[] textFieldsEnergie = {tfEnergMaxNeuneus, tfEnergMaxNourriture, tfEnergReprod};
@@ -381,7 +381,7 @@ public class ZoneGraphique extends JFrame
             }
 
             // Vérficaiton des pourcentages de nourritures
-            Saison.proportionNourriture = (new Float(verifierValeurPositive(tfPNourriture))) / 100;
+            Saison.quantiteNourriture = new Integer(verifierValeurPositive(tfPNourriture));
 
             JFormattedTextField[] tfsPNourriture = {tfPPizza, tfPCoca, tfPBiere};
             boolean pNourriture = verifierPourcentageNeuneus(tfsPNourriture,
