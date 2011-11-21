@@ -164,16 +164,26 @@ public class ZoneGraphique extends JFrame
                 loftPanel = new JPanel();
                 try
                 {
-
                     Float fErratique = new Float(tfPErratiques.getText());
                     Float fVorace = new Float(tfVoraces.getText());
                     Float fCannibale = new Float(tfCannibales.getText());
                     Float fLapin = new Float(tfLapins.getText());
+                    if (fErratique + fVorace + fCannibale + fLapin == 100.0f)
+                    {
+                        Saison.proportionErratique = fErratique / 100;
+                        Saison.proportionVorace = fVorace / 100;
+                        Saison.proportionCannibale = fCannibale / 100;
+                        Saison.proportionLapin = fLapin / 100;
+                    } else
+                    {
+                        JOptionPane
+                        .showMessageDialog(
+                                ZoneGraphique.this,
+                                "Le total des pourcentages des proportions de neuneus doit être 100",
+                                "Pourcentages incorrects",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
 
-                    Saison.proportionErratique = fErratique / 100;
-                    Saison.proportionVorace = fVorace / 100;
-                    Saison.proportionCannibale = fCannibale / 100;
-                    Saison.proportionLapin = fLapin / 100;
                 } catch (NumberFormatException e)
                 {
                     JOptionPane
