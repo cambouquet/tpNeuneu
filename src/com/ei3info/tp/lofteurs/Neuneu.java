@@ -167,19 +167,22 @@ public abstract class Neuneu extends ObjetPositionnable
         // On parcourt la liste des ObjetDessinable
         LinkedList<ObjetDessinable> localListeObjet = loft.getListeObjets();
         for (ObjetDessinable obj : localListeObjet)
-        {
-
+        {        
             // On vérifie avant tout que l'on teste la Nourriture
             if (obj instanceof Neuneu)
             {
                 Neuneu neuneu = (Neuneu) obj;
-                double dist = Math.sqrt(Math.pow((neuneu.posX - this.posX), 2)
-                        + Math.pow((neuneu.posY - this.posY), 2));
-                if (dist <= distMin)
-                {
-                    distMin = dist;
-                    procheNeuneu[0] = neuneu.posX;
-                    procheNeuneu[1] = neuneu.posY;
+                //On vérifie que l'objet ne soit pas l'objet appelant la fonction
+                boolean sameObj = false;
+                if ((neuneu.posX != this.posX) || (neuneu.posY != this.posY)){
+                    double dist = Math.sqrt(Math.pow((neuneu.posX - this.posX), 2)
+                            + Math.pow((neuneu.posY - this.posY), 2));
+                    if (dist <= distMin)
+                    {
+                        distMin = dist;
+                        procheNeuneu[0] = neuneu.posX;
+                        procheNeuneu[1] = neuneu.posY;
+                    }
                 }
             }
         }

@@ -23,42 +23,25 @@ public class Lapin extends Neuneu
         // S'il n'a pas suffisamment d'énergie pour se déplacer et se
         // reproduire, il cherchera d'abord à manger.
 
+     // Recherche de la nourriture la plus proche
+        int[] nextF = new int[2];
+        nextF = trouverNourriturePlusProche();
         // Recherche du neuneu le plus proche
         int[] nextN = new int[2];
         nextN = trouverNeuneuPlusProche();
-
-        int energN = (nextN[0] + nextN[1])/2 + FAIM_LAPIN + ENERGIE_REPRODUCTION;  // FAIM_LAPIN
-                                                                              // fait
-                                                                              // référence
-                                                                              // au
-                                                                              // niveau
-                                                                              // de
-                                                                              // risque
-                                                                              // du
-                                                                              // Lapin.
-        if (this.energie < energN)
-        {
-            // COMPORTEMENT VORACE
-            // Recherche de la nourriture la plus proche
-            int[] nextF = new int[2];
-            nextF = trouverNourriturePlusProche();
-            // Pathfinding basique
-            int mvHandleX = (nextF[0] == this.posX) ? 0 : (nextF[0] - this.posX) / Math.abs(nextF[0] - this.posX);
-            int mvHandleY = (nextF[1] == this.posY) ? 0 : (nextF[1] - this.posY) / Math.abs(nextF[1] - this.posY);
-            // Déplacement
-            this.posX = this.posX + mvHandleX;
-            this.posY = this.posY + mvHandleY;
-        } else
-        {
-            // COMPORTEMENT CANNIBALE (twist!)
-            nextN = trouverNeuneuPlusProche();
-            // Pathfinding basique
-            int mvHandleX = (nextN[0] == this.posX) ? 0 : (nextN[0] - this.posX) / Math.abs(nextN[0] - this.posX);
-            int mvHandleY = (nextN[1] == this.posY) ? 0 : (nextN[1] - this.posY) / Math.abs(nextN[1] - this.posY);
-            // Déplacement
-            this.posX = this.posX + mvHandleX;
-            this.posY = this.posY + mvHandleY;
+        // Détermination de la source la plus proche
+        int distF = Math.abs(nextF[0] - this.posX) + Math.abs(nextF[1] - this.posY);
+        int distN = Math.abs(nextN[0] - this.posX) + Math.abs(nextN[1] - this.posY);
+        if (distF + FAIM_LAPIN < distN) {
+            nextN[0] = nextF[0];
+            nextN[1] = nextF[1];
         }
+        // Pathfinding basique
+        int mvHandleX = (nextN[0] == this.posX) ? 0 : (nextN[0] - this.posX) / Math.abs((nextN[0] - this.posX));
+        int mvHandleY = (nextN[1] == this.posY) ? 0 : (nextN[1] - this.posY) / Math.abs((nextN[1] - this.posY));
+        // Déplacement
+        this.posX = this.posX + mvHandleX;
+        this.posY = this.posY + mvHandleY;
 
     }
     
