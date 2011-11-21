@@ -140,6 +140,7 @@ public abstract class Neuneu extends ObjetPositionnable
                         + Math.pow((miam.posY - this.posY), 2));
                 if (dist <= distMin)
                 {
+                    distMin = dist;
                     procheMiam[0] = miam.posX;
                     procheMiam[1] = miam.posY;
                 }
