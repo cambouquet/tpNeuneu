@@ -32,11 +32,12 @@ public class Cannibale extends Neuneu
             nextN[0] = 0; // Il fallait bien mettre quelque chose.
         } else
         {
-            nextF = nextN;
+            nextF[0] = nextN[0];
+            nextF[1] = nextF[1];
         }
         // Pathfinding basique
-        int mvHandleX = (nextN[0] == this.posX) ? 0 : (nextN[0] - this.posX) / Math.abs((nextN[0] - this.posX));
-        int mvHandleY = (nextN[1] == this.posY) ? 0 : (nextN[1] - this.posY) / Math.abs((nextN[1] - this.posY));
+        int mvHandleX = (nextF[0] == this.posX) ? 0 : (nextF[0] - this.posX) / Math.abs((nextF[0] - this.posX));
+        int mvHandleY = (nextF[1] == this.posY) ? 0 : (nextF[1] - this.posY) / Math.abs((nextF[1] - this.posY));
         // Déplacement
         this.posX = this.posX + mvHandleX;
         this.posY = this.posY + mvHandleY;
