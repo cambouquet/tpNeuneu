@@ -21,12 +21,23 @@ public class Erratique extends Neuneu
         {
             // Décision sur la direction
             double mvHandle = Math.random();
-            if (mvHandle < 0.5)
+            if (mvHandle < 0.33)
             {
                 mvHandle = -1;
             } else
             {
-                mvHandle = 1;
+                if (mvHandle < 0.67) {
+                    mvHandle = 1;
+                } else
+                {
+                    mvHandle = 0;
+                    if (this.posX == 0) {
+                        this.posX = 1;
+                    } else
+                    {
+                        this.posX = this.posX - 1;
+                    }
+                }
             }
 
             // Déplacement effectif
@@ -37,12 +48,23 @@ public class Erratique extends Neuneu
 
             // Décision sur la direction
             double mvHandle = Math.random();
-            if (mvHandle < 0.5)
+            if (mvHandle < 0.33)
             {
                 mvHandle = -1;
             } else
             {
-                mvHandle = 1;
+                if (mvHandle < 0.67) {
+                    mvHandle = 1;
+                } else
+                {
+                    mvHandle = 0;
+                    if (this.posY == 0) {
+                        this.posY = 1;
+                    } else
+                    {
+                        this.posY = this.posY - 1;
+                    }
+                }
             }
             // Déplacement effectif
             this.posX = this.posX + (int) mvHandle;

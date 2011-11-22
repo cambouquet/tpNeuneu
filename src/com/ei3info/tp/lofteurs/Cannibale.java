@@ -110,6 +110,7 @@ public class Cannibale extends Neuneu
                 procheMiam.consommer(procheMiam.getEnergie());
                 loft.detruireObjet(procheMiam);
             }
+            loft.afficherEvenementDuree(getNom() + " : \"" + procheMiam.getDescriptionConsommation() + "\"");
         }
     }
 
