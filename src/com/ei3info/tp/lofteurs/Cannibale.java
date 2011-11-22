@@ -51,18 +51,19 @@ public class Cannibale extends Neuneu
         {
             nextD[0] = procheMiam.posX;
             nextD[1] = procheMiam.posY;
+        } else
+        {
+            // Si il reste au moins 1 autre neuneu ou une autre nourriture
+            nextD[0] = this.posX;
+            nextD[1] = this.posY;
         }
-        
+
         int mvHandleX = 0;
         int mvHandleY = 0;
-        
-        // Si il reste au moins 1 autre neuneu ou une autre nourriture
-        if (nextD != null)
-        {
-            // Pathfinding basique
-            mvHandleX = (nextD[0] == this.posX) ? 0 : (nextD[0] - this.posX) / Math.abs((nextD[0] - this.posX));
-            mvHandleY = (nextD[1] == this.posY) ? 0 : (nextD[1] - this.posY) / Math.abs((nextD[1] - this.posY));
-        }
+
+        // Pathfinding basique
+        mvHandleX = (nextD[0] == this.posX) ? 0 : (nextD[0] - this.posX) / Math.abs((nextD[0] - this.posX));
+        mvHandleY = (nextD[1] == this.posY) ? 0 : (nextD[1] - this.posY) / Math.abs((nextD[1] - this.posY));
 
         // Déplacement
         this.posX = this.posX + mvHandleX;
@@ -91,10 +92,11 @@ public class Cannibale extends Neuneu
             // Mort du neuneu qui s'est fait bouffer
             procheNeuneu.setEnergie(0);
             procheNeuneu.mourir();
-            loft.afficherEvenementDuree("Oh non ! " + getNom() + " a dévoré " + procheNeuneu.getNom() + " !!!", Color.RED, false);
+            loft.afficherEvenementDuree("Oh non ! " + getNom() + " a dévoré " + procheNeuneu.getNom() + " !!!",
+                    Color.RED, false);
         }
 
-     // On mange la nourriture si elle est sur la même case
+        // On mange la nourriture si elle est sur la même case
         if (procheMiam != null && procheMiam.posX == this.posX && procheMiam.posY == this.posY)
         {
             int enerT = (Neuneu.ENERGIE_MAX - this.energie) - procheMiam.getEnergie();

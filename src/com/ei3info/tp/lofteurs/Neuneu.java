@@ -31,7 +31,7 @@ public abstract class Neuneu extends ObjetPositionnable
     protected void manger()
     {
         Nourriture procheMiam = trouverNourriturePlusProche();
-        
+
         // S'il reste au moins 1 nourriture
         if (procheMiam != null)
         {
@@ -92,14 +92,8 @@ public abstract class Neuneu extends ObjetPositionnable
                     this.energie = this.energie - ENERGIE_REPRODUCTION;
                     procheNeuneu.setEnergie(procheNeuneu.getEnergie() - ENERGIE_REPRODUCTION);
 
-                    if (this.energie <= 0)
-                    {
-                        this.mourir();
-                    }
-                    if (procheNeuneu.getEnergie() <= 0)
-                    {
-                        procheNeuneu.mourir();
-                    }
+                    this.mourir();
+                    procheNeuneu.mourir();
                 }
             }
 
