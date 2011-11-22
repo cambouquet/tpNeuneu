@@ -38,7 +38,7 @@ public abstract class Nourriture extends ObjetPositionnable
      */
     protected void consommer(int quantite)
     {
-        energie -= quantite;
+        this.energie = this.energie - quantite;
     }
 
     public int getEnergie()

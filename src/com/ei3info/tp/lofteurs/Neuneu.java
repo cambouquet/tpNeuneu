@@ -49,8 +49,8 @@ public abstract class Neuneu extends ObjetPositionnable
                                 - miam.getEnergie();
                         if (enerT <= 0)
                         {
-                            miam.consommer(- enerT);
-                            this.energie = Neuneu.ENERGIE_MAX;
+                            miam.consommer(Neuneu.ENERGIE_MAX - this.energie);
+                            this.energie = Neuneu.ENERGIE_MAX - 1; // On s'assure qu'un Neuneu ne reste pas trop bloqué
                         } else
                         {
                             this.energie = this.energie + miam.getEnergie();
