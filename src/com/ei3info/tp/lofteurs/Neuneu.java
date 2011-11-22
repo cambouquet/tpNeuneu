@@ -31,24 +31,29 @@ public abstract class Neuneu extends ObjetPositionnable
     protected void manger()
     {
         Nourriture procheMiam = trouverNourriturePlusProche();
-        if (procheMiam.posX == posX && procheMiam.posY == posY)
+        
+        // S'il reste au moins 1 nourriture
+        if (procheMiam != null)
         {
-            int enerT = (Neuneu.ENERGIE_MAX - this.energie) - procheMiam.getEnergie();
-            if (enerT <= 0)
+            if (procheMiam.posX == posX && procheMiam.posY == posY)
             {
-                procheMiam.consommer(Neuneu.ENERGIE_MAX - this.energie);
-                // On s'assure qu'un Neuneu ne reste pas trop bloqué
-                this.energie = Neuneu.ENERGIE_MAX - 1;
-            } else
-            {
-                this.energie = this.energie + procheMiam.getEnergie();
-                procheMiam.consommer(procheMiam.getEnergie());
+                int enerT = (Neuneu.ENERGIE_MAX - this.energie) - procheMiam.getEnergie();
+                if (enerT <= 0)
+                {
+                    procheMiam.consommer(Neuneu.ENERGIE_MAX - this.energie);
+                    // On s'assure qu'un Neuneu ne reste pas trop bloqué
+                    this.energie = Neuneu.ENERGIE_MAX - 1;
+                } else
+                {
+                    this.energie = this.energie + procheMiam.getEnergie();
+                    procheMiam.consommer(procheMiam.getEnergie());
+                }
+                if (procheMiam.getEnergie() <= 0)
+                {
+                    loft.detruireObjet(procheMiam);
+                }
+                loft.afficherEvenementDuree(getNom() + " : \"" + procheMiam.getDescriptionConsommation() + "\"");
             }
-            if (procheMiam.getEnergie() <= 0)
-            {
-                loft.detruireObjet(procheMiam);
-            }
-            loft.afficherEvenementDuree(getNom() + " : \"" + procheMiam.getDescriptionConsommation() + "\"");
         }
     }
 
