@@ -23,10 +23,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 /**
- * une classe comportant une zone graphique dans laquelle on peut dessiner ; le
- * dessin est refait automatiquement par la classe Panel associée ; tous les
- * objets de type ObjetDessinable ajoutés à la liste sont redessinés par un
- * appel à leur méthode dessinerObjet(Graphics g)
+ * La fenetre graphique de l'application. Elle contient le panneau du loft, un
+ * panneau pour modifier les paramètres et relancer la saison et un panneau avec
+ * les événements.
  * @see ObjectDessinable,LoftPanel
  * @author moreau
  * @author Camille Bouquet
@@ -393,7 +392,7 @@ public class ZoneGraphique extends JFrame
                 Saison.proportionCoca = (new Float(tfPCoca.getText())) / 100;
                 Saison.proportionBiere = (new Float(tfPBiere.getText())) / 100;
             }
-            
+
             // Vérification des énergies
             Neuneu.ENERGIE_MAX = new Integer(verifierValeurPourcentage(tfEnergMaxNeuneus));
             Nourriture.ENERGIE_MAX = new Integer(verifierValeurPourcentage(tfEnergMaxNourriture));
