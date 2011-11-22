@@ -108,7 +108,7 @@ public abstract class Neuneu extends ObjetPositionnable
 
                         // Modification des niveaux d'énergie et destruction(s)
                         // éventuelle(s)
-                        this.energie -= ENERGIE_REPRODUCTION;
+                        this.energie = this.energie - ENERGIE_REPRODUCTION;
                         neuneu.setEnergie(neuneu.getEnergie() - ENERGIE_REPRODUCTION);
 
                         if (this.energie <= 0)

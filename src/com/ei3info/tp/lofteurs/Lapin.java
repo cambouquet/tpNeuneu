@@ -24,7 +24,7 @@ public class Lapin extends Neuneu
         // S'il n'a pas suffisamment d'énergie pour se déplacer et se
         // reproduire, il cherchera d'abord à manger.
 
-     // Recherche de la nourriture la plus proche
+        // Recherche de la nourriture la plus proche
         int[] nextF = new int[2];
         nextF = trouverNourriturePlusProche();
         // Recherche du neuneu le plus proche
