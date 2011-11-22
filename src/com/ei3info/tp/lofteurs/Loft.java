@@ -12,12 +12,14 @@ import java.util.LinkedList;
 import javax.swing.JLabel;
 
 /**
- * @author Camille
+ * Le loft.\n 
+ * Contient les différents éléments à afficher et gère la boucle d'événements.
+ * 
+ * @author Camille Bouquet
+ * @author Antoine Sellam
  */
 public class Loft extends Thread
 {
-
-    private int                         tailleLoft;
     private ZoneGraphique               zone;
     private LinkedList<ObjetDessinable> listeObjets;
     private LinkedList<ObjetDessinable> listeObjetsDetruits;
@@ -26,17 +28,16 @@ public class Loft extends Thread
     private boolean                     finSaison = false;
     private int                         heures;
 
-    public Loft(int tailleLoft, ZoneGraphique zone)
+    public Loft(ZoneGraphique zone)
     {
-        this.tailleLoft = tailleLoft;
         this.zone = zone;
         this.listeObjets = new LinkedList<ObjetDessinable>();
         this.listeObjetsDetruits = new LinkedList<ObjetDessinable>();
         this.listeObjetsCrees = new LinkedList<ObjetDessinable>();
         this.loftPanel = new LoftPanel(listeObjets);
-        loftPanel.setPreferredSize(new Dimension(tailleLoft * ObjetPositionnable.tailleX, tailleLoft
+        loftPanel.setPreferredSize(new Dimension(Saison.tailleLoft * ObjetPositionnable.tailleX, Saison.tailleLoft
                 * ObjetPositionnable.tailleY));
-        loftPanel.setSize(tailleLoft * ObjetPositionnable.tailleX, tailleLoft * ObjetPositionnable.tailleY);
+        loftPanel.setSize(Saison.tailleLoft * ObjetPositionnable.tailleX, Saison.tailleLoft * ObjetPositionnable.tailleY);
         this.zone.setLoftPanel(loftPanel);
     }
 
@@ -47,21 +48,21 @@ public class Loft extends Thread
             double x = Math.random();
             if (x < Saison.proportionPizza)
             {
-                this.add(new Pizza((int) (Math.random() * (tailleLoft - 1)), (int) (Math.random() * (tailleLoft - 1))));
+                this.add(new Pizza((int) (Math.random() * (Saison.tailleLoft - 1)), (int) (Math.random() * (Saison.tailleLoft - 1))));
             } else
             {
                 x -= Saison.proportionPizza;
                 if (x < Saison.proportionCoca)
                 {
-                    this.add(new Coca((int) (Math.random() * (tailleLoft - 1)),
-                            (int) (Math.random() * (tailleLoft - 1))));
+                    this.add(new Coca((int) (Math.random() * (Saison.tailleLoft - 1)),
+                            (int) (Math.random() * (Saison.tailleLoft - 1))));
                 } else
                 {
                     x -= Saison.proportionCoca;
                     if (x < Saison.proportionBiere)
                     {
-                        this.add(new Biere((int) (Math.random() * (tailleLoft - 1)),
-                                (int) (Math.random() * (tailleLoft - 1))));
+                        this.add(new Biere((int) (Math.random() * (Saison.tailleLoft - 1)),
+                                (int) (Math.random() * (Saison.tailleLoft - 1))));
                     }
                 }
             }
@@ -75,29 +76,29 @@ public class Loft extends Thread
         Neuneu neuneu = null;
         if (x < Saison.proportionVorace)
         {
-            neuneu = new Vorace(this, (int) (Math.random() * (tailleLoft - 1)),
-                    (int) (Math.random() * (tailleLoft - 1)));
+            neuneu = new Vorace(this, (int) (Math.random() * (Saison.tailleLoft - 1)),
+                    (int) (Math.random() * (Saison.tailleLoft - 1)));
         } else
         {
             x -= Saison.proportionVorace;
             if (x < Saison.proportionErratique)
             {
-                neuneu = new Erratique(this, (int) (Math.random() * (tailleLoft - 1)),
-                        (int) (Math.random() * (tailleLoft - 1)));
+                neuneu = new Erratique(this, (int) (Math.random() * (Saison.tailleLoft - 1)),
+                        (int) (Math.random() * (Saison.tailleLoft - 1)));
             } else
             {
                 x -= Saison.proportionErratique;
                 if (x < Saison.proportionCannibale)
                 {
-                    neuneu = new Cannibale(this, (int) (Math.random() * (tailleLoft - 1)),
-                            (int) (Math.random() * (tailleLoft - 1)));
+                    neuneu = new Cannibale(this, (int) (Math.random() * (Saison.tailleLoft - 1)),
+                            (int) (Math.random() * (Saison.tailleLoft - 1)));
                 } else
                 {
                     x -= Saison.proportionCannibale;
                     if (x < Saison.proportionLapin)
                     {
-                        neuneu = new Lapin(this, (int) (Math.random() * (tailleLoft - 1)),
-                                (int) (Math.random() * (tailleLoft - 1)));
+                        neuneu = new Lapin(this, (int) (Math.random() * (Saison.tailleLoft - 1)),
+                                (int) (Math.random() * (Saison.tailleLoft - 1)));
                     }
                 }
             }
@@ -122,11 +123,6 @@ public class Loft extends Thread
             }
         }
         return nbrNeuneus;
-    }
-
-    public int getTailleLoft()
-    {
-        return this.tailleLoft;
     }
 
     public void detruireObjet(ObjetDessinable objetADetruire)

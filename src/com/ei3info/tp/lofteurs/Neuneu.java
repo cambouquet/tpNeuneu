@@ -113,7 +113,7 @@ public abstract class Neuneu extends ObjetPositionnable
 
     public Nourriture trouverNourriturePlusProche()
     {
-        double distMin = 2 * Math.pow(loft.getTailleLoft(), 2);
+        double distMin = 2 * Math.pow(Saison.tailleLoft, 2);
         Nourriture procheMiam = null;
 
         // On parcourt la liste des ObjetDessinable
@@ -138,7 +138,7 @@ public abstract class Neuneu extends ObjetPositionnable
 
     public Neuneu trouverNeuneuPlusProche()
     {
-        double distMin = 2 * loft.getTailleLoft();
+        double distMin = 2 * Saison.tailleLoft;
         Neuneu procheNeuneu = null;
 
         // On parcourt la liste des ObjetDessinable
