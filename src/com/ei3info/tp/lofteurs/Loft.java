@@ -226,7 +226,7 @@ public class Loft extends Thread
         while (nombreNeuneusPrésents() > 0 && !finSaison)
         {
             // Début d'un tour de jeu
-            zone.setTime(getDuree());
+            zone.setDuree(getDuree());
             long debut = System.currentTimeMillis();
 
             for (ObjetDessinable objet : listeObjets)
