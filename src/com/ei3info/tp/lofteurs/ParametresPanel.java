@@ -17,37 +17,118 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
- * @author Camille
+ * Le panneau contenant les différents paramètes pour configurer une saison et
+ * le bouton pour relancer une nouvelle saison.
+ * @author Camille Bouquet
+ * @author Antoine Sellam
  */
 public class ParametresPanel extends JPanel
 {
     /**
-     * 
+     * Generated default serial UID.
      */
-    private static final long serialVersionUID = 1L;
+    private static final long   serialVersionUID     = 1L;
+
+    /**
+     * La zone graphique qui contient ce panneau.
+     */
     private ZoneGraphique       zone;
+
+    /**
+     * Le nombre de paramètres actuellement ajoutés au panneau.
+     */
     private int                 nbrParametres        = 0;
 
+    /**
+     * Zone de saisie pour la vitesse qui correspond au temps d'attente en ms
+     * entre chaque tour.
+     */
     private JFormattedTextField tfVitesse            = new JFormattedTextField(NumberFormat.getIntegerInstance());
+
+    /**
+     * Zone de saisie pour l'énergie maximale des neuneus.
+     */
     private JFormattedTextField tfEnergMaxNeuneus    = new JFormattedTextField(NumberFormat.getIntegerInstance());
+
+    /**
+     * Zone de saisie pour la quantité maximale d'énergie que peur procurer la
+     * nourriture.
+     */
     private JFormattedTextField tfEnergMaxNourriture = new JFormattedTextField(NumberFormat.getIntegerInstance());
+
+    /**
+     * Zone de saisie pour la quantité d'énergie que prend le fait de se
+     * reproduire.
+     */
     private JFormattedTextField tfEnergReprod        = new JFormattedTextField(NumberFormat.getIntegerInstance());
+
+    /**
+     * Zone de saisie pour la quantité initiale de nourriture à placer dans le
+     * loft.
+     */
     private JFormattedTextField tfPNourriture        = new JFormattedTextField(NumberFormat.getIntegerInstance());
+
+    /**
+     * Zone de saisie pour le nombre initial de neuneus présents dans le loft.
+     */
     private JFormattedTextField tfNbrNeuneus         = new JFormattedTextField(NumberFormat.getIntegerInstance());
+
+    /**
+     * Zone de saisie pour la proportion de pizza parmi la nourriture
+     * initialement placée dans le loft.
+     */
     private JFormattedTextField tfPPizza             = new JFormattedTextField(NumberFormat.getIntegerInstance());
+
+    /**
+     * Zone de saisie pour la proportion de coca parmi la nourriture
+     * initialement placée dans le loft.
+     */
     private JFormattedTextField tfPCoca              = new JFormattedTextField(NumberFormat.getIntegerInstance());
+
+    /**
+     * Zone de saisie pour la proportion de bière parmi la nourriture
+     * initialement placée dans le loft.
+     */
     private JFormattedTextField tfPBiere             = new JFormattedTextField(NumberFormat.getIntegerInstance());
+
+    /**
+     * Zone de saisie pour la proportion d'erratique parmi les neuneus placés
+     * dans le loft.
+     */
     private JFormattedTextField tfErratiques         = new JFormattedTextField(NumberFormat.getIntegerInstance());
+
+    /**
+     * Zone de saisie pour la proportion de voraces parmi les neuneus placés
+     * dans le loft.
+     */
     private JFormattedTextField tfVoraces            = new JFormattedTextField(NumberFormat.getIntegerInstance());
+
+    /**
+     * Zone de saisie pour la proportion de cannibales parmi les neuneus placés
+     * dans le loft.
+     */
     private JFormattedTextField tfCannibales         = new JFormattedTextField(NumberFormat.getIntegerInstance());
+
+    /**
+     * Zone de saisie pour la proportion de lapins parmi les neuneus placés dans
+     * le loft.
+     */
     private JFormattedTextField tfLapins             = new JFormattedTextField(NumberFormat.getIntegerInstance());
 
+    /**
+     * Constructeur avec la zone graphique contenant le panneau.
+     * @param zone
+     *            La zone graphique contenant le panneau.
+     */
     public ParametresPanel(ZoneGraphique zone)
     {
         this.zone = zone;
         creerParametresPanel();
     }
 
+    /**
+     * Création effective du panneau.
+     */
     private void creerParametresPanel()
     {
         this.setLayout(new GridBagLayout());
@@ -102,6 +183,15 @@ public class ParametresPanel extends JPanel
                 GridBagConstraints.BOTH, new Insets(5, 10, 5, 20), 0, 0));
     }
 
+    /**
+     * Rajoute un ensemble de paramètres dans une même groupe espacés par
+     * rapport aux autres dans le panneau. Un paramètre est composé d'un titre
+     * et d'une zone de saisie.
+     * @param textFields
+     *            Les différentes zones de saisies.
+     * @param titres
+     *            Les titres correspondants aux zones de saisies.
+     */
     private void ajouterParametre(JFormattedTextField[] textFields, String[] titres)
     {
         for (int i = 0; i < textFields.length; i++)
@@ -118,6 +208,14 @@ public class ParametresPanel extends JPanel
         }
     }
 
+    /**
+     * Ajoute un simple paramètre au panneau. Un paramètre est composé d'un
+     * titre et d'une zone de saisie.
+     * @param textField
+     *            La zone de saisie.
+     * @param titre
+     *            Le titre correspondant.
+     */
     private void ajouterParametre(JFormattedTextField textField, String titre)
     {
         JFormattedTextField[] textFields = {textField};
@@ -125,10 +223,26 @@ public class ParametresPanel extends JPanel
         ajouterParametre(textFields, titres);
     }
 
+    /**
+     * Action permettant de relancer une saison tout en récupérant les valeurs
+     * renseignées dans les différentes zones de saisies correspondants aux
+     * paramètres.
+     * @author Camille Bouquet
+     * @author Antoine Sellam
+     */
     private class RelancerAction implements ActionListener
     {
-
-        private boolean verifierPourcentageNeuneus(JFormattedTextField[] textFields, String messageErreur)
+        /**
+         * Vérifie que les valeurs d'un ensemble de zones de saisies
+         * correspondent bien à des pourcentages dont la somme doit faire 100.
+         * @param textFields
+         *            Les zones de saisie à vérifier.
+         * @param messageErreur
+         *            Le message d'erreur à afficher en cas de non conformité.
+         * @return true - La somme est bien égale à 100\nfalse - La somme est
+         *         différente de 100.
+         */
+        private boolean verifierPourcentage(JFormattedTextField[] textFields, String messageErreur)
         {
             boolean pourcentageOk = true;
             int total = 0;
@@ -141,13 +255,21 @@ public class ParametresPanel extends JPanel
             if (total != 100)
             {
                 pourcentageOk = false;
-                JOptionPane.showMessageDialog(zone, messageErreur, "Pourcentages incorrects",
-                        JOptionPane.ERROR_MESSAGE);
+                JOptionPane
+                        .showMessageDialog(zone, messageErreur, "Pourcentages incorrects", JOptionPane.ERROR_MESSAGE);
             }
 
             return pourcentageOk;
         }
 
+        /**
+         * Vérifie que la valeur de la zone de saisie est bien conforme à un
+         * pourcentage.
+         * @param textFields
+         *            La zone de saisie à vérifier.
+         * @return Le contenu après vérification et modification éventuelle du
+         *         texte de la zone de saisie.
+         */
         private String verifierValeurPourcentage(JFormattedTextField textFields)
         {
             Integer valeur = new Integer(textFields.getText());
@@ -161,6 +283,13 @@ public class ParametresPanel extends JPanel
             return textFields.getText();
         }
 
+        /**
+         * Vérifie que le contenu d'une zone de saisie est bien positif.
+         * @param textFields
+         *            La zone de saisie à vérifier.
+         * @return Le contenu après vérification et modification éventuelle du
+         *         texte de la zone de saisie.
+         */
         private String verifierValeurPositive(JFormattedTextField textFields)
         {
             Integer valeur = new Integer(textFields.getText());
@@ -193,7 +322,7 @@ public class ParametresPanel extends JPanel
 
             // Vérification des pourcentages des neuneus
             JFormattedTextField[] tfsPNeuneus = {tfErratiques, tfVoraces, tfCannibales, tfLapins};
-            boolean pNeuneus = verifierPourcentageNeuneus(tfsPNeuneus,
+            boolean pNeuneus = verifierPourcentage(tfsPNeuneus,
                     "Le total des pourcentages des proportions de neuneus doit être 100");
 
             if (pNeuneus)
@@ -208,7 +337,7 @@ public class ParametresPanel extends JPanel
             Saison.quantiteNourriture = new Integer(verifierValeurPositive(tfPNourriture));
 
             JFormattedTextField[] tfsPNourriture = {tfPPizza, tfPCoca, tfPBiere};
-            boolean pNourriture = verifierPourcentageNeuneus(tfsPNourriture,
+            boolean pNourriture = verifierPourcentage(tfsPNourriture,
                     "Le total des pourcentages des proportions de nourriture doit être 100");
 
             if (pNourriture)
