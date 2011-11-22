@@ -78,28 +78,29 @@ public class Cannibale extends Neuneu
         // On mange le neuneu s'il est sur la même case
         if (procheNeuneu != null && procheNeuneu.posX == this.posX && procheNeuneu.posY == this.posY)
         {
-
-            int enerT = (this.ENERGIE_MAX - this.energie) - procheNeuneu.getEnergie();
+            // Le cannibale mange l'autre neuneu, même s'il n'a plus faim !
+            // Il ne peut pas s'en empêcher, il adore ça
+            int enerT = (Neuneu.ENERGIE_MAX - this.energie) - procheNeuneu.getEnergie();
             if (enerT <= 0)
             {
-                // On s'assure que le Neuneu ne reste pas bloqué
-                this.energie = this.ENERGIE_MAX - 1;
+                this.energie = Neuneu.ENERGIE_MAX;
             } else
             {
                 this.energie = this.energie + procheNeuneu.getEnergie();
             }
             // Mort du neuneu qui s'est fait bouffer
+            procheNeuneu.setEnergie(0);
             procheNeuneu.mourir();
         }
 
-        // Différenciation Neuneu/Nourriture: cas Nourriture
+     // On mange la nourriture si elle est sur la même case
         if (procheMiam != null && procheMiam.posX == this.posX && procheMiam.posY == this.posY)
         {
-            int enerT = (this.ENERGIE_MAX - this.energie) - procheMiam.getEnergie();
+            int enerT = (Neuneu.ENERGIE_MAX - this.energie) - procheMiam.getEnergie();
             if (enerT <= 0)
             {
-                this.energie = this.ENERGIE_MAX - 1;
-                procheMiam.consommer(procheMiam.getEnergie() + this.energie - this.ENERGIE_MAX);
+                this.energie = Neuneu.ENERGIE_MAX - 1;
+                procheMiam.consommer(procheMiam.getEnergie() + this.energie - Neuneu.ENERGIE_MAX);
             } else
             {
                 this.energie = this.energie + procheMiam.getEnergie();
