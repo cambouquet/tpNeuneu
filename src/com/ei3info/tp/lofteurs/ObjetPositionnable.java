@@ -3,7 +3,6 @@
  */
 package com.ei3info.tp.lofteurs;
 
-import java.awt.Graphics;
 
 /**
  * @author Camille
@@ -17,7 +16,7 @@ public abstract class ObjetPositionnable implements ObjetDessinable {
 	protected int posX;
 
 	/**
-	 * Ordonnees en nombre de cases, à partir de 0.
+	 * Ordonnée en nombre de cases, à partir de 0.
 	 */
 	protected int posY;
 	
@@ -31,18 +30,35 @@ public abstract class ObjetPositionnable implements ObjetDessinable {
 	 */
 	public static final int tailleY = 20;
 	
+	/**
+	 * Créé un nouvel objet positionnable aux coordonnées indiquées.
+	 * @param x
+	 *         L'abscisse de l'objet.
+	 * @param y
+	 *         L'ordonnée de l'objet.
+	 */
 	protected ObjetPositionnable(int x, int y)
 	{
 		this.posX = x;
 		this.posY = y;
 	}
 	
+	/**
+	 * Retourne l'abscisse de l'objet.
+	 * @return
+	 *         L'abscisse de l'objet.
+	 */
 	public int getX()
 	{
 		return this.posX;
 		
 	}
 	
+	/**
+	 * Retourne l'ordonnée de l'objet.
+	 * @return
+	 *         L'ordonnée de l'objet.
+	 */
 	public int getY()
 	{
 		return this.posY;
