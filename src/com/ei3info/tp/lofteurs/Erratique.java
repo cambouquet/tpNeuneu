@@ -5,19 +5,19 @@ import java.awt.Color;
 public class Erratique extends Neuneu
 {
     private static int dernierNumero = 1;
-    
+
     public Erratique(Loft loft, int x, int y)
     {
         super(loft, x, y);
         couleur = Color.BLUE;
         this.numero = dernierNumero;
-        dernierNumero ++;
+        dernierNumero++;
     }
 
     protected void seDeplacer()
     {
         // Vérification bordure en X
-        if (this.posX == 0 || this.posX == loft.getTailleLoft())
+        if (this.posX == 0 || this.posX == loft.getTailleLoft() - 1)
         {
             // Décision sur la direction
             double mvHandle = Math.random();
@@ -31,11 +31,10 @@ public class Erratique extends Neuneu
 
             // Déplacement effectif
             this.posY = this.posY + (int) mvHandle;
-        }
-
-        // Vérification bordure en Y
-        if (this.posY == 0 || this.posY == loft.getTailleLoft())
+        } else if (this.posY == 0 || this.posY == loft.getTailleLoft() - 1)
         {
+            // Vérification bordure en Y
+
             // Décision sur la direction
             double mvHandle = Math.random();
             if (mvHandle < 0.5)
@@ -47,40 +46,42 @@ public class Erratique extends Neuneu
             }
             // Déplacement effectif
             this.posX = this.posX + (int) mvHandle;
-        }
-
-        // Déplacement dans le cas général
-
-        double mvHandleX = Math.random();
-        if (mvHandleX < 0.33)
-        {
-            mvHandleX = -1;
         } else
         {
-            if (mvHandleX < 0.66)
+            // Déplacement dans le cas général
+
+            double mvHandleX = Math.random();
+            if (mvHandleX < 0.33)
             {
-                mvHandleX = 0;
+                mvHandleX = -1;
             } else
             {
-                mvHandleX = 1;
+                if (mvHandleX < 0.66)
+                {
+                    mvHandleX = 0;
+                } else
+                {
+                    mvHandleX = 1;
+                }
             }
-        }
-        double mvHandleY = Math.random();
-        if (mvHandleY < 0.33)
-        {
-            mvHandleY = -1;
-        } else
-        {
-            if (mvHandleY < 0.66)
+            double mvHandleY = Math.random();
+            if (mvHandleY < 0.33)
             {
-                mvHandleY = 0;
+                mvHandleY = -1;
             } else
             {
-                mvHandleY = 1;
+                if (mvHandleY < 0.66)
+                {
+                    mvHandleY = 0;
+                } else
+                {
+                    mvHandleY = 1;
+                }
             }
+
+            this.posX = this.posX + (int) mvHandleX;
+            this.posY = this.posY + (int) mvHandleY;
         }
-        this.posX = this.posX + (int) mvHandleX;
-        this.posY = this.posY + (int) mvHandleY;
     }
 
     @Override

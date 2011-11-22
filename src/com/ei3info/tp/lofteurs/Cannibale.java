@@ -91,6 +91,7 @@ public class Cannibale extends Neuneu
             // Mort du neuneu qui s'est fait bouffer
             procheNeuneu.setEnergie(0);
             procheNeuneu.mourir();
+            loft.afficherEvenementDuree("Oh non ! " + getNom() + " a dévoré " + procheNeuneu.getNom() + " !!!", Color.RED, false);
         }
 
      // On mange la nourriture si elle est sur la même case
@@ -108,7 +109,6 @@ public class Cannibale extends Neuneu
                 loft.detruireObjet(procheMiam);
             }
         }
-
     }
 
     // Fin de manger()
