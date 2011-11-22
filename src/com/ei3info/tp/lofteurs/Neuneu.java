@@ -70,11 +70,15 @@ public abstract class Neuneu extends ObjetPositionnable
     protected void seReproduire()
     {   
     if (this instanceof Lapin) {
+        if (this.getRCounter() > 0) {
+            this.setRCounter(this.getRCounter() - 1);
+        }
         int[] nextN = trouverNeuneuPlusProche();
         double distN = Math.sqrt(Math.pow((nextN[0] - this.posX), 2) + Math.pow((nextN[1] - this.posY), 2));
 
-        if (distN == 0)
+        if ((distN == 0) && (this.getRCounter() == 0))
         {
+            this.setRCounter(5);
             Neuneu neuneucree = null;
 
             // On parcourt la liste des ObjetDessinable pour déterminer lequel
@@ -122,6 +126,7 @@ public abstract class Neuneu extends ObjetPositionnable
         }
     }
     }
+
 
     protected boolean mourir()
     {
@@ -204,6 +209,15 @@ public abstract class Neuneu extends ObjetPositionnable
     public int getEnergie()
     {
         return this.energie;
+    }
+    
+    private int getRCounter()
+    {
+        return 0;
+    }
+    
+    private void setRCounter(int i)
+    {
     }
 
     public void setEnergie(int energie)

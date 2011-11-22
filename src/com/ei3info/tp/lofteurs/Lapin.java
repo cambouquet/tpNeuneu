@@ -7,6 +7,7 @@ public class Lapin extends Neuneu
     private static int dernierNumero = 1;
     
     protected static final int FAIM_LAPIN = 0;
+    public int reproductionCounter = 0;
 
     public Lapin(Loft loft, int x, int y)
     {
@@ -49,6 +50,16 @@ public class Lapin extends Neuneu
     public String getNom()
     {
         return new String("Lapin " + numero);
+    }
+    
+    public int getRCounter()
+    {
+        return this.reproductionCounter;
+    }
+    
+    private void setRCounter(int i)
+    {
+        this.reproductionCounter = i;
     }
 
     public static void resetNumeros()
