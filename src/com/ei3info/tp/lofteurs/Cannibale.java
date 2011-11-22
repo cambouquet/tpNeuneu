@@ -5,35 +5,65 @@ import java.util.LinkedList;
 
 public class Cannibale extends Neuneu
 {
-    private static int dernierNumero = 1;
+    private static int         dernierNumero  = 1;
     protected static final int FAIM_CANNIBALE = 0;
-    
+
     public Cannibale(Loft loft, int x, int y)
     {
         super(loft, x, y);
         couleur = Color.RED;
         this.numero = dernierNumero;
-        dernierNumero ++;
+        dernierNumero++;
     }
 
     public void seDeplacer()
     {
-     // Recherche de la nourriture la plus proche
-        int[] nextF = new int[2];
-        nextF = trouverNourriturePlusProche();
+        // Coordonnées vers lesquelles on veut se déplacer
+        int[] nextD = new int[2];
+        // Recherche de la nourriture la plus proche
+        Nourriture procheMiam = trouverNourriturePlusProche();
+
         // Recherche du neuneu le plus proche
-        int[] nextN = new int[2];
-        nextN = trouverNeuneuPlusProche();
-        // Détermination de la source la plus proche
-        int distF = Math.abs(nextF[0] - this.posX) + Math.abs(nextF[1] - this.posY);
-        int distN = Math.abs(nextN[0] - this.posX) + Math.abs(nextN[1] - this.posY);
-        if (distF + FAIM_CANNIBALE < distN) {
-            nextN[0] = nextF[0];
-            nextN[1] = nextF[1];
+        Neuneu procheNeuneu = trouverNeuneuPlusProche();
+
+        if (procheMiam != null && procheNeuneu != null)
+        {
+            // Détermination de la source la plus proche
+            int distF = Math.abs(procheMiam.posX - this.posX) + Math.abs(procheMiam.posY - this.posY);
+            int distN = Math.abs(procheNeuneu.posX - this.posX) + Math.abs(procheNeuneu.posY - this.posY);
+
+            // Si la nourriture est plus proche et qu'il a faim
+            if (distF + FAIM_CANNIBALE < distN)
+            {
+                nextD[0] = procheMiam.posX;
+                nextD[1] = procheMiam.posY;
+            } else
+            {
+                nextD[0] = procheNeuneu.posX;
+                nextD[1] = procheNeuneu.posY;
+            }
+        } else if (procheNeuneu != null)
+        {
+            nextD[0] = procheNeuneu.posX;
+            nextD[1] = procheNeuneu.posY;
+
+        } else if (procheMiam != null)
+        {
+            nextD[0] = procheMiam.posX;
+            nextD[1] = procheMiam.posY;
         }
-        // Pathfinding basique
-        int mvHandleX = (nextN[0] == this.posX) ? 0 : (nextN[0] - this.posX) / Math.abs((nextN[0] - this.posX));
-        int mvHandleY = (nextN[1] == this.posY) ? 0 : (nextN[1] - this.posY) / Math.abs((nextN[1] - this.posY));
+        
+        int mvHandleX = 0;
+        int mvHandleY = 0;
+        
+        // Si il reste au moins 1 autre neuneu ou une autre nourriture
+        if (nextD != null)
+        {
+            // Pathfinding basique
+            mvHandleX = (nextD[0] == this.posX) ? 0 : (nextD[0] - this.posX) / Math.abs((nextD[0] - this.posX));
+            mvHandleY = (nextD[1] == this.posY) ? 0 : (nextD[1] - this.posY) / Math.abs((nextD[1] - this.posY));
+        }
+
         // Déplacement
         this.posX = this.posX + mvHandleX;
         this.posY = this.posY + mvHandleY;
@@ -42,63 +72,46 @@ public class Cannibale extends Neuneu
     public void manger()
     {
         // Vérification de la présence d'une source de nourriture sur la case
-        int[] nextN = trouverNeuneuPlusProche();
-        int[] nextF = trouverNourriturePlusProche();
-        double distN = Math.sqrt(Math.pow((nextN[0] - this.posX), 2) + Math.pow((nextN[1] - this.posY), 2));
-        double distF = Math.sqrt(Math.pow((nextF[0] - this.posX), 2) + Math.pow((nextF[1] - this.posY), 2));
+        Neuneu procheNeuneu = trouverNeuneuPlusProche();
+        Nourriture procheMiam = trouverNourriturePlusProche();
 
-        if (distN * distF == 0)
+        // On mange le neuneu s'il est sur la même case
+        if (procheNeuneu != null && procheNeuneu.posX == this.posX && procheNeuneu.posY == this.posY)
         {
-            // On parcourt la liste des ObjetDessinable pour déterminer lequel
-            // est sur la même case que le cannibale
-            LinkedList<ObjetDessinable> localListeObjet = loft.getListeObjets();
-            for (ObjetDessinable obj : localListeObjet)
-            {
-                ObjetPositionnable objPos = (ObjetPositionnable) obj;
-                if ((objPos.posX == this.posX) && (objPos.posY == this.posY))
-                {
-                    // Différenciation Neuneu/Nourriture: cas Neuneu
-                    if (obj instanceof Neuneu)
-                    {
-                        Neuneu neuneu = (Neuneu) obj;
-                        int enerT = (this.ENERGIE_MAX - this.energie)
-                                - neuneu.getEnergie();
-                        if (enerT <= 0)
-                        {
-                            this.energie = this.ENERGIE_MAX - 1; //On s'assure que le Neuneu ne reste pas bloqué
-                        } else
-                        {
-                            this.energie = this.energie + neuneu.getEnergie();
-                        }
-                        // Mort du neuneu qui s'est fait bouffer
-                        neuneu.mourir();
-                    }
 
-                    // Différenciation Neuneu/Nourriture: cas Nourriture
-                    if (obj instanceof Nourriture)
-                    {
-                        Nourriture miam = (Nourriture) obj;
-                        int enerT = (this.ENERGIE_MAX - this.energie)
-                                - miam.getEnergie();
-                        if (enerT <= 0)
-                        {
-                            this.energie = this.ENERGIE_MAX - 1;
-                            miam.consommer(miam.getEnergie() + this.energie
-                                    - this.ENERGIE_MAX);
-                        } else
-                        {
-                            this.energie = this.energie + miam.getEnergie();
-                            miam.consommer(miam.getEnergie());
-                            loft.detruireObjet(miam);
-                        }
-                    }
-                }
+            int enerT = (this.ENERGIE_MAX - this.energie) - procheNeuneu.getEnergie();
+            if (enerT <= 0)
+            {
+                // On s'assure que le Neuneu ne reste pas bloqué
+                this.energie = this.ENERGIE_MAX - 1;
+            } else
+            {
+                this.energie = this.energie + procheNeuneu.getEnergie();
+            }
+            // Mort du neuneu qui s'est fait bouffer
+            procheNeuneu.mourir();
+        }
+
+        // Différenciation Neuneu/Nourriture: cas Nourriture
+        if (procheMiam != null && procheMiam.posX == this.posX && procheMiam.posY == this.posY)
+        {
+            int enerT = (this.ENERGIE_MAX - this.energie) - procheMiam.getEnergie();
+            if (enerT <= 0)
+            {
+                this.energie = this.ENERGIE_MAX - 1;
+                procheMiam.consommer(procheMiam.getEnergie() + this.energie - this.ENERGIE_MAX);
+            } else
+            {
+                this.energie = this.energie + procheMiam.getEnergie();
+                procheMiam.consommer(procheMiam.getEnergie());
+                loft.detruireObjet(procheMiam);
             }
         }
 
     }
+
     // Fin de manger()
-    
+
     @Override
     public String getNom()
     {
