@@ -1,7 +1,6 @@
 package com.ei3info.tp.lofteurs;
 
 import java.awt.Color;
-import java.util.LinkedList;
 
 public class Cannibale extends Neuneu
 {
