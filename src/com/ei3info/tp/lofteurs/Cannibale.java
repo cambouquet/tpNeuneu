@@ -1,7 +1,6 @@
 package com.ei3info.tp.lofteurs;
 
 import java.awt.Color;
-import java.util.LinkedList;
 
 /**
  * Les Cannibales.\n Contient les comportements spécifiques aux Cannibales qu'il

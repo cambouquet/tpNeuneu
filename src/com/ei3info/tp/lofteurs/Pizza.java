@@ -4,7 +4,6 @@
 package com.ei3info.tp.lofteurs;
 
 import java.awt.Color;
-import java.awt.Graphics;
 
 /**
  * Les Pizzas. /n
