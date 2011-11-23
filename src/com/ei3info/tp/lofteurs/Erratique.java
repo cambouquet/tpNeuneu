@@ -2,10 +2,28 @@ package com.ei3info.tp.lofteurs;
 
 import java.awt.Color;
 
+/**
+ * Les Erratiques.\n Contient les comportements spécifiques aux Erratiques qu'il
+ * faut substituer aux comportements par défaut présents dans la superclasse Neuneu.
+ * @author Camille Bouquet
+ * @author Antoine Sellam
+ */
 public class Erratique extends Neuneu
 {
+    /**
+     * Le compteur permettant d'attribuer un numéro à chaque neuneu.
+     */
     private static int dernierNumero = 1;
 
+    /**
+     * Création d'un nouvel erratique.
+     * @param loft
+     *          Le loft en cours (contient notamment la liste des objets)
+     * @param x
+     *          Sa position initiale en X
+     * @param y
+     *          Sa position initiale en Y
+     */
     public Erratique(Loft loft, int x, int y)
     {
         super(loft, x, y);
@@ -14,6 +32,10 @@ public class Erratique extends Neuneu
         dernierNumero++;
     }
 
+    /**
+     * Comportement de déplacement spécifique aux Erratiques.
+     * Très basique, basé sur du Math.random() .
+     */
     protected void seDeplacer()
     {
         // Vérification bordure en X
@@ -107,11 +129,17 @@ public class Erratique extends Neuneu
     }
 
     @Override
+    /**
+     * Retourne le nom de l'erratique.
+     */
     public String getNom()
     {
         return new String("Erratique " + numero);
     }
 
+    /**
+     * Remise à zéro du compteur de numéros.
+     */
     public static void resetNumeros()
     {
         dernierNumero = 1;

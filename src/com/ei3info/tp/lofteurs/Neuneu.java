@@ -4,21 +4,63 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.LinkedList;
 
+/**
+ * Les Neuneus. /n
+ * Superclasse de tous les neuneus, elle contient toutes les propriétés et méthodes basiques nécessaires au bon fonctionnement.
+ * La spécialisation des neuneus permettra la spécialisation des comportements.
+ * @author Camille Bouquet
+ * @author Antoine Sellam
+ */
 public abstract class Neuneu extends ObjetPositionnable
 {
+    /**
+     * L'énergie maximum d'un neuneu.
+     */
     public static int ENERGIE_MAX          = 40;
+    
+    /**
+     * L'énergie dépensée lors de la reproduction.
+     */
     public static int ENERGIE_REPRODUCTION = 10;
 
+    /**
+     * Le loft courant (contient la liste de tous les objets présents).
+     */
     protected Loft    loft;
+    /**
+     * Le niveau d'énergie actuel.
+     */
     protected int     energie;
+    /**
+     * La couleur dessinée à l'écran.
+     */
     protected Color   couleur              = Color.CYAN;
+    /**
+     * Le numéro du Neuneu (attention, ce n'est pas son ID).
+     */
     protected int     numero;
 
+    /**
+     * Création d'un neuneu.
+     * @param x
+     *          Sa position initiale en X.
+     * @param y
+     *          Sa position initiale en Y.
+     */
     protected Neuneu(int x, int y)
     {
         super(x, y);
     }
-
+    
+    /**
+     * Création d'un neuneu.
+     * @param loft
+     *          Le loft actuel (contient la liste des objets)
+     * @param x
+     *          Sa position initiale en X.
+     * @param y
+     *          Sa position initiale en Y.
+     */
     protected Neuneu(Loft loft, int x, int y)
     {
         this(x, y);
@@ -26,8 +68,14 @@ public abstract class Neuneu extends ObjetPositionnable
         this.energie = ENERGIE_MAX;
     }
 
+    /**
+     * Comportement par défaut de déplacement
+     */
     protected abstract void seDeplacer();
-
+    
+    /**
+     * Comportement par défaut de consommation de nourriture
+     */
     protected void manger()
     {
         Nourriture procheMiam = trouverNourriturePlusProche();
@@ -57,6 +105,10 @@ public abstract class Neuneu extends ObjetPositionnable
         }
     }
 
+    /**
+     * Comportement par défaut de reproduction
+     * NOTE: n'est utilisable en l'état que par les Lapins
+     */
     protected void seReproduire()
     {
         if (this instanceof Lapin)
@@ -100,6 +152,10 @@ public abstract class Neuneu extends ObjetPositionnable
         }
     }
 
+    /**
+     * Méthode de mort d'un neuneu
+     * @return Un booléen témoignant de la mort effective (pour traitement dans les listes)
+     */
     protected boolean mourir()
     {
         boolean mort = false;
@@ -111,6 +167,10 @@ public abstract class Neuneu extends ObjetPositionnable
         return mort;
     }
 
+    /**
+     * Méthode permettant de trouver l'élément de nourriture le plus proche.
+     * @return L'objet nourriture le plus proche.
+     */
     public Nourriture trouverNourriturePlusProche()
     {
         double distMin = 2 * Math.pow(Saison.tailleLoft, 2);
@@ -136,6 +196,10 @@ public abstract class Neuneu extends ObjetPositionnable
         return procheMiam;
     }
 
+    /**
+     * Méthode permettant de trouver le neuneu le plus proche.
+     * @return Le neuneu le plus proche.
+     */
     public Neuneu trouverNeuneuPlusProche()
     {
         double distMin = 2 * Saison.tailleLoft;
@@ -167,6 +231,9 @@ public abstract class Neuneu extends ObjetPositionnable
     }
 
     @Override
+    /**
+     * Permet de dessiner un objet à l'écran.
+     */
     public void dessinerObjet(Graphics g)
     {
         g.setColor(couleur);
@@ -175,20 +242,38 @@ public abstract class Neuneu extends ObjetPositionnable
         g.drawString(String.valueOf(energie), (posX + 1) * tailleX - 15, posY * tailleY - 5);
     }
 
+    /**
+     * Permet de récupérer l'énergie d'un neuneu.
+     * @return Le niveau d'énergie.
+     */
     public int getEnergie()
     {
         return this.energie;
     }
 
+    /**
+     * Permet de récupérer le compteur de reproduction (inutilisé)
+     * @return 0
+     */
     private int getRCounter()
     {
         return 0;
     }
 
+    /**
+     * Setter du compteur de reproduction (inutilisé)
+     * @param i
+     *          Le paramètre éventuel du compteur
+     */
     private void setRCounter(int i)
     {
     }
 
+    /**
+     * Setter du niveau d'énergie d'un neuneu.
+     * @param energie
+     *          Le nouveau niveau d'énergie.
+     */
     public void setEnergie(int energie)
     {
         int energieReelle = (energie > this.ENERGIE_MAX) ? this.ENERGIE_MAX : energie;
@@ -197,5 +282,9 @@ public abstract class Neuneu extends ObjetPositionnable
         this.energie = energieReelle;
     }
 
+    /**
+     * Permet de retourner le nom du neuneu (inutilisé).
+     * @return
+     */
     public abstract String getNom();
 }
