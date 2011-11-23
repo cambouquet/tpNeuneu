@@ -134,6 +134,9 @@ public class ParametresPanel extends JPanel
         this.setLayout(new GridBagLayout());
 
         // Vitesse
+        NumberFormat nbf = NumberFormat.getIntegerInstance();
+        nbf.setGroupingUsed(false);
+        tfVitesse = new JFormattedTextField(nbf);
         ajouterParametre(tfVitesse, "Vitesse");
         tfVitesse.setText(String.valueOf((int) (Saison.WAITING_TIME)));
 
@@ -265,41 +268,41 @@ public class ParametresPanel extends JPanel
         /**
          * Vérifie que la valeur de la zone de saisie est bien conforme à un
          * pourcentage.
-         * @param textFields
+         * @param textField
          *            La zone de saisie à vérifier.
          * @return Le contenu après vérification et modification éventuelle du
          *         texte de la zone de saisie.
          */
-        private String verifierValeurPourcentage(JFormattedTextField textFields)
+        private String verifierValeurPourcentage(JFormattedTextField textField)
         {
-            Integer valeur = new Integer(textFields.getText());
+            Integer valeur = new Integer(textField.getText());
             if (valeur > 100)
             {
-                textFields.setText("100");
+                textField.setText("100");
             }
 
-            verifierValeurPositive(textFields);
+            verifierValeurPositive(textField);
 
-            return textFields.getText();
+            return textField.getText();
         }
 
         /**
          * Vérifie que le contenu d'une zone de saisie est bien positif.
-         * @param textFields
+         * @param textField
          *            La zone de saisie à vérifier.
          * @return Le contenu après vérification et modification éventuelle du
          *         texte de la zone de saisie.
          */
-        private String verifierValeurPositive(JFormattedTextField textFields)
+        private String verifierValeurPositive(JFormattedTextField textField)
         {
-            Integer valeur = new Integer(textFields.getText());
+            Integer valeur = new Integer(textField.getText());
 
             if (valeur < 0)
             {
-                textFields.setText("0");
+                textField.setText("0");
             }
 
-            return textFields.getText();
+            return textField.getText();
         }
 
         @Override

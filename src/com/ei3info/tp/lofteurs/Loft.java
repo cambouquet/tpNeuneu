@@ -386,12 +386,12 @@ public class Loft extends Thread
 
     /**
      * Ajoute un nouveau neuneu pendant que la saison a démarré.
-     * @param neuneucree
+     * @param neuneuCree
      *          Le neuneu à ajouter
      */
-    public void addBebeNeuneu(Neuneu neuneucree)
+    public void addBebeNeuneu(Neuneu neuneuCree)
     {
-        this.listeObjetsCrees.add(neuneucree);
-        this.loftPanel.addBebeNeuneu(neuneucree);
+        this.listeObjetsCrees.add(neuneuCree);
+        this.loftPanel.addBebeNeuneu(neuneuCree);
     }
 }
