@@ -7,11 +7,20 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 /**
- * @author Camille
- *
+ * Les Pizzas. /n
+ * Contient les propriétés spécifiques aux pizzas.
+ * @author Camille Bouquet
+ * @author Antoine Sellam
  */
 public class Pizza extends Nourriture 
 {
+    /**
+     * Crée une nouvelle pizza.
+     * @param x
+     *          Sa position initiale en X.
+     * @param y
+     *          Sa position initiale en Y.
+     */
 	public Pizza(int x, int y) {
 		super(x, y);
 		System.out.println("Pizza placée en " + posX + ":" + posY);
@@ -19,6 +28,9 @@ public class Pizza extends Nourriture
 	}
 
     @Override
+    /**
+     * Message de consommation de pizza.
+     */
     public String getDescriptionConsommation()
     {
         return new String("Une pizza. Miam !");

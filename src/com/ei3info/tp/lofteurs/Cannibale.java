@@ -3,11 +3,34 @@ package com.ei3info.tp.lofteurs;
 import java.awt.Color;
 import java.util.LinkedList;
 
+/**
+ * Les Cannibales.\n Contient les comportements spécifiques aux Cannibales qu'il
+ * faut substituer aux comportements par défaut présents dans la superclasse Neuneu.
+ * @author Camille Bouquet
+ * @author Antoine Sellam
+ */
 public class Cannibale extends Neuneu
 {
+    /**
+     * Le compteur permettant d'attribuer un numéro à chaque neuneu.
+     */
     private static int         dernierNumero  = 1;
+    
+    /**
+     * Un paramètre permettant de manipuler l'attrait d'un cannibale à la nourriture
+     * plutôt que les autres neuneus.
+     */
     protected static final int FAIM_CANNIBALE = 0;
-
+    
+    /**
+     * Création d'un nouveau cannibale.
+     * @param loft
+     *          Le loft en cours (contient notamment la liste des objets)
+     * @param x
+     *          Sa position initiale en X
+     * @param y
+     *          Sa position initiale en Y
+     */
     public Cannibale(Loft loft, int x, int y)
     {
         super(loft, x, y);
@@ -16,6 +39,11 @@ public class Cannibale extends Neuneu
         dernierNumero++;
     }
 
+    /**
+     * Comportement de déplacement spécifique aux Cannibales.
+     * La décision de se diriger vers une nourriture ou un Neuneu, selon la distance bien entendu,
+     * est manipulée par la constante FAIM_CANNIBALE.
+     */
     public void seDeplacer()
     {
         // Coordonnées vers lesquelles on veut se déplacer
@@ -70,6 +98,10 @@ public class Cannibale extends Neuneu
         this.posY = this.posY + mvHandleY;
     }
 
+    /**
+     * Comportement de consommation des éléments spécifique aux Cannibales.
+     * Ce nouveau comportement prend en compte la capacité à "consommer" des neuneus.
+     */
     public void manger()
     {
         // Vérification de la présence d'une source de nourriture sur la case
@@ -116,12 +148,18 @@ public class Cannibale extends Neuneu
 
     // Fin de manger()
 
+    /**
+     * Retourne le nom du Cannibale.
+     */
     @Override
     public String getNom()
     {
         return new String("Cannibale " + numero);
     }
 
+    /**
+     * Remise à zéro du compteur de numéros.
+     */
     public static void resetNumeros()
     {
         dernierNumero = 1;

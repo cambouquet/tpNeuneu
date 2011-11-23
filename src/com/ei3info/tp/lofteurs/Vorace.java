@@ -2,10 +2,28 @@ package com.ei3info.tp.lofteurs;
 
 import java.awt.Color;
 
+/**
+ * Les Voraces.\n Contient les comportements spécifiques aux Voraces qu'il
+ * faut substituer aux comportements par défaut présents dans la superclasse Neuneu.
+ * @author Camille Bouquet
+ * @author Antoine Sellam
+ */
 public class Vorace extends Neuneu
 {
+    /**
+     * Le compteur permettant d'attribuer un numéro à chaque neuneu.
+     */
     private static int dernierNumero = 1;
 
+    /**
+     * Création d'un nouveau vorace.
+     * @param loft
+     *          Le loft en cours (contient notamment la liste des objets)
+     * @param x
+     *          Sa position initiale en X
+     * @param y
+     *          Sa position initiale en Y
+     */
     public Vorace(Loft loft, int x, int y)
     {
         super(loft, x, y);
@@ -14,6 +32,10 @@ public class Vorace extends Neuneu
         dernierNumero++;
     }
 
+    /**
+     * Comportement de déplacement spécifique aux Voraces.
+     * Déplacement le plus basique des 4 types de neuneu.
+     */
     public void seDeplacer()
     {
         // Recherche de la nourriture la plus proche
@@ -34,12 +56,18 @@ public class Vorace extends Neuneu
         this.posY = this.posY + mvHandleY;
     }
 
+    /**
+     * Retourne le nom du Vorace.
+     */
     @Override
     public String getNom()
     {
         return new String("Vorace " + numero);
     }
 
+    /**
+     * Remise à zéro du compteur de numéros.
+     */
     public static void resetNumeros()
     {
         dernierNumero = 1;
